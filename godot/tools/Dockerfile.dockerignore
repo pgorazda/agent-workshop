@@ -1,0 +1,9 @@
+# The build context of tools/Dockerfile is the root of the repository. Only godot/ goes in, and not what the computer made.
+*
+!godot
+godot/.godot
+godot/.editor
+godot/out
+godot/test-results
+godot/node_modules
+**/node_modules

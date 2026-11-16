@@ -1,0 +1,16 @@
+{
+  "name": "agent-workshop-bridge",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Local bridge that turns agent activity into canonical Agent Workshop events and streams them to the clients",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "start": "node src/cli.js serve",
+    "replay": "node src/cli.js replay",
+    "test": "node --test"
+  },
+  "dependencies": {
+    "ws": "^8.18.0"
+  }
+}

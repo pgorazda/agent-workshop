@@ -1,0 +1,21 @@
+{"type":"session","version":3,"id":"pi-session-1","timestamp":"2026-01-01T10:00:00.000Z","cwd":"/repo"}
+{"type":"agent_start"}
+{"type":"turn_start"}
+{"type":"message_start","message":{"role":"assistant","content":[]}}
+{"type":"message_update","message":{"role":"assistant","content":[]},"assistantMessageEvent":{"type":"thinking_start","contentIndex":0}}
+{"type":"message_update","message":{"role":"assistant","content":[]},"assistantMessageEvent":{"type":"thinking_delta","contentIndex":0,"delta":"Look at the test."}}
+{"type":"message_update","message":{"role":"assistant","content":[]},"assistantMessageEvent":{"type":"text_delta","contentIndex":1,"delta":"Let me look."}}
+{"type":"tool_execution_start","toolCallId":"c1","toolName":"read","args":{"path":"/repo/app.py"}}
+{"type":"tool_execution_update","toolCallId":"c1","toolName":"read","args":{"path":"/repo/app.py"},"partialResult":{}}
+{"type":"tool_execution_end","toolCallId":"c1","toolName":"read","result":{"content":[{"type":"text","text":"def add(a, b): return a - b"}]},"isError":false}
+{"type":"tool_execution_start","toolCallId":"c2","toolName":"edit","args":{"path":"/repo/app.py","oldText":"a - b","newText":"a + b"}}
+{"type":"tool_execution_end","toolCallId":"c2","toolName":"edit","result":{"content":[{"type":"text","text":"ok"}]},"isError":false}
+{"type":"tool_execution_start","toolCallId":"c3","toolName":"bash","args":{"command":"pytest -q"}}
+{"type":"tool_execution_end","toolCallId":"c3","toolName":"bash","result":{"content":[{"type":"text","text":"1 failed\n\nCommand exited with code 1"}]},"isError":true}
+{"type":"tool_execution_start","toolCallId":"c4","toolName":"subagent","args":{"description":"Investigate the failure"}}
+{"type":"tool_execution_end","toolCallId":"c4","toolName":"subagent","result":{"content":[{"type":"text","text":"fixture ordering"}]},"isError":false}
+{"type":"tool_execution_start","toolCallId":"c5","toolName":"grep","args":{"pattern":"fixture","path":"src"}}
+{"type":"tool_execution_end","toolCallId":"c5","toolName":"grep","result":{"content":[{"type":"text","text":"src/conftest.py:3"}]},"isError":false}
+{"type":"auto_retry_start","attempt":1,"maxAttempts":3,"delayMs":1000,"errorMessage":"rate limit"}
+{"type":"turn_end","message":{"role":"assistant","content":[]},"toolResults":[]}
+{"type":"agent_end","messages":[]}

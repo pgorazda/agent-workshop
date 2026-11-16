@@ -1,0 +1,2729 @@
+{
+ "note": "Made by godot/tools/render-art.mjs. Do not edit by hand. \"table\" is what the client may ask for; the rest is what the browser measured.",
+ "sources": {
+  "art/image_src/base.js": "dd1bc9bef25bdb5a4fa46f0b13e3eb6e0b68e39a867cb7bc268032e545165186",
+  "art/image_src/look.js": "e5ff8ac99561770acb165976de0ba8b7d5f21387a02d50daaa400003dd058100",
+  "art/image_src/effects_src.js": "424d79800a8fec6a4ff86c64d757d1b7a3d3a2ba5f6966b35898267c58de49b6",
+  "art/image_src/bake.js": "e02e31c49b54e5f2c47e6a9ec238bfd94915ff28554dda84762f97429c2e645f",
+  "art/image_src/variants.js": "3e03bca40b4cd30b1f27fafe8dfd31b6d710874abef77dee88f140844f972fc2"
+ },
+ "table": {
+  "names": [
+   "penguin/claude-code/front/idle",
+   "penguin/claude-code/front/walk",
+   "penguin/claude-code/front/walk2",
+   "penguin/claude-code/front/cheer",
+   "penguin/claude-code/front/cheer2",
+   "penguin/claude-code/front/wave",
+   "penguin/claude-code/front/wave2",
+   "penguin/claude-code/front/waveL",
+   "penguin/claude-code/front/waveL2",
+   "penguin/claude-code/front/think",
+   "penguin/claude-code/front/flop",
+   "penguin/claude-code/front/idle/blink",
+   "penguin/claude-code/front/walk/blink",
+   "penguin/claude-code/front/walk2/blink",
+   "penguin/claude-code/front/wave/blink",
+   "penguin/claude-code/front/wave2/blink",
+   "penguin/claude-code/front/waveL/blink",
+   "penguin/claude-code/front/waveL2/blink",
+   "penguin/claude-code/front/think/blink",
+   "penguin/claude-code/front/idle/small",
+   "penguin/claude-code/front/walk/small",
+   "penguin/claude-code/front/walk2/small",
+   "penguin/claude-code/front/wave/small",
+   "penguin/claude-code/front/wave2/small",
+   "penguin/claude-code/side/idle",
+   "penguin/claude-code/side/walk",
+   "penguin/claude-code/side/walk2",
+   "penguin/claude-code/side/browse",
+   "penguin/claude-code/side/browse2",
+   "penguin/claude-code/side/read",
+   "penguin/claude-code/side/read2",
+   "penguin/claude-code/side/shovel",
+   "penguin/claude-code/side/shovel2",
+   "penguin/claude-code/side/peer",
+   "penguin/claude-code/side/tap",
+   "penguin/claude-code/side/tap2",
+   "penguin/claude-code/side/hammer",
+   "penguin/claude-code/side/hammer2",
+   "penguin/claude-code/side/idle/blink",
+   "penguin/claude-code/side/walk/blink",
+   "penguin/claude-code/side/walk2/blink",
+   "penguin/claude-code/side/browse/blink",
+   "penguin/claude-code/side/browse2/blink",
+   "penguin/claude-code/side/read/blink",
+   "penguin/claude-code/side/read2/blink",
+   "penguin/claude-code/side/shovel/blink",
+   "penguin/claude-code/side/shovel2/blink",
+   "penguin/claude-code/side/peer/blink",
+   "penguin/claude-code/side/tap/blink",
+   "penguin/claude-code/side/tap2/blink",
+   "penguin/claude-code/side/hammer/blink",
+   "penguin/claude-code/side/hammer2/blink",
+   "penguin/claude-code/side/idle/small",
+   "penguin/claude-code/side/walk/small",
+   "penguin/claude-code/side/walk2/small",
+   "penguin/claude-code/side/peer/small",
+   "penguin/claude-code/back/idle",
+   "penguin/claude-code/back/walk",
+   "penguin/claude-code/back/walk2",
+   "penguin/claude-code/back/hammer",
+   "penguin/claude-code/back/hammer2",
+   "penguin/claude-code/back/think",
+   "penguin/claude-code/back/cheer",
+   "penguin/claude-code/back/cheer2",
+   "penguin/claude-code/back/wave",
+   "penguin/claude-code/back/wave2",
+   "penguin/claude-code/back/waveL",
+   "penguin/claude-code/back/waveL2",
+   "penguin/claude-code/back/idle/small",
+   "penguin/claude-code/back/walk/small",
+   "penguin/claude-code/back/walk2/small",
+   "penguin/claude-code/front/idle/nocap",
+   "penguin/claude-code/flop-body",
+   "penguin/claude-code/cap",
+   "penguin/opencode/front/idle",
+   "penguin/opencode/front/walk",
+   "penguin/opencode/front/walk2",
+   "penguin/opencode/front/cheer",
+   "penguin/opencode/front/cheer2",
+   "penguin/opencode/front/wave",
+   "penguin/opencode/front/wave2",
+   "penguin/opencode/front/waveL",
+   "penguin/opencode/front/waveL2",
+   "penguin/opencode/front/think",
+   "penguin/opencode/front/flop",
+   "penguin/opencode/front/idle/blink",
+   "penguin/opencode/front/walk/blink",
+   "penguin/opencode/front/walk2/blink",
+   "penguin/opencode/front/wave/blink",
+   "penguin/opencode/front/wave2/blink",
+   "penguin/opencode/front/waveL/blink",
+   "penguin/opencode/front/waveL2/blink",
+   "penguin/opencode/front/think/blink",
+   "penguin/opencode/front/idle/small",
+   "penguin/opencode/front/walk/small",
+   "penguin/opencode/front/walk2/small",
+   "penguin/opencode/front/wave/small",
+   "penguin/opencode/front/wave2/small",
+   "penguin/opencode/side/idle",
+   "penguin/opencode/side/walk",
+   "penguin/opencode/side/walk2",
+   "penguin/opencode/side/browse",
+   "penguin/opencode/side/browse2",
+   "penguin/opencode/side/read",
+   "penguin/opencode/side/read2",
+   "penguin/opencode/side/shovel",
+   "penguin/opencode/side/shovel2",
+   "penguin/opencode/side/peer",
+   "penguin/opencode/side/tap",
+   "penguin/opencode/side/tap2",
+   "penguin/opencode/side/hammer",
+   "penguin/opencode/side/hammer2",
+   "penguin/opencode/side/idle/blink",
+   "penguin/opencode/side/walk/blink",
+   "penguin/opencode/side/walk2/blink",
+   "penguin/opencode/side/browse/blink",
+   "penguin/opencode/side/browse2/blink",
+   "penguin/opencode/side/read/blink",
+   "penguin/opencode/side/read2/blink",
+   "penguin/opencode/side/shovel/blink",
+   "penguin/opencode/side/shovel2/blink",
+   "penguin/opencode/side/peer/blink",
+   "penguin/opencode/side/tap/blink",
+   "penguin/opencode/side/tap2/blink",
+   "penguin/opencode/side/hammer/blink",
+   "penguin/opencode/side/hammer2/blink",
+   "penguin/opencode/side/idle/small",
+   "penguin/opencode/side/walk/small",
+   "penguin/opencode/side/walk2/small",
+   "penguin/opencode/side/peer/small",
+   "penguin/opencode/back/idle",
+   "penguin/opencode/back/walk",
+   "penguin/opencode/back/walk2",
+   "penguin/opencode/back/hammer",
+   "penguin/opencode/back/hammer2",
+   "penguin/opencode/back/think",
+   "penguin/opencode/back/cheer",
+   "penguin/opencode/back/cheer2",
+   "penguin/opencode/back/wave",
+   "penguin/opencode/back/wave2",
+   "penguin/opencode/back/waveL",
+   "penguin/opencode/back/waveL2",
+   "penguin/opencode/back/idle/small",
+   "penguin/opencode/back/walk/small",
+   "penguin/opencode/back/walk2/small",
+   "penguin/opencode/front/idle/nocap",
+   "penguin/opencode/flop-body",
+   "penguin/opencode/cap",
+   "penguin/pi/front/idle",
+   "penguin/pi/front/walk",
+   "penguin/pi/front/walk2",
+   "penguin/pi/front/cheer",
+   "penguin/pi/front/cheer2",
+   "penguin/pi/front/wave",
+   "penguin/pi/front/wave2",
+   "penguin/pi/front/waveL",
+   "penguin/pi/front/waveL2",
+   "penguin/pi/front/think",
+   "penguin/pi/front/flop",
+   "penguin/pi/front/idle/blink",
+   "penguin/pi/front/walk/blink",
+   "penguin/pi/front/walk2/blink",
+   "penguin/pi/front/wave/blink",
+   "penguin/pi/front/wave2/blink",
+   "penguin/pi/front/waveL/blink",
+   "penguin/pi/front/waveL2/blink",
+   "penguin/pi/front/think/blink",
+   "penguin/pi/front/idle/small",
+   "penguin/pi/front/walk/small",
+   "penguin/pi/front/walk2/small",
+   "penguin/pi/front/wave/small",
+   "penguin/pi/front/wave2/small",
+   "penguin/pi/side/idle",
+   "penguin/pi/side/walk",
+   "penguin/pi/side/walk2",
+   "penguin/pi/side/browse",
+   "penguin/pi/side/browse2",
+   "penguin/pi/side/read",
+   "penguin/pi/side/read2",
+   "penguin/pi/side/shovel",
+   "penguin/pi/side/shovel2",
+   "penguin/pi/side/peer",
+   "penguin/pi/side/tap",
+   "penguin/pi/side/tap2",
+   "penguin/pi/side/hammer",
+   "penguin/pi/side/hammer2",
+   "penguin/pi/side/idle/blink",
+   "penguin/pi/side/walk/blink",
+   "penguin/pi/side/walk2/blink",
+   "penguin/pi/side/browse/blink",
+   "penguin/pi/side/browse2/blink",
+   "penguin/pi/side/read/blink",
+   "penguin/pi/side/read2/blink",
+   "penguin/pi/side/shovel/blink",
+   "penguin/pi/side/shovel2/blink",
+   "penguin/pi/side/peer/blink",
+   "penguin/pi/side/tap/blink",
+   "penguin/pi/side/tap2/blink",
+   "penguin/pi/side/hammer/blink",
+   "penguin/pi/side/hammer2/blink",
+   "penguin/pi/side/idle/small",
+   "penguin/pi/side/walk/small",
+   "penguin/pi/side/walk2/small",
+   "penguin/pi/side/peer/small",
+   "penguin/pi/back/idle",
+   "penguin/pi/back/walk",
+   "penguin/pi/back/walk2",
+   "penguin/pi/back/hammer",
+   "penguin/pi/back/hammer2",
+   "penguin/pi/back/think",
+   "penguin/pi/back/cheer",
+   "penguin/pi/back/cheer2",
+   "penguin/pi/back/wave",
+   "penguin/pi/back/wave2",
+   "penguin/pi/back/waveL",
+   "penguin/pi/back/waveL2",
+   "penguin/pi/back/idle/small",
+   "penguin/pi/back/walk/small",
+   "penguin/pi/back/walk2/small",
+   "penguin/pi/front/idle/nocap",
+   "penguin/pi/flop-body",
+   "penguin/pi/cap",
+   "penguin/hermes/front/idle",
+   "penguin/hermes/front/walk",
+   "penguin/hermes/front/walk2",
+   "penguin/hermes/front/cheer",
+   "penguin/hermes/front/cheer2",
+   "penguin/hermes/front/wave",
+   "penguin/hermes/front/wave2",
+   "penguin/hermes/front/waveL",
+   "penguin/hermes/front/waveL2",
+   "penguin/hermes/front/think",
+   "penguin/hermes/front/flop",
+   "penguin/hermes/front/idle/blink",
+   "penguin/hermes/front/walk/blink",
+   "penguin/hermes/front/walk2/blink",
+   "penguin/hermes/front/wave/blink",
+   "penguin/hermes/front/wave2/blink",
+   "penguin/hermes/front/waveL/blink",
+   "penguin/hermes/front/waveL2/blink",
+   "penguin/hermes/front/think/blink",
+   "penguin/hermes/front/idle/small",
+   "penguin/hermes/front/walk/small",
+   "penguin/hermes/front/walk2/small",
+   "penguin/hermes/front/wave/small",
+   "penguin/hermes/front/wave2/small",
+   "penguin/hermes/side/idle",
+   "penguin/hermes/side/walk",
+   "penguin/hermes/side/walk2",
+   "penguin/hermes/side/browse",
+   "penguin/hermes/side/browse2",
+   "penguin/hermes/side/read",
+   "penguin/hermes/side/read2",
+   "penguin/hermes/side/shovel",
+   "penguin/hermes/side/shovel2",
+   "penguin/hermes/side/peer",
+   "penguin/hermes/side/tap",
+   "penguin/hermes/side/tap2",
+   "penguin/hermes/side/hammer",
+   "penguin/hermes/side/hammer2",
+   "penguin/hermes/side/idle/blink",
+   "penguin/hermes/side/walk/blink",
+   "penguin/hermes/side/walk2/blink",
+   "penguin/hermes/side/browse/blink",
+   "penguin/hermes/side/browse2/blink",
+   "penguin/hermes/side/read/blink",
+   "penguin/hermes/side/read2/blink",
+   "penguin/hermes/side/shovel/blink",
+   "penguin/hermes/side/shovel2/blink",
+   "penguin/hermes/side/peer/blink",
+   "penguin/hermes/side/tap/blink",
+   "penguin/hermes/side/tap2/blink",
+   "penguin/hermes/side/hammer/blink",
+   "penguin/hermes/side/hammer2/blink",
+   "penguin/hermes/side/idle/small",
+   "penguin/hermes/side/walk/small",
+   "penguin/hermes/side/walk2/small",
+   "penguin/hermes/side/peer/small",
+   "penguin/hermes/back/idle",
+   "penguin/hermes/back/walk",
+   "penguin/hermes/back/walk2",
+   "penguin/hermes/back/hammer",
+   "penguin/hermes/back/hammer2",
+   "penguin/hermes/back/think",
+   "penguin/hermes/back/cheer",
+   "penguin/hermes/back/cheer2",
+   "penguin/hermes/back/wave",
+   "penguin/hermes/back/wave2",
+   "penguin/hermes/back/waveL",
+   "penguin/hermes/back/waveL2",
+   "penguin/hermes/back/idle/small",
+   "penguin/hermes/back/walk/small",
+   "penguin/hermes/back/walk2/small",
+   "penguin/hermes/front/idle/nocap",
+   "penguin/hermes/flop-body",
+   "penguin/hermes/cap",
+   "penguin/default/front/idle",
+   "penguin/default/front/walk",
+   "penguin/default/front/walk2",
+   "penguin/default/front/cheer",
+   "penguin/default/front/cheer2",
+   "penguin/default/front/wave",
+   "penguin/default/front/wave2",
+   "penguin/default/front/waveL",
+   "penguin/default/front/waveL2",
+   "penguin/default/front/think",
+   "penguin/default/front/flop",
+   "penguin/default/front/idle/blink",
+   "penguin/default/front/walk/blink",
+   "penguin/default/front/walk2/blink",
+   "penguin/default/front/wave/blink",
+   "penguin/default/front/wave2/blink",
+   "penguin/default/front/waveL/blink",
+   "penguin/default/front/waveL2/blink",
+   "penguin/default/front/think/blink",
+   "penguin/default/front/idle/small",
+   "penguin/default/front/walk/small",
+   "penguin/default/front/walk2/small",
+   "penguin/default/front/wave/small",
+   "penguin/default/front/wave2/small",
+   "penguin/default/side/idle",
+   "penguin/default/side/walk",
+   "penguin/default/side/walk2",
+   "penguin/default/side/browse",
+   "penguin/default/side/browse2",
+   "penguin/default/side/read",
+   "penguin/default/side/read2",
+   "penguin/default/side/shovel",
+   "penguin/default/side/shovel2",
+   "penguin/default/side/peer",
+   "penguin/default/side/tap",
+   "penguin/default/side/tap2",
+   "penguin/default/side/hammer",
+   "penguin/default/side/hammer2",
+   "penguin/default/side/idle/blink",
+   "penguin/default/side/walk/blink",
+   "penguin/default/side/walk2/blink",
+   "penguin/default/side/browse/blink",
+   "penguin/default/side/browse2/blink",
+   "penguin/default/side/read/blink",
+   "penguin/default/side/read2/blink",
+   "penguin/default/side/shovel/blink",
+   "penguin/default/side/shovel2/blink",
+   "penguin/default/side/peer/blink",
+   "penguin/default/side/tap/blink",
+   "penguin/default/side/tap2/blink",
+   "penguin/default/side/hammer/blink",
+   "penguin/default/side/hammer2/blink",
+   "penguin/default/side/idle/small",
+   "penguin/default/side/walk/small",
+   "penguin/default/side/walk2/small",
+   "penguin/default/side/peer/small",
+   "penguin/default/back/idle",
+   "penguin/default/back/walk",
+   "penguin/default/back/walk2",
+   "penguin/default/back/hammer",
+   "penguin/default/back/hammer2",
+   "penguin/default/back/think",
+   "penguin/default/back/cheer",
+   "penguin/default/back/cheer2",
+   "penguin/default/back/wave",
+   "penguin/default/back/wave2",
+   "penguin/default/back/waveL",
+   "penguin/default/back/waveL2",
+   "penguin/default/back/idle/small",
+   "penguin/default/back/walk/small",
+   "penguin/default/back/walk2/small",
+   "penguin/default/front/idle/nocap",
+   "penguin/default/flop-body",
+   "penguin/default/cap",
+   "prop/workbench",
+   "prop/map-table",
+   "prop/forge",
+   "prop/coal-bucket",
+   "prop/shelf",
+   "prop/odd-jobs",
+   "prop/telescope",
+   "prop/helper-desk",
+   "prop/chair-back",
+   "prop/chair-front",
+   "prop/lamp",
+   "prop/sign-post",
+   "prop/plant",
+   "prop/pegboard",
+   "prop/cloud",
+   "prop/cloud-mini",
+   "prop/candle/2",
+   "prop/candle/3",
+   "prop/candle/4",
+   "prop/candle/5",
+   "prop/candle/6",
+   "prop/candle/7",
+   "prop/candle/8",
+   "icon/read",
+   "icon/search",
+   "icon/write",
+   "icon/exec",
+   "icon/delegate",
+   "icon/think",
+   "icon/ask",
+   "icon/star",
+   "icon/web",
+   "icon/other",
+   "spark/0",
+   "spark/1",
+   "spark/2",
+   "spark/3",
+   "spark/mini",
+   "flame/0",
+   "flame/1",
+   "flame/2",
+   "flame/3",
+   "room/red",
+   "room/cobalt",
+   "room/emerald",
+   "room/yellow",
+   "room/teal",
+   "glyph/tiny5-8/U+0020",
+   "glyph/tiny5-8/U+0021",
+   "glyph/tiny5-8/U+0022",
+   "glyph/tiny5-8/U+0023",
+   "glyph/tiny5-8/U+0024",
+   "glyph/tiny5-8/U+0025",
+   "glyph/tiny5-8/U+0026",
+   "glyph/tiny5-8/U+0027",
+   "glyph/tiny5-8/U+0028",
+   "glyph/tiny5-8/U+0029",
+   "glyph/tiny5-8/U+002A",
+   "glyph/tiny5-8/U+002B",
+   "glyph/tiny5-8/U+002C",
+   "glyph/tiny5-8/U+002D",
+   "glyph/tiny5-8/U+002E",
+   "glyph/tiny5-8/U+002F",
+   "glyph/tiny5-8/U+0030",
+   "glyph/tiny5-8/U+0031",
+   "glyph/tiny5-8/U+0032",
+   "glyph/tiny5-8/U+0033",
+   "glyph/tiny5-8/U+0034",
+   "glyph/tiny5-8/U+0035",
+   "glyph/tiny5-8/U+0036",
+   "glyph/tiny5-8/U+0037",
+   "glyph/tiny5-8/U+0038",
+   "glyph/tiny5-8/U+0039",
+   "glyph/tiny5-8/U+003A",
+   "glyph/tiny5-8/U+003B",
+   "glyph/tiny5-8/U+003C",
+   "glyph/tiny5-8/U+003D",
+   "glyph/tiny5-8/U+003E",
+   "glyph/tiny5-8/U+003F",
+   "glyph/tiny5-8/U+0040",
+   "glyph/tiny5-8/U+0041",
+   "glyph/tiny5-8/U+0042",
+   "glyph/tiny5-8/U+0043",
+   "glyph/tiny5-8/U+0044",
+   "glyph/tiny5-8/U+0045",
+   "glyph/tiny5-8/U+0046",
+   "glyph/tiny5-8/U+0047",
+   "glyph/tiny5-8/U+0048",
+   "glyph/tiny5-8/U+0049",
+   "glyph/tiny5-8/U+004A",
+   "glyph/tiny5-8/U+004B",
+   "glyph/tiny5-8/U+004C",
+   "glyph/tiny5-8/U+004D",
+   "glyph/tiny5-8/U+004E",
+   "glyph/tiny5-8/U+004F",
+   "glyph/tiny5-8/U+0050",
+   "glyph/tiny5-8/U+0051",
+   "glyph/tiny5-8/U+0052",
+   "glyph/tiny5-8/U+0053",
+   "glyph/tiny5-8/U+0054",
+   "glyph/tiny5-8/U+0055",
+   "glyph/tiny5-8/U+0056",
+   "glyph/tiny5-8/U+0057",
+   "glyph/tiny5-8/U+0058",
+   "glyph/tiny5-8/U+0059",
+   "glyph/tiny5-8/U+005A",
+   "glyph/tiny5-8/U+005B",
+   "glyph/tiny5-8/U+005C",
+   "glyph/tiny5-8/U+005D",
+   "glyph/tiny5-8/U+005E",
+   "glyph/tiny5-8/U+005F",
+   "glyph/tiny5-8/U+0060",
+   "glyph/tiny5-8/U+0061",
+   "glyph/tiny5-8/U+0062",
+   "glyph/tiny5-8/U+0063",
+   "glyph/tiny5-8/U+0064",
+   "glyph/tiny5-8/U+0065",
+   "glyph/tiny5-8/U+0066",
+   "glyph/tiny5-8/U+0067",
+   "glyph/tiny5-8/U+0068",
+   "glyph/tiny5-8/U+0069",
+   "glyph/tiny5-8/U+006A",
+   "glyph/tiny5-8/U+006B",
+   "glyph/tiny5-8/U+006C",
+   "glyph/tiny5-8/U+006D",
+   "glyph/tiny5-8/U+006E",
+   "glyph/tiny5-8/U+006F",
+   "glyph/tiny5-8/U+0070",
+   "glyph/tiny5-8/U+0071",
+   "glyph/tiny5-8/U+0072",
+   "glyph/tiny5-8/U+0073",
+   "glyph/tiny5-8/U+0074",
+   "glyph/tiny5-8/U+0075",
+   "glyph/tiny5-8/U+0076",
+   "glyph/tiny5-8/U+0077",
+   "glyph/tiny5-8/U+0078",
+   "glyph/tiny5-8/U+0079",
+   "glyph/tiny5-8/U+007A",
+   "glyph/tiny5-8/U+007B",
+   "glyph/tiny5-8/U+007C",
+   "glyph/tiny5-8/U+007D",
+   "glyph/tiny5-8/U+007E",
+   "glyph/tiny5-8/U+0104",
+   "glyph/tiny5-8/U+0106",
+   "glyph/tiny5-8/U+0118",
+   "glyph/tiny5-8/U+0141",
+   "glyph/tiny5-8/U+0143",
+   "glyph/tiny5-8/U+00D3",
+   "glyph/tiny5-8/U+015A",
+   "glyph/tiny5-8/U+0179",
+   "glyph/tiny5-8/U+017B",
+   "glyph/tiny5-8/U+0105",
+   "glyph/tiny5-8/U+0107",
+   "glyph/tiny5-8/U+0119",
+   "glyph/tiny5-8/U+0142",
+   "glyph/tiny5-8/U+0144",
+   "glyph/tiny5-8/U+00F3",
+   "glyph/tiny5-8/U+015B",
+   "glyph/tiny5-8/U+017A",
+   "glyph/tiny5-8/U+017C",
+   "glyph/tiny5-8/U+00B7",
+   "glyph/tiny5-8/U+2191",
+   "glyph/tiny5-8/U+2193",
+   "glyph/silk-8/U+0020",
+   "glyph/silk-8/U+0021",
+   "glyph/silk-8/U+0022",
+   "glyph/silk-8/U+0023",
+   "glyph/silk-8/U+0024",
+   "glyph/silk-8/U+0025",
+   "glyph/silk-8/U+0026",
+   "glyph/silk-8/U+0027",
+   "glyph/silk-8/U+0028",
+   "glyph/silk-8/U+0029",
+   "glyph/silk-8/U+002A",
+   "glyph/silk-8/U+002B",
+   "glyph/silk-8/U+002C",
+   "glyph/silk-8/U+002D",
+   "glyph/silk-8/U+002E",
+   "glyph/silk-8/U+002F",
+   "glyph/silk-8/U+0030",
+   "glyph/silk-8/U+0031",
+   "glyph/silk-8/U+0032",
+   "glyph/silk-8/U+0033",
+   "glyph/silk-8/U+0034",
+   "glyph/silk-8/U+0035",
+   "glyph/silk-8/U+0036",
+   "glyph/silk-8/U+0037",
+   "glyph/silk-8/U+0038",
+   "glyph/silk-8/U+0039",
+   "glyph/silk-8/U+003A",
+   "glyph/silk-8/U+003B",
+   "glyph/silk-8/U+003C",
+   "glyph/silk-8/U+003D",
+   "glyph/silk-8/U+003E",
+   "glyph/silk-8/U+003F",
+   "glyph/silk-8/U+0040",
+   "glyph/silk-8/U+0041",
+   "glyph/silk-8/U+0042",
+   "glyph/silk-8/U+0043",
+   "glyph/silk-8/U+0044",
+   "glyph/silk-8/U+0045",
+   "glyph/silk-8/U+0046",
+   "glyph/silk-8/U+0047",
+   "glyph/silk-8/U+0048",
+   "glyph/silk-8/U+0049",
+   "glyph/silk-8/U+004A",
+   "glyph/silk-8/U+004B",
+   "glyph/silk-8/U+004C",
+   "glyph/silk-8/U+004D",
+   "glyph/silk-8/U+004E",
+   "glyph/silk-8/U+004F",
+   "glyph/silk-8/U+0050",
+   "glyph/silk-8/U+0051",
+   "glyph/silk-8/U+0052",
+   "glyph/silk-8/U+0053",
+   "glyph/silk-8/U+0054",
+   "glyph/silk-8/U+0055",
+   "glyph/silk-8/U+0056",
+   "glyph/silk-8/U+0057",
+   "glyph/silk-8/U+0058",
+   "glyph/silk-8/U+0059",
+   "glyph/silk-8/U+005A",
+   "glyph/silk-8/U+005B",
+   "glyph/silk-8/U+005C",
+   "glyph/silk-8/U+005D",
+   "glyph/silk-8/U+005E",
+   "glyph/silk-8/U+005F",
+   "glyph/silk-8/U+0060",
+   "glyph/silk-8/U+0061",
+   "glyph/silk-8/U+0062",
+   "glyph/silk-8/U+0063",
+   "glyph/silk-8/U+0064",
+   "glyph/silk-8/U+0065",
+   "glyph/silk-8/U+0066",
+   "glyph/silk-8/U+0067",
+   "glyph/silk-8/U+0068",
+   "glyph/silk-8/U+0069",
+   "glyph/silk-8/U+006A",
+   "glyph/silk-8/U+006B",
+   "glyph/silk-8/U+006C",
+   "glyph/silk-8/U+006D",
+   "glyph/silk-8/U+006E",
+   "glyph/silk-8/U+006F",
+   "glyph/silk-8/U+0070",
+   "glyph/silk-8/U+0071",
+   "glyph/silk-8/U+0072",
+   "glyph/silk-8/U+0073",
+   "glyph/silk-8/U+0074",
+   "glyph/silk-8/U+0075",
+   "glyph/silk-8/U+0076",
+   "glyph/silk-8/U+0077",
+   "glyph/silk-8/U+0078",
+   "glyph/silk-8/U+0079",
+   "glyph/silk-8/U+007A",
+   "glyph/silk-8/U+007B",
+   "glyph/silk-8/U+007C",
+   "glyph/silk-8/U+007D",
+   "glyph/silk-8/U+007E",
+   "glyph/silk-8/U+0104",
+   "glyph/silk-8/U+0106",
+   "glyph/silk-8/U+0118",
+   "glyph/silk-8/U+0141",
+   "glyph/silk-8/U+0143",
+   "glyph/silk-8/U+00D3",
+   "glyph/silk-8/U+015A",
+   "glyph/silk-8/U+0179",
+   "glyph/silk-8/U+017B",
+   "glyph/silk-8/U+0105",
+   "glyph/silk-8/U+0107",
+   "glyph/silk-8/U+0119",
+   "glyph/silk-8/U+0142",
+   "glyph/silk-8/U+0144",
+   "glyph/silk-8/U+00F3",
+   "glyph/silk-8/U+015B",
+   "glyph/silk-8/U+017A",
+   "glyph/silk-8/U+017C",
+   "glyph/silk-8/U+00B7",
+   "glyph/silk-8/U+2191",
+   "glyph/silk-8/U+2193",
+   "glyph/silk-16/U+0020",
+   "glyph/silk-16/U+0021",
+   "glyph/silk-16/U+0022",
+   "glyph/silk-16/U+0023",
+   "glyph/silk-16/U+0024",
+   "glyph/silk-16/U+0025",
+   "glyph/silk-16/U+0026",
+   "glyph/silk-16/U+0027",
+   "glyph/silk-16/U+0028",
+   "glyph/silk-16/U+0029",
+   "glyph/silk-16/U+002A",
+   "glyph/silk-16/U+002B",
+   "glyph/silk-16/U+002C",
+   "glyph/silk-16/U+002D",
+   "glyph/silk-16/U+002E",
+   "glyph/silk-16/U+002F",
+   "glyph/silk-16/U+0030",
+   "glyph/silk-16/U+0031",
+   "glyph/silk-16/U+0032",
+   "glyph/silk-16/U+0033",
+   "glyph/silk-16/U+0034",
+   "glyph/silk-16/U+0035",
+   "glyph/silk-16/U+0036",
+   "glyph/silk-16/U+0037",
+   "glyph/silk-16/U+0038",
+   "glyph/silk-16/U+0039",
+   "glyph/silk-16/U+003A",
+   "glyph/silk-16/U+003B",
+   "glyph/silk-16/U+003C",
+   "glyph/silk-16/U+003D",
+   "glyph/silk-16/U+003E",
+   "glyph/silk-16/U+003F",
+   "glyph/silk-16/U+0040",
+   "glyph/silk-16/U+0041",
+   "glyph/silk-16/U+0042",
+   "glyph/silk-16/U+0043",
+   "glyph/silk-16/U+0044",
+   "glyph/silk-16/U+0045",
+   "glyph/silk-16/U+0046",
+   "glyph/silk-16/U+0047",
+   "glyph/silk-16/U+0048",
+   "glyph/silk-16/U+0049",
+   "glyph/silk-16/U+004A",
+   "glyph/silk-16/U+004B",
+   "glyph/silk-16/U+004C",
+   "glyph/silk-16/U+004D",
+   "glyph/silk-16/U+004E",
+   "glyph/silk-16/U+004F",
+   "glyph/silk-16/U+0050",
+   "glyph/silk-16/U+0051",
+   "glyph/silk-16/U+0052",
+   "glyph/silk-16/U+0053",
+   "glyph/silk-16/U+0054",
+   "glyph/silk-16/U+0055",
+   "glyph/silk-16/U+0056",
+   "glyph/silk-16/U+0057",
+   "glyph/silk-16/U+0058",
+   "glyph/silk-16/U+0059",
+   "glyph/silk-16/U+005A",
+   "glyph/silk-16/U+005B",
+   "glyph/silk-16/U+005C",
+   "glyph/silk-16/U+005D",
+   "glyph/silk-16/U+005E",
+   "glyph/silk-16/U+005F",
+   "glyph/silk-16/U+0060",
+   "glyph/silk-16/U+0061",
+   "glyph/silk-16/U+0062",
+   "glyph/silk-16/U+0063",
+   "glyph/silk-16/U+0064",
+   "glyph/silk-16/U+0065",
+   "glyph/silk-16/U+0066",
+   "glyph/silk-16/U+0067",
+   "glyph/silk-16/U+0068",
+   "glyph/silk-16/U+0069",
+   "glyph/silk-16/U+006A",
+   "glyph/silk-16/U+006B",
+   "glyph/silk-16/U+006C",
+   "glyph/silk-16/U+006D",
+   "glyph/silk-16/U+006E",
+   "glyph/silk-16/U+006F",
+   "glyph/silk-16/U+0070",
+   "glyph/silk-16/U+0071",
+   "glyph/silk-16/U+0072",
+   "glyph/silk-16/U+0073",
+   "glyph/silk-16/U+0074",
+   "glyph/silk-16/U+0075",
+   "glyph/silk-16/U+0076",
+   "glyph/silk-16/U+0077",
+   "glyph/silk-16/U+0078",
+   "glyph/silk-16/U+0079",
+   "glyph/silk-16/U+007A",
+   "glyph/silk-16/U+007B",
+   "glyph/silk-16/U+007C",
+   "glyph/silk-16/U+007D",
+   "glyph/silk-16/U+007E",
+   "glyph/silk-16/U+0104",
+   "glyph/silk-16/U+0106",
+   "glyph/silk-16/U+0118",
+   "glyph/silk-16/U+0141",
+   "glyph/silk-16/U+0143",
+   "glyph/silk-16/U+00D3",
+   "glyph/silk-16/U+015A",
+   "glyph/silk-16/U+0179",
+   "glyph/silk-16/U+017B",
+   "glyph/silk-16/U+0105",
+   "glyph/silk-16/U+0107",
+   "glyph/silk-16/U+0119",
+   "glyph/silk-16/U+0142",
+   "glyph/silk-16/U+0144",
+   "glyph/silk-16/U+00F3",
+   "glyph/silk-16/U+015B",
+   "glyph/silk-16/U+017A",
+   "glyph/silk-16/U+017C",
+   "glyph/silk-16/U+00B7",
+   "glyph/silk-16/U+2191",
+   "glyph/silk-16/U+2193"
+  ],
+  "animations": {
+   "walk/front": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/walk",
+       "penguin/claude-code/front/walk2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/walk",
+       "penguin/opencode/front/walk2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/walk",
+       "penguin/pi/front/walk2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/walk",
+       "penguin/hermes/front/walk2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/walk",
+       "penguin/default/front/walk2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "walk/side": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/walk",
+       "penguin/claude-code/side/walk2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/walk",
+       "penguin/opencode/side/walk2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/walk",
+       "penguin/pi/side/walk2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/walk",
+       "penguin/hermes/side/walk2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/walk",
+       "penguin/default/side/walk2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "walk/back": {
+    "dir": "back",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/back/walk",
+       "penguin/claude-code/back/walk2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/back/walk",
+       "penguin/opencode/back/walk2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/back/walk",
+       "penguin/pi/back/walk2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/back/walk",
+       "penguin/hermes/back/walk2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/back/walk",
+       "penguin/default/back/walk2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "idle/front": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/idle"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/idle"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/idle"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/idle"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/idle"
+      ]
+     }
+    ],
+    "blink": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/idle/blink"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/idle/blink"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/idle/blink"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/idle/blink"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/idle/blink"
+      ]
+     }
+    ]
+   },
+   "idle/side": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/idle"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/idle"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/idle"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/idle"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/idle"
+      ]
+     }
+    ],
+    "blink": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/idle/blink"
+      ]
+     }
+    ]
+   },
+   "search": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/browse",
+       "penguin/claude-code/side/browse2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/browse",
+       "penguin/opencode/side/browse2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/browse",
+       "penguin/pi/side/browse2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/browse",
+       "penguin/hermes/side/browse2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/browse",
+       "penguin/default/side/browse2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "read": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/read",
+       "penguin/claude-code/side/read",
+       "penguin/claude-code/side/read2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/read",
+       "penguin/opencode/side/read",
+       "penguin/opencode/side/read2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/read",
+       "penguin/pi/side/read",
+       "penguin/pi/side/read2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/read",
+       "penguin/hermes/side/read",
+       "penguin/hermes/side/read2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/read",
+       "penguin/default/side/read",
+       "penguin/default/side/read2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "write": {
+    "dir": "back",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/back/hammer",
+       "penguin/claude-code/back/hammer2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/back/hammer",
+       "penguin/opencode/back/hammer2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/back/hammer",
+       "penguin/pi/back/hammer2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/back/hammer",
+       "penguin/hermes/back/hammer2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/back/hammer",
+       "penguin/default/back/hammer2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "exec": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/shovel2",
+       "penguin/claude-code/side/shovel"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/shovel2",
+       "penguin/opencode/side/shovel"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/shovel2",
+       "penguin/pi/side/shovel"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/shovel2",
+       "penguin/hermes/side/shovel"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/shovel2",
+       "penguin/default/side/shovel"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "build": {
+    "dir": "back",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/back/hammer",
+       "penguin/claude-code/back/hammer2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/back/hammer",
+       "penguin/opencode/back/hammer2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/back/hammer",
+       "penguin/pi/back/hammer2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/back/hammer",
+       "penguin/hermes/back/hammer2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/back/hammer",
+       "penguin/default/back/hammer2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "web": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/peer"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/peer"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/peer"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/peer"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/peer"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "other": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/hammer",
+       "penguin/claude-code/side/hammer2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/hammer",
+       "penguin/opencode/side/hammer2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/hammer",
+       "penguin/pi/side/hammer2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/hammer",
+       "penguin/hermes/side/hammer2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/hammer",
+       "penguin/default/side/hammer2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "delegate": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/tap",
+       "penguin/claude-code/side/tap2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/tap",
+       "penguin/opencode/side/tap2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/tap",
+       "penguin/pi/side/tap2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/tap",
+       "penguin/hermes/side/tap2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/tap",
+       "penguin/default/side/tap2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "wait": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/waveL",
+       "penguin/claude-code/front/waveL2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/waveL",
+       "penguin/opencode/front/waveL2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/waveL",
+       "penguin/pi/front/waveL2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/waveL",
+       "penguin/hermes/front/waveL2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/waveL",
+       "penguin/default/front/waveL2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "approve": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/cheer"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/cheer"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/cheer"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/cheer"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/cheer"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "cheer": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/cheer",
+       "penguin/claude-code/front/cheer2"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/cheer",
+       "penguin/opencode/front/cheer2"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/cheer",
+       "penguin/pi/front/cheer2"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/cheer",
+       "penguin/hermes/front/cheer2"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/cheer",
+       "penguin/default/front/cheer2"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "think": {
+    "dir": "front",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/think"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/think"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/think"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/think"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/think"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "queue": {
+    "dir": "side",
+    "small": false,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/idle"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/idle"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/idle"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/idle"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/idle"
+      ]
+     }
+    ],
+    "blink": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/idle/blink"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/idle/blink"
+      ]
+     }
+    ]
+   },
+   "helper/wave": {
+    "dir": "front",
+    "small": true,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/front/wave/small",
+       "penguin/claude-code/front/wave2/small"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/front/wave/small",
+       "penguin/opencode/front/wave2/small"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/front/wave/small",
+       "penguin/pi/front/wave2/small"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/front/wave/small",
+       "penguin/hermes/front/wave2/small"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/front/wave/small",
+       "penguin/default/front/wave2/small"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "helper/walk": {
+    "dir": "side",
+    "small": true,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/walk/small",
+       "penguin/claude-code/side/walk2/small"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/walk/small",
+       "penguin/opencode/side/walk2/small"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/walk/small",
+       "penguin/pi/side/walk2/small"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/walk/small",
+       "penguin/hermes/side/walk2/small"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/walk/small",
+       "penguin/default/side/walk2/small"
+      ]
+     }
+    ],
+    "blink": []
+   },
+   "helper/peer": {
+    "dir": "side",
+    "small": true,
+    "frames": [
+     {
+      "cord": "claude-code",
+      "names": [
+       "penguin/claude-code/side/peer/small"
+      ]
+     },
+     {
+      "cord": "opencode",
+      "names": [
+       "penguin/opencode/side/peer/small"
+      ]
+     },
+     {
+      "cord": "pi",
+      "names": [
+       "penguin/pi/side/peer/small"
+      ]
+     },
+     {
+      "cord": "hermes",
+      "names": [
+       "penguin/hermes/side/peer/small"
+      ]
+     },
+     {
+      "cord": "default",
+      "names": [
+       "penguin/default/side/peer/small"
+      ]
+     }
+    ],
+    "blink": []
+   }
+  },
+  "cords": {
+   "claude-code": "#d97333",
+   "opencode": "#3380e6",
+   "pi": "#994dcc",
+   "hermes": "#e6bf33",
+   "default": "#9aa6b5"
+  },
+  "rugs": [
+   {
+    "name": "red",
+    "color": "#d23c3c",
+    "dark": "#a82a32"
+   },
+   {
+    "name": "cobalt",
+    "color": "#3a6fc4",
+    "dark": "#284f93"
+   },
+   {
+    "name": "emerald",
+    "color": "#3f9a5a",
+    "dark": "#2c7343"
+   },
+   {
+    "name": "yellow",
+    "color": "#d9a21b",
+    "dark": "#a87a10"
+   },
+   {
+    "name": "teal",
+    "color": "#2a9d8f",
+    "dark": "#1e7469"
+   }
+  ],
+  "chars": " !\"#$%&'()*+,-./0123456789:;<=>?@ABCDEFGHIJKLMNOPQRSTUVWXYZ[\\]^_`abcdefghijklmnopqrstuvwxyz{|}~ĄĆĘŁŃÓŚŹŻąćęłńóśźż·↑↓",
+  "polish": "ĄĆĘŁŃÓŚŹŻąćęłńóśźż",
+  "fonts": [
+   {
+    "id": "tiny5-8",
+    "family": "Tiny5",
+    "size": 8
+   },
+   {
+    "id": "silk-8",
+    "family": "Silk",
+    "size": 8
+   },
+   {
+    "id": "silk-16",
+    "family": "Silk",
+    "size": 16
+   }
+  ],
+  "appIcon": {
+   "name": "app-icon",
+   "file": "app_icon.png",
+   "cells": 32,
+   "scale": 16,
+   "cord": "hermes",
+   "from": {
+    "x": 11,
+    "y": 4,
+    "w": 26,
+    "h": 30
+   },
+   "at": {
+    "x": 3,
+    "y": 1
+   },
+   "background": "#24345e",
+   "corner": 5
+  }
+ },
+ "widths": [
+  {
+   "font": "tiny5-8",
+   "text": "AGENT WORKSHOP",
+   "js": 67,
+   "sum": 67
+  },
+  {
+   "font": "tiny5-8",
+   "text": "ARENA",
+   "js": 25,
+   "sum": 25
+  },
+  {
+   "font": "tiny5-8",
+   "text": "SESSION START",
+   "js": 57,
+   "sum": 57
+  },
+  {
+   "font": "tiny5-8",
+   "text": "TURN COMPLETE!",
+   "js": 62,
+   "sum": 62
+  },
+  {
+   "font": "tiny5-8",
+   "text": "APPROVAL NEEDED",
+   "js": 70,
+   "sum": 70
+  },
+  {
+   "font": "tiny5-8",
+   "text": "APPROVED",
+   "js": 39,
+   "sum": 39
+  },
+  {
+   "font": "tiny5-8",
+   "text": "FOLLOW",
+   "js": 29,
+   "sum": 29
+  },
+  {
+   "font": "tiny5-8",
+   "text": "SOUND",
+   "js": 25,
+   "sum": 25
+  },
+  {
+   "font": "tiny5-8",
+   "text": "claude-code joined",
+   "js": 64,
+   "sum": 64
+  },
+  {
+   "font": "tiny5-8",
+   "text": "claude-code",
+   "js": 42,
+   "sum": 42
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Turn complete",
+   "js": 48,
+   "sum": 48
+  },
+  {
+   "font": "tiny5-8",
+   "text": "waiting for agent activity",
+   "js": 86,
+   "sum": 86
+  },
+  {
+   "font": "tiny5-8",
+   "text": "waiting for agents",
+   "js": 62,
+   "sum": 62
+  },
+  {
+   "font": "tiny5-8",
+   "text": "connecting",
+   "js": 37,
+   "sum": 37
+  },
+  {
+   "font": "tiny5-8",
+   "text": "online",
+   "js": 20,
+   "sum": 20
+  },
+  {
+   "font": "tiny5-8",
+   "text": "git push origin HEAD",
+   "js": 70,
+   "sum": 70
+  },
+  {
+   "font": "tiny5-8",
+   "text": "answer in your terminal",
+   "js": 80,
+   "sum": 80
+  },
+  {
+   "font": "tiny5-8",
+   "text": "approved in your terminal",
+   "js": 86,
+   "sum": 86
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Glob",
+   "js": 15,
+   "sum": 15
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Read",
+   "js": 17,
+   "sum": 17
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Edit",
+   "js": 14,
+   "sum": 14
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Task",
+   "js": 16,
+   "sum": 16
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Bash",
+   "js": 17,
+   "sum": 17
+  },
+  {
+   "font": "tiny5-8",
+   "text": "exit 1",
+   "js": 19,
+   "sum": 19
+  },
+  {
+   "font": "tiny5-8",
+   "text": "focus: claude-code 12",
+   "js": 75,
+   "sum": 75
+  },
+  {
+   "font": "tiny5-8",
+   "text": "12 agents · 3 helpers · 41 calls",
+   "js": 102,
+   "sum": 102
+  },
+  {
+   "font": "tiny5-8",
+   "text": "calls 12",
+   "js": 26,
+   "sum": 26
+  },
+  {
+   "font": "tiny5-8",
+   "text": "helpers 2",
+   "js": 31,
+   "sum": 31
+  },
+  {
+   "font": "tiny5-8",
+   "text": "OK",
+   "js": 10,
+   "sum": 10
+  },
+  {
+   "font": "tiny5-8",
+   "text": "WAIT",
+   "js": 17,
+   "sum": 17
+  },
+  {
+   "font": "tiny5-8",
+   "text": "FAIL",
+   "js": 16,
+   "sum": 16
+  },
+  {
+   "font": "tiny5-8",
+   "text": "DONE",
+   "js": 20,
+   "sum": 20
+  },
+  {
+   "font": "tiny5-8",
+   "text": "0123456789",
+   "js": 40,
+   "sum": 40
+  },
+  {
+   "font": "tiny5-8",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "js": 150,
+   "sum": 150
+  },
+  {
+   "font": "tiny5-8",
+   "text": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+   "js": 182,
+   "sum": 182
+  },
+  {
+   "font": "tiny5-8",
+   "text": "Zażółć gęślą jaźń",
+   "js": 60,
+   "sum": 60
+  },
+  {
+   "font": "tiny5-8",
+   "text": "ZAŻÓŁĆ GĘŚLĄ JAŹŃ",
+   "js": 74,
+   "sum": 74
+  },
+  {
+   "font": "tiny5-8",
+   "text": "góralski",
+   "js": 27,
+   "sum": 27
+  },
+  {
+   "font": "tiny5-8",
+   "text": "↑ ↓",
+   "js": 14,
+   "sum": 14
+  },
+  {
+   "font": "tiny5-8",
+   "text": "?",
+   "js": 4,
+   "sum": 4
+  },
+  {
+   "font": "tiny5-8",
+   "text": " ",
+   "js": 2,
+   "sum": 2
+  },
+  {
+   "font": "silk-8",
+   "text": "AGENT WORKSHOP",
+   "js": 82,
+   "sum": 82
+  },
+  {
+   "font": "silk-8",
+   "text": "ARENA",
+   "js": 30,
+   "sum": 30
+  },
+  {
+   "font": "silk-8",
+   "text": "SESSION START",
+   "js": 71,
+   "sum": 71
+  },
+  {
+   "font": "silk-8",
+   "text": "TURN COMPLETE!",
+   "js": 76,
+   "sum": 76
+  },
+  {
+   "font": "silk-8",
+   "text": "APPROVAL NEEDED",
+   "js": 86,
+   "sum": 86
+  },
+  {
+   "font": "silk-8",
+   "text": "APPROVED",
+   "js": 48,
+   "sum": 48
+  },
+  {
+   "font": "silk-8",
+   "text": "FOLLOW",
+   "js": 34,
+   "sum": 34
+  },
+  {
+   "font": "silk-8",
+   "text": "SOUND",
+   "js": 31,
+   "sum": 31
+  },
+  {
+   "font": "silk-8",
+   "text": "claude-code joined",
+   "js": 99,
+   "sum": 99
+  },
+  {
+   "font": "silk-8",
+   "text": "claude-code",
+   "js": 62,
+   "sum": 62
+  },
+  {
+   "font": "silk-8",
+   "text": "Turn complete",
+   "js": 73,
+   "sum": 73
+  },
+  {
+   "font": "silk-8",
+   "text": "waiting for agent activity",
+   "js": 137,
+   "sum": 137
+  },
+  {
+   "font": "silk-8",
+   "text": "waiting for agents",
+   "js": 97,
+   "sum": 97
+  },
+  {
+   "font": "silk-8",
+   "text": "connecting",
+   "js": 58,
+   "sum": 58
+  },
+  {
+   "font": "silk-8",
+   "text": "online",
+   "js": 33,
+   "sum": 33
+  },
+  {
+   "font": "silk-8",
+   "text": "git push origin HEAD",
+   "js": 104,
+   "sum": 104
+  },
+  {
+   "font": "silk-8",
+   "text": "answer in your terminal",
+   "js": 128,
+   "sum": 128
+  },
+  {
+   "font": "silk-8",
+   "text": "approved in your terminal",
+   "js": 139,
+   "sum": 139
+  },
+  {
+   "font": "silk-8",
+   "text": "Glob",
+   "js": 23,
+   "sum": 23
+  },
+  {
+   "font": "silk-8",
+   "text": "Read",
+   "js": 23,
+   "sum": 23
+  },
+  {
+   "font": "silk-8",
+   "text": "Edit",
+   "js": 19,
+   "sum": 19
+  },
+  {
+   "font": "silk-8",
+   "text": "Task",
+   "js": 23,
+   "sum": 23
+  },
+  {
+   "font": "silk-8",
+   "text": "Bash",
+   "js": 24,
+   "sum": 24
+  },
+  {
+   "font": "silk-8",
+   "text": "exit 1",
+   "js": 29,
+   "sum": 29
+  },
+  {
+   "font": "silk-8",
+   "text": "focus: claude-code 12",
+   "js": 113,
+   "sum": 113
+  },
+  {
+   "font": "silk-8",
+   "text": "12 agents · 3 helpers · 41 calls",
+   "js": 164,
+   "sum": 164
+  },
+  {
+   "font": "silk-8",
+   "text": "calls 12",
+   "js": 43,
+   "sum": 43
+  },
+  {
+   "font": "silk-8",
+   "text": "helpers 2",
+   "js": 49,
+   "sum": 49
+  },
+  {
+   "font": "silk-8",
+   "text": "OK",
+   "js": 12,
+   "sum": 12
+  },
+  {
+   "font": "silk-8",
+   "text": "WAIT",
+   "js": 21,
+   "sum": 21
+  },
+  {
+   "font": "silk-8",
+   "text": "FAIL",
+   "js": 19,
+   "sum": 19
+  },
+  {
+   "font": "silk-8",
+   "text": "DONE",
+   "js": 24,
+   "sum": 24
+  },
+  {
+   "font": "silk-8",
+   "text": "0123456789",
+   "js": 59,
+   "sum": 59
+  },
+  {
+   "font": "silk-8",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "js": 237,
+   "sum": 237
+  },
+  {
+   "font": "silk-8",
+   "text": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+   "js": 237,
+   "sum": 237
+  },
+  {
+   "font": "silk-8",
+   "text": "Zażółć gęślą jaźń",
+   "js": 76,
+   "sum": 79
+  },
+  {
+   "font": "silk-8",
+   "text": "ZAŻÓŁĆ GĘŚLĄ JAŹŃ",
+   "js": 89,
+   "sum": 91
+  },
+  {
+   "font": "silk-8",
+   "text": "góralski",
+   "js": 44,
+   "sum": 44
+  },
+  {
+   "font": "silk-8",
+   "text": "↑ ↓",
+   "js": 12,
+   "sum": 12
+  },
+  {
+   "font": "silk-8",
+   "text": "?",
+   "js": 6,
+   "sum": 6
+  },
+  {
+   "font": "silk-8",
+   "text": " ",
+   "js": 4,
+   "sum": 4
+  },
+  {
+   "font": "silk-16",
+   "text": "AGENT WORKSHOP",
+   "js": 164,
+   "sum": 164
+  },
+  {
+   "font": "silk-16",
+   "text": "ARENA",
+   "js": 60,
+   "sum": 60
+  },
+  {
+   "font": "silk-16",
+   "text": "SESSION START",
+   "js": 142,
+   "sum": 142
+  },
+  {
+   "font": "silk-16",
+   "text": "TURN COMPLETE!",
+   "js": 152,
+   "sum": 152
+  },
+  {
+   "font": "silk-16",
+   "text": "APPROVAL NEEDED",
+   "js": 172,
+   "sum": 172
+  },
+  {
+   "font": "silk-16",
+   "text": "APPROVED",
+   "js": 96,
+   "sum": 96
+  },
+  {
+   "font": "silk-16",
+   "text": "FOLLOW",
+   "js": 68,
+   "sum": 68
+  },
+  {
+   "font": "silk-16",
+   "text": "SOUND",
+   "js": 62,
+   "sum": 62
+  },
+  {
+   "font": "silk-16",
+   "text": "claude-code joined",
+   "js": 198,
+   "sum": 198
+  },
+  {
+   "font": "silk-16",
+   "text": "claude-code",
+   "js": 124,
+   "sum": 124
+  },
+  {
+   "font": "silk-16",
+   "text": "Turn complete",
+   "js": 146,
+   "sum": 146
+  },
+  {
+   "font": "silk-16",
+   "text": "waiting for agent activity",
+   "js": 274,
+   "sum": 274
+  },
+  {
+   "font": "silk-16",
+   "text": "waiting for agents",
+   "js": 194,
+   "sum": 194
+  },
+  {
+   "font": "silk-16",
+   "text": "connecting",
+   "js": 116,
+   "sum": 116
+  },
+  {
+   "font": "silk-16",
+   "text": "online",
+   "js": 66,
+   "sum": 66
+  },
+  {
+   "font": "silk-16",
+   "text": "git push origin HEAD",
+   "js": 208,
+   "sum": 208
+  },
+  {
+   "font": "silk-16",
+   "text": "answer in your terminal",
+   "js": 256,
+   "sum": 256
+  },
+  {
+   "font": "silk-16",
+   "text": "approved in your terminal",
+   "js": 278,
+   "sum": 278
+  },
+  {
+   "font": "silk-16",
+   "text": "Glob",
+   "js": 46,
+   "sum": 46
+  },
+  {
+   "font": "silk-16",
+   "text": "Read",
+   "js": 46,
+   "sum": 46
+  },
+  {
+   "font": "silk-16",
+   "text": "Edit",
+   "js": 38,
+   "sum": 38
+  },
+  {
+   "font": "silk-16",
+   "text": "Task",
+   "js": 46,
+   "sum": 46
+  },
+  {
+   "font": "silk-16",
+   "text": "Bash",
+   "js": 48,
+   "sum": 48
+  },
+  {
+   "font": "silk-16",
+   "text": "exit 1",
+   "js": 58,
+   "sum": 58
+  },
+  {
+   "font": "silk-16",
+   "text": "focus: claude-code 12",
+   "js": 226,
+   "sum": 226
+  },
+  {
+   "font": "silk-16",
+   "text": "12 agents · 3 helpers · 41 calls",
+   "js": 328,
+   "sum": 328
+  },
+  {
+   "font": "silk-16",
+   "text": "calls 12",
+   "js": 86,
+   "sum": 86
+  },
+  {
+   "font": "silk-16",
+   "text": "helpers 2",
+   "js": 98,
+   "sum": 98
+  },
+  {
+   "font": "silk-16",
+   "text": "OK",
+   "js": 24,
+   "sum": 24
+  },
+  {
+   "font": "silk-16",
+   "text": "WAIT",
+   "js": 42,
+   "sum": 42
+  },
+  {
+   "font": "silk-16",
+   "text": "FAIL",
+   "js": 38,
+   "sum": 38
+  },
+  {
+   "font": "silk-16",
+   "text": "DONE",
+   "js": 48,
+   "sum": 48
+  },
+  {
+   "font": "silk-16",
+   "text": "0123456789",
+   "js": 118,
+   "sum": 118
+  },
+  {
+   "font": "silk-16",
+   "text": "The quick brown fox jumps over the lazy dog",
+   "js": 474,
+   "sum": 474
+  },
+  {
+   "font": "silk-16",
+   "text": "THE QUICK BROWN FOX JUMPS OVER THE LAZY DOG",
+   "js": 474,
+   "sum": 474
+  },
+  {
+   "font": "silk-16",
+   "text": "Zażółć gęślą jaźń",
+   "js": 151,
+   "sum": 156
+  },
+  {
+   "font": "silk-16",
+   "text": "ZAŻÓŁĆ GĘŚLĄ JAŹŃ",
+   "js": 178,
+   "sum": 180
+  },
+  {
+   "font": "silk-16",
+   "text": "góralski",
+   "js": 88,
+   "sum": 88
+  },
+  {
+   "font": "silk-16",
+   "text": "↑ ↓",
+   "js": 24,
+   "sum": 24
+  },
+  {
+   "font": "silk-16",
+   "text": "?",
+   "js": 12,
+   "sum": 12
+  },
+  {
+   "font": "silk-16",
+   "text": " ",
+   "js": 8,
+   "sum": 8
+  }
+ ],
+ "signs": [
+  {
+   "name": null,
+   "solo": true,
+   "text_x": 21,
+   "text_y": 15,
+   "text_w": 82
+  },
+  {
+   "name": "A",
+   "solo": false,
+   "text_x": 39,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 73,
+   "plate_y": 14,
+   "plate_w": 12,
+   "plate_h": 11,
+   "letter_x": 76,
+   "letter_y": 16,
+   "letter_w": 6
+  },
+  {
+   "name": "B",
+   "solo": false,
+   "text_x": 39,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 73,
+   "plate_y": 14,
+   "plate_w": 12,
+   "plate_h": 11,
+   "letter_x": 76,
+   "letter_y": 16,
+   "letter_w": 6
+  },
+  {
+   "name": "E",
+   "solo": false,
+   "text_x": 40,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 74,
+   "plate_y": 14,
+   "plate_w": 11,
+   "plate_h": 11,
+   "letter_x": 77,
+   "letter_y": 16,
+   "letter_w": 5
+  },
+  {
+   "name": "I",
+   "solo": false,
+   "text_x": 40,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 74,
+   "plate_y": 14,
+   "plate_w": 11,
+   "plate_h": 11,
+   "letter_x": 78,
+   "letter_y": 16,
+   "letter_w": 3
+  },
+  {
+   "name": "M",
+   "solo": false,
+   "text_x": 39,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 73,
+   "plate_y": 14,
+   "plate_w": 13,
+   "plate_h": 11,
+   "letter_x": 76,
+   "letter_y": 16,
+   "letter_w": 7
+  },
+  {
+   "name": "W",
+   "solo": false,
+   "text_x": 39,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 73,
+   "plate_y": 14,
+   "plate_w": 13,
+   "plate_h": 11,
+   "letter_x": 76,
+   "letter_y": 16,
+   "letter_w": 7
+  },
+  {
+   "name": "Z",
+   "solo": false,
+   "text_x": 40,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 74,
+   "plate_y": 14,
+   "plate_w": 11,
+   "plate_h": 11,
+   "letter_x": 77,
+   "letter_y": 16,
+   "letter_w": 5
+  },
+  {
+   "name": "AA",
+   "solo": false,
+   "text_x": 36,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 70,
+   "plate_y": 14,
+   "plate_w": 18,
+   "plate_h": 11,
+   "letter_x": 73,
+   "letter_y": 16,
+   "letter_w": 12
+  },
+  {
+   "name": "AI",
+   "solo": false,
+   "text_x": 38,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 72,
+   "plate_y": 14,
+   "plate_w": 15,
+   "plate_h": 11,
+   "letter_x": 75,
+   "letter_y": 16,
+   "letter_w": 9
+  },
+  {
+   "name": "IE",
+   "solo": false,
+   "text_x": 38,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 72,
+   "plate_y": 14,
+   "plate_w": 14,
+   "plate_h": 11,
+   "letter_x": 75,
+   "letter_y": 16,
+   "letter_w": 8
+  },
+  {
+   "name": "MM",
+   "solo": false,
+   "text_x": 35,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 69,
+   "plate_y": 14,
+   "plate_w": 20,
+   "plate_h": 11,
+   "letter_x": 72,
+   "letter_y": 16,
+   "letter_w": 14
+  },
+  {
+   "name": "WW",
+   "solo": false,
+   "text_x": 35,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 69,
+   "plate_y": 14,
+   "plate_w": 20,
+   "plate_h": 11,
+   "letter_x": 72,
+   "letter_y": 16,
+   "letter_w": 14
+  },
+  {
+   "name": "ZZ",
+   "solo": false,
+   "text_x": 37,
+   "text_y": 15,
+   "text_w": 30,
+   "plate_x": 71,
+   "plate_y": 14,
+   "plate_w": 16,
+   "plate_h": 11,
+   "letter_x": 74,
+   "letter_y": 16,
+   "letter_w": 10
+  }
+ ]
+}

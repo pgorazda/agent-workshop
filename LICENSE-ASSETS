@@ -1,0 +1,39 @@
+Agent Workshop: art
+
+Copyright (c) 2026 Pawel Gorazda. All rights reserved.
+
+
+THE ART
+
+The MIT license in LICENSE covers the code of this repository, except the
+files listed here. These files are the art of Agent Workshop: its look and its
+sound, made by code, and the images made from them. They are not licensed
+under the MIT license or under any other license.
+
+  godot/art/              the art of the Godot client: the palette, the penguin
+                          and its cap, the props, the room, the effects and
+                          the interface, drawn by code; the music and the event
+                          sounds, made by code; and the images and sounds made
+                          by the art code, kept as files
+  docs/images/            preview images made with the Godot client
+  web/src/view2d/art/     the art of a browser client's 2D view, if one is ever
+                          built
+
+Images, video, sound and other output made with these files, such as the clips
+that godot/tools/record.mjs writes, are covered in the same way.
+
+You may view these files in this repository. You may not copy, change,
+publish or otherwise use them, or works made from them, without written
+permission from the copyright holder.
+
+The look is inspired by the rogatywka, the Krakow cap, and by Polish folk
+art: the painted flowers of Zalipie, folk painting from Lipnica Murowana,
+Boleslawiec pottery and kilim rugs. The motifs are drawn from scratch in
+simple shapes; no existing design was copied.
+
+The fonts Tiny5 and Silkscreen are not part of these files. They are
+installed from npm and are under the SIL Open Font License 1.1.
+
+
+To ask for permission, contact the copyright holder, for example through an
+issue in this repository.

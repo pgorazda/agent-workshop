@@ -1,0 +1,88 @@
+{
+  "note": "Fixed snapshot made from the JavaScript mockup at commit 1e6531a128cdf339385c0ef5df27cf8d3d3eceab (removed, see the git history). No tool makes it again. What the mockup decided for each scene with arenas: the arena of each agent, when arenas opened and closed, and the camera log. test_scene_camera.gd compares the client with it.",
+  "arenas": {
+    "duration": 43, "agents": 9,
+    "arenas": {"1":"A","2":"A","3":"A","4":"A","5":"B","6":"B","7":"B","8":"B","9":"C"},
+    "opened": [{"letter":"A","t":0},{"letter":"B","t":7},{"letter":"C","t":26}],
+    "closed": [],
+    "camera_log": [
+      {"t":7,"to":"B","why":"pull:open"},
+      {"t":9.666666666666666,"to":"A","why":"pull:approval"},
+      {"t":16.633333333333333,"to":"B","why":"activity"},
+      {"t":21.5,"to":"A","why":"pull:done"},
+      {"t":24,"to":"B","why":"click"},
+      {"t":30.5,"to":"page 1","why":"tab"},
+      {"t":34,"to":"C","why":"click"},
+      {"t":37.5,"to":"A","why":"pull:approval"}
+    ]
+  },
+  "many": {
+    "duration": 53, "agents": 34,
+    "arenas": {"1":"A","2":"A","3":"A","4":"A","5":"B","6":"B","7":"B","8":"B","9":"C","10":"C","11":"C","12":"C","13":"D","14":"D","15":"D","16":"D","17":"E","18":"E","19":"E","20":"E","21":"F","22":"F","23":"F","24":"F","25":"G","26":"G","27":"G","28":"G","29":"H","30":"H","31":"H","32":"H","33":"I","34":"I"},
+    "opened": [{"letter":"A","t":0},{"letter":"B","t":-3},{"letter":"C","t":-3},{"letter":"D","t":-3},{"letter":"E","t":-3},{"letter":"F","t":-3},{"letter":"G","t":4},{"letter":"H","t":11},{"letter":"I","t":22}],
+    "closed": [],
+    "camera_log": [
+      {"t":4,"to":"G","why":"pull:open"},
+      {"t":11,"to":"H","why":"pull:open"},
+      {"t":13.233333333333333,"to":"B","why":"pull:approval"},
+      {"t":17,"to":"page 1","why":"tab"},
+      {"t":18.5,"to":"page 2","why":"key"},
+      {"t":23.5,"to":"page 3","why":"key"},
+      {"t":25,"to":"I","why":"click"},
+      {"t":27,"to":"H","why":"key"},
+      {"t":30,"to":"A","why":"N"},
+      {"t":38.2,"to":"I","why":"pull:approval"},
+      {"t":41.733333333333334,"to":"D","why":"pull:done"},
+      {"t":46,"to":"page 1","why":"tab"},
+      {"t":47.5,"to":"page 3","why":"click"},
+      {"t":49.5,"to":"D","why":"esc"}
+    ]
+  },
+  "follow": {
+    "duration": 50, "agents": 33,
+    "arenas": {"1":"A","2":"A","3":"A","4":"A","5":"B","6":"B","7":"B","8":"B","9":"C","10":"C","11":"C","12":"C","13":"D","14":"D","15":"D","16":"D","17":"E","18":"E","19":"E","20":"E","21":"F","22":"F","23":"F","24":"F","25":"G","26":"G","27":"G","28":"G","29":"H","30":"H","31":"H","32":"H","33":"I"},
+    "opened": [{"letter":"A","t":0},{"letter":"B","t":-3},{"letter":"C","t":-3},{"letter":"D","t":-3},{"letter":"E","t":-3},{"letter":"F","t":-3},{"letter":"G","t":-3},{"letter":"H","t":-3},{"letter":"I","t":33}],
+    "closed": [],
+    "camera_log": [
+      {"t":2.6333333333333333,"to":"C","why":"pull:fail"},
+      {"t":4.633333333333333,"to":"H","why":"pull:join"},
+      {"t":6.833333333333333,"to":"E","why":"pull:done"},
+      {"t":8.833333333333334,"to":"B","why":"pull:approval"},
+      {"t":14.633333333333333,"to":"G","why":"pull:fail"},
+      {"t":26.9,"to":"D","why":"pull:approval"},
+      {"t":37,"to":"G","why":"N"},
+      {"t":44.833333333333336,"to":"I","why":"pull:approval"}
+    ]
+  },
+  "ten": {
+    "duration": 54, "agents": 157,
+    "arenas": {"1":"A","2":"A","3":"A","4":"A","5":"B","6":"B","7":"B","8":"B","9":"C","10":"C","11":"C","12":"C","13":"D","14":"D","15":"D","16":"D","17":"E","18":"E","19":"E","20":"E","21":"F","22":"F","23":"F","24":"F","25":"G","26":"G","27":"G","28":"G","29":"H","30":"H","31":"H","32":"H","33":"I","34":"I","35":"I","36":"I","37":"J","38":"J","39":"J","40":"J","41":"K","42":"K","43":"K","44":"K","45":"L","46":"L","47":"L","48":"L","49":"M","50":"M","51":"M","52":"M","53":"N","54":"N","55":"N","56":"N","57":"O","58":"O","59":"O","60":"O","61":"P","62":"P","63":"P","64":"P","65":"Q","66":"Q","67":"Q","68":"Q","69":"R","70":"R","71":"R","72":"R","73":"S","74":"S","75":"S","76":"S","77":"T","78":"T","79":"T","80":"T","81":"U","82":"U","83":"U","84":"U","85":"V","86":"V","87":"V","88":"V","89":"W","90":"W","91":"W","92":"W","93":"X","94":"X","95":"X","96":"X","97":"Y","98":"Y","99":"Y","100":"Y","101":"Z","102":"Z","103":"Z","104":"Z","105":"AA","106":"AA","107":"AA","108":"AA","109":"AB","110":"AB","111":"AB","112":"AB","113":"AC","114":"AC","115":"AC","116":"AC","117":"AD","118":"AD","119":"AD","120":"AD","121":"AE","122":"AE","123":"AE","124":"AE","125":"AF","126":"AF","127":"AF","128":"AF","129":"AG","130":"AG","131":"AG","132":"AG","133":"AH","134":"AH","135":"AH","136":"AH","137":"AI","138":"AI","139":"AI","140":"AI","141":"AJ","142":"AJ","143":"AJ","144":"AJ","145":"AK","146":"AK","147":"AK","148":"AK","149":"AL","150":"AL","151":"AL","152":"AL","153":"AM","154":"AM","155":"AM","156":"AM","157":"AN"},
+    "opened": [{"letter":"A","t":0},{"letter":"B","t":-3},{"letter":"C","t":-3},{"letter":"D","t":-3},{"letter":"E","t":-3},{"letter":"F","t":-3},{"letter":"G","t":-3},{"letter":"H","t":-3},{"letter":"I","t":-3},{"letter":"J","t":-3},{"letter":"K","t":-3},{"letter":"L","t":-3},{"letter":"M","t":-3},{"letter":"N","t":-3},{"letter":"O","t":-3},{"letter":"P","t":-3},{"letter":"Q","t":-3},{"letter":"R","t":-3},{"letter":"S","t":-3},{"letter":"T","t":-3},{"letter":"U","t":-3},{"letter":"V","t":-3},{"letter":"W","t":-3},{"letter":"X","t":-3},{"letter":"Y","t":-3},{"letter":"Z","t":-3},{"letter":"AA","t":-3},{"letter":"AB","t":-3},{"letter":"AC","t":-3},{"letter":"AD","t":-3},{"letter":"AE","t":-3},{"letter":"AF","t":-3},{"letter":"AG","t":-3},{"letter":"AH","t":-3},{"letter":"AI","t":-3},{"letter":"AJ","t":-3},{"letter":"AK","t":-3},{"letter":"AL","t":-3},{"letter":"AM","t":13},{"letter":"AN","t":40}],
+    "closed": [],
+    "camera_log": [
+      {"t":5.7,"to":"Z","why":"pull:approval"},
+      {"t":10.7,"to":"F","why":"pull:approval"},
+      {"t":14.2,"to":"AM","why":"pull:open"},
+      {"t":17,"to":"page 10","why":"tab"},
+      {"t":18,"to":"page 9","why":"key"},
+      {"t":18.7,"to":"page 8","why":"key"},
+      {"t":19.4,"to":"page 7","why":"key"},
+      {"t":20.1,"to":"page 6","why":"key"},
+      {"t":20.8,"to":"page 5","why":"key"},
+      {"t":21.5,"to":"page 4","why":"key"},
+      {"t":22.2,"to":"page 3","why":"key"},
+      {"t":22.9,"to":"page 2","why":"key"},
+      {"t":23.6,"to":"page 1","why":"key"},
+      {"t":25.5,"to":"page 4","why":"click"},
+      {"t":28,"to":"O","why":"click"},
+      {"t":31.5,"to":"AH","why":"N"},
+      {"t":36.2,"to":"C","why":"pull:approval"},
+      {"t":40,"to":"AN","why":"pull:open"},
+      {"t":44.333333333333336,"to":"K","why":"pull:done"},
+      {"t":49,"to":"page 3","why":"tab"},
+      {"t":50,"to":"page 4","why":"key"},
+      {"t":50.7,"to":"page 5","why":"key"},
+      {"t":51.4,"to":"page 6","why":"key"}
+    ]
+  }
+}

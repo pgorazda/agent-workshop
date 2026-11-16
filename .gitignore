@@ -1,0 +1,14 @@
+# Node
+node_modules/
+
+# OS
+.DS_Store
+Thumbs.db
+
+.claude/
+
+# Godot client
+godot/.godot/
+godot/.editor/
+godot/test-results/
+godot/out/

@@ -1,0 +1,18 @@
+{"ts":1767261600000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"session_start"}
+{"ts":1767261600500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"thinking"}
+{"ts":1767261601000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_start","id":"call_1","tool":"read_file","category":"read","target":"app.py"}
+{"ts":1767261601500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_end","id":"call_1","tool":"read_file","ok":true}
+{"ts":1767261602000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_start","id":"call_2","tool":"terminal","category":"exec","target":"rm -rf build"}
+{"ts":1767261602500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"waiting_permission","message":"recursive delete"}
+{"ts":1767261603000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_end","id":"call_2","tool":"terminal","ok":true}
+{"ts":1767261603500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_start","id":"call_3","tool":"terminal","category":"exec","target":"pytest -q"}
+{"ts":1767261604000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_end","id":"call_3","tool":"terminal","ok":false,"error":"exit code 1"}
+{"ts":1767261604500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_start","id":"call_4","tool":"delegate_task","category":"delegate","target":"Investigate the failing test"}
+{"ts":1767261605000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"subagent_start","id":"sess_child"}
+{"ts":1767261605500,"v":1,"framework":"hermes","session":"sess_1","agent":"sess_child","type":"tool_start","id":"call_5","tool":"search_files","category":"search","target":"fixture"}
+{"ts":1767261606000,"v":1,"framework":"hermes","session":"sess_1","agent":"sess_child","type":"tool_end","id":"call_5","tool":"search_files","ok":true}
+{"ts":1767261606500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"subagent_end","id":"sess_child"}
+{"ts":1767261607000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_end","id":"call_4","tool":"delegate_task","ok":true}
+{"ts":1767261607500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_start","id":"call_6","tool":"browser_navigate","category":"web","target":"https://example.com/docs"}
+{"ts":1767261608000,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"tool_end","id":"call_6","tool":"browser_navigate","ok":true}
+{"ts":1767261608500,"v":1,"framework":"hermes","session":"sess_1","agent":"main","type":"done"}

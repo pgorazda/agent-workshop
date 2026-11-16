@@ -1,0 +1,17 @@
+{"ts":1767261600000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"session_start"}
+{"ts":1767261600500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"thinking"}
+{"ts":1767261601000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"thinking"}
+{"ts":1767261601500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_start","id":"c1","tool":"read","category":"read","target":"app.py"}
+{"ts":1767261602000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_end","id":"c1","tool":"read","ok":true}
+{"ts":1767261602500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_start","id":"c2","tool":"edit","category":"write","target":"app.py"}
+{"ts":1767261603000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_end","id":"c2","tool":"edit","ok":true}
+{"ts":1767261603500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_start","id":"c3","tool":"bash","category":"exec","target":"pytest -q"}
+{"ts":1767261604000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_end","id":"c3","tool":"bash","ok":false,"error":"1 failed\n\nCommand exited with code 1"}
+{"ts":1767261604500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_start","id":"c4","tool":"subagent","category":"delegate","target":"Investigate the failure"}
+{"ts":1767261605000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"subagent_start","id":"c4"}
+{"ts":1767261605500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_end","id":"c4","tool":"subagent","ok":true}
+{"ts":1767261606000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"subagent_end","id":"c4"}
+{"ts":1767261606500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_start","id":"c5","tool":"grep","category":"search","target":"fixture"}
+{"ts":1767261607000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"tool_end","id":"c5","tool":"grep","ok":true}
+{"ts":1767261607500,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"error","message":"retry 1/3"}
+{"ts":1767261608000,"v":1,"framework":"pi","session":"pi-session-1","agent":"main","type":"done"}

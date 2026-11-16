@@ -1,0 +1,7 @@
+# Text files use LF on every system, so that the tests and the file hashes agree.
+* text=auto eol=lf
+*.png binary
+*.ogg binary
+*.wav binary
+*.ttf binary
+*.otf binary

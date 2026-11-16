@@ -1,0 +1,36 @@
+# Merge this `hooks:` block into ~/.hermes/config.yaml, and copy arena-hook.sh to
+# ~/.hermes/hooks/arena-hook.sh (make sure it is executable).
+#
+# Hermes asks for consent the first time it sees each (event, command) pair. In a non-interactive
+# run, start Hermes with --accept-hooks, or set HERMES_ACCEPT_HOOKS=1 or `hooks_auto_accept: true`.
+#
+# pre_llm_call is deliberately left out: its payload carries the whole conversation history.
+# The hook runs synchronously, so keep the timeout short.
+hooks:
+  on_session_start:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  pre_api_request:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  pre_tool_call:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  post_tool_call:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  pre_approval_request:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  subagent_start:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  subagent_stop:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  on_session_end:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
+  api_request_error:
+    - command: ~/.hermes/hooks/arena-hook.sh
+      timeout: 2
