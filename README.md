@@ -2,7 +2,7 @@
 
 Watch AI coding agents work as penguins in a pixel-art workshop.
 
-![The Godot client: thinking, the forge with a helper, waiting for approval, turn complete](docs/images/arena-2d-preview.png)
+![The Godot client: an agent thinks, uses the forge with a helper, waits for approval and completes its turn](docs/images/agent-workshop.gif)
 
 Agent activity (tool calls, subagents, permission prompts, errors) is turned into a small, framework-neutral event stream. A local bridge streams it to the Godot client, where a penguin walks between workshop stations and uses a different tool for each kind of work. Claude Code, OpenCode, Pi and Hermes Agent are supported through small adapters.
 
