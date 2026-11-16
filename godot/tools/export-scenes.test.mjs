@@ -1,5 +1,5 @@
 // Tests of the scene timelines in godot/demo/: they follow the event schema and the bridge validation, and they tell a
-// sensible story. The files are fixed snapshots made from the JavaScript mockup (see demo/README.md). No tool makes them again.
+// sensible story. The files are fixed: no tool makes them (see demo/README.md).
 
 import assert from 'node:assert/strict';
 import { readFileSync } from 'node:fs';

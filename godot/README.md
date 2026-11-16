@@ -3,14 +3,14 @@
 This folder holds the Godot client of Agent Workshop. It reads the event stream of the bridge and, in
 later phases, shows the workshop. The plan is in [`docs/godot-client-plan.md`](../docs/godot-client-plan.md).
 
-**State: phase G-10 (the JavaScript mockup is removed): see "Phase G-10" below. Phase G-9 (exports), for Windows only: see "Phase G-9" below. The app is built as one unsigned `.exe`, and Linux and macOS are postponed by the owner.** Phase G-8 (replay, recording and the tour): The client records every scene as a clip, with a recording mode, a Linux container, a check that two runs give the same frames, and the scene `tour` (see "Phase G-8" below). The app plays the sound files: a tune, event sounds, a sound switch in the top right with its menu, and the keys M and S (see "Phase G-7" below; nobody has listened to the sound yet, and all sound starts off). The app has its bar, cards, number chips, focus ring and label, notices, tabs, page boxes, follow
+**State: phase G-9 (exports), for Windows only: see "Phase G-9" below. The app is built as one unsigned `.exe`, and Linux and macOS are postponed by the owner.** Phase G-8 (replay, recording and the tour): The client records every scene as a clip, with a recording mode, a Linux container, a check that two runs give the same frames, and the scene `tour` (see "Phase G-8" below). The app plays the sound files: a tune, event sounds, a sound switch in the top right with its menu, and the keys M and S (see "Phase G-7" below; nobody has listened to the sound yet, and all sound starts off). The app has its bar, cards, number chips, focus ring and label, notices, tabs, page boxes, follow
 switch and menu, keys and mouse (see "Phase G-6" below). It shows the arenas of a live session through a camera that slides, flies, zooms and scrolls
 (see "Phase G-5" below). It reads the bridge, or it plays a made-up scene from `demo/` (see "Phase G-4" below). The rules of the arenas are ported to GDScript and
 tested against the JavaScript of the mockup (see "Phase G-1"). The pictures of the workshop are rendered to PNG files by
 the art code of the mockup, and a gallery shows them (see "Phase G-2"). The room, the stations and the spots are in
 "Phase G-3". The text view of the events (phase G-0) is still there as `src/main.tscn`.
 
-**The sections of the phases G-1 to G-9 below are the record of what was done then.** Where they name `tools/mockup-2d/`, `tools/dump-fixtures.mjs` or `tools/export-scenes.mjs`, those are gone: phase G-10 removed them (see "Phase G-10").
+**The sections of the phases G-1 to G-9 below are the record of what was done then.**
 
 ## Folders
 
@@ -292,7 +292,7 @@ sim.at(2.1)  # the frame nearest to a time
 
 ### Golden data
 
-These files are **fixed snapshots** made by the JavaScript mockup at commit `1e6531a128cdf339385c0ef5df27cf8d3d3eceab`, the last commit before its removal (phase G-10). No tool makes them again. `test/fixtures/README.md` says the same. Do not edit them by hand.
+These files are fixed. No tool makes them. `test/fixtures/README.md` says the same. Do not edit them by hand.
 
 | File | Content |
 |---|---|
@@ -305,7 +305,7 @@ mockup file that the data depend on (line ends count as LF). A camera run has a 
 so a frame is stored as the keys that changed since the frame before. Infinity is stored as the string `"Infinity"`.
 The files take about 1.8 MB together.
 
-The camera files were made with a browser: a small script wrapped `simulateCamera` in the mockup page and kept its arguments, and the JavaScript rules then ran on them in Node. That tool is gone.
+The camera files were made with a browser: a small script wrapped `simulateCamera` in the mockup page and kept its arguments, and the JavaScript rules then ran on them in Node.
 
 ## Sound files (spike S-4 and the render tool of phase G-7)
 
@@ -502,8 +502,8 @@ node tools/render-art.mjs --check               # renders twice, compares the tw
 
 | File | Content |
 |---|---|
-| `image_src/look.js` | The art code of the old mockup (`art/look.js`), moved here. It is the only copy since phase G-10. |
-| `image_src/base.js`, `effects_src.js` | Copies of what `look.js` needs from `base.js`, and of the cloud and the candle from `session-art.js` (since phase G-10 no test compares them with the mockup). |
+| `image_src/look.js` | The art code of the old mockup (`art/look.js`), moved here. It is the only copy. |
+| `image_src/base.js`, `effects_src.js` | Copies of what `look.js` needs from `base.js`, and of the cloud and the candle from `session-art.js`. |
 | `image_src/variants.js` | The variant table: every picture that the client may ask for (see below). |
 | `image_src/bake.js` | Runs in the baker page. It calls `look.js` for each entry of the table and checks the output. |
 | `images/*.png` | 13 files, 88 KB in all: five penguin sheets (one for each cord colour), `props.png`, `effects.png`, `glyphs.png`, and five rooms. |
@@ -533,7 +533,7 @@ The tests read it, and `atlas_data.gd` must hold exactly these names.
 | Glyphs | `glyph/<font>/U+XXXX` for the fonts `tiny5-8`, `silk-8` and `silk-16` | 116 for each font |
 
 * **Left is not baked.** The left view of a penguin is the right view, mirrored (`Atlas.draw(..., flip_h = true)`). The gallery has a page that shows this.
-* **Cord colours** are the four of `CORDS` of the old mockup (compared with it until phase G-10) and a grey `default` for an unknown framework. The grey is a choice of this phase (see "Open questions").
+* **Cord colours** are the four of `CORDS` of the old mockup and a grey `default` for an unknown framework. The grey is a choice of this phase (see "Open questions").
 * **Poses** come from the flipper switch and the side table of `penguin(o)`, and from the poses that the scenes use. `ANIMATIONS` lists the frames of each activity as the mockup plays them (walk, read, hammer, shovel, tap, wave, cheer, ...), so the actor of phase G-4 can name them. A test checks that every frame exists for every cord.
 * **Rooms.** `room()` draws the sign with `text()`. The letter of an arena changes, so the baked room has an empty sign board, and `room_art.gd` draws the text and the plate with the same arithmetic. The baker draws the full room as well, and **fails** if the baked room plus the sign is not the same picture, pixel for pixel. It checks 14 signs for each rug (the single room, single letters of every width, and double letters). A GUT test compares the layout in GDScript with the numbers of the browser.
 * The effects that depend on time (dust, sparks, smoke, confetti, the candle's flicker) are not baked. Phase G-4 draws them with `draw_kit.gd`.
@@ -614,7 +614,7 @@ What this leaves open: is a PNG atlas of glyphs a derivative of the fonts (a bit
 ## Open questions (phase G-2)
 
 1. **The OFL terms for `glyphs.png`** (see above). Decide whether the atlas is a derivative of the fonts. If yes: license the atlas under the OFL with the notices, or use Godot fonts, or draw a font of our own. This also changes the line about the fonts in `LICENSE-ASSETS`. The plan's question 4 asks the same. Nothing was changed in `LICENSE-ASSETS`: it already names `godot/art/`.
-2. **Where the fonts come from after the mockup is gone.** The baker finds them in `FONTSOURCE_DIR` or in `godot/node_modules/` (phase G-10 removed `tools/mockup-2d/node_modules/`). The proposal: add `@fontsource/tiny5` and `@fontsource/silkscreen` (version 5.3.0) as `devDependencies` of `godot/package.json` and a lock file. This was not done here, because it changes the package files.
+2. **Where the fonts come from.** The baker finds them in `FONTSOURCE_DIR` or in `godot/node_modules/`. The proposal: add `@fontsource/tiny5` and `@fontsource/silkscreen` (version 5.3.0) as `devDependencies` of `godot/package.json` and a lock file. This was not done here, because it changes the package files.
 3. **The grey cord for an unknown framework** (`#9aa6b5`, the grey of the palette). It is my choice. The mockup has no such cord.
 4. **Which environment renders the official `glyphs.png`.** It depends on the browser's text rasterizer (see S-3). The proposal: the container of phase G-8, and a note of its image version in this README.
 5. **Polish in Silkscreen.** Accept the deviations, or use Tiny5 for text that can hold Polish letters.
@@ -643,10 +643,10 @@ events (phase G-4).
 
 ### The stand points: pixels, and how they relate to the metre table
 
-The stand points are the `PTS` of the JavaScript mockup (removed in phase G-10, see the git history), in room pixels. The room picture is 480x232 pixels, and the
+The stand points are the `PTS` of the JavaScript mockup in room pixels. The room picture is 480x232 pixels, and the
 bar of the interface will use the 38 rows below it. The points are the reference for the look. `stations.gd` has them
 under the same names (`map`, `shelf`, `benchL`, `benchR`, `forge`, `forge2`, `seat`, `chairFront`, `desk`, `sign`, `scope`,
-`odd`, `spotA`, `spotB`, `forgeQ`, `signQ`, ...). A GUT test compares every point with a frozen copy of that table (phase G-10).
+`odd`, `spotA`, `spotB`, `forgeQ`, `signQ`, ...). A GUT test compares every point with a copy of that table.
 
 The client plan also has a station table in metres. `stations.gd` keeps it (`FLOOR_METRES`) and a small `project()` with the
 numbers of the 2D view plan (screen x = 240 + 28 x, screen y = 138 - 11 z). **The pixel points win. No code derives a stand
@@ -666,7 +666,7 @@ nearest pixel spot of its station, and fails above 45 px (about 1.6 m):
 | other | (44, 160) | odd (74, 160) | 30.0 |
 
 Why keep `project()` at all: the actor of phase G-4, or a later 3D view, may start from floor positions. It is a few lines and it
-has tests. If nobody uses it by phase G-10, remove it with `FLOOR_METRES`. The mockup's points were tuned by eye on the
+has tests. If nobody uses it, remove it with `FLOOR_METRES`. The mockup's points were tuned by eye on the
 picture, and the metre table came from a rule ("2.2 m in front of the prop"). That is why they differ.
 
 ### Spots and the queue (`spots.gd`)
@@ -729,7 +729,7 @@ I made mockup stills of the default scene (`record.mjs --stills 0,2.9,3,4.2,6.6,
   of its animation. The mockup shows another frame of the animation at the time of its still. The shadow is the same. The
   penguin in the armchair sits between the chair back and the chair front. I did **not** compare the telescope penguin (full size),
   the odd jobs penguin and the second spots (`benchR`, `forge2`, `spotA`, `spotB`) with a still of the mockup, because the
-  default scene never puts a full-size penguin there. They use the same coordinates (a test checks them against the frozen table of the mockup),
+  default scene never puts a full-size penguin there. They use the same coordinates (a test checks them against the table of the mockup),
   and the pictures look right.
 * **Differences that are not mistakes:**
   1. The default scene of the mockup has the workbench penguin at x = 240 (`PT.bench` in `session.js`). The room view uses
@@ -1933,7 +1933,6 @@ Run on 2026-11-16, Windows 11, Node 24 (from VS Code's Electron), Godot 4.7.2:
 3. **The tour as a product** (open question 6 of the plan). It plays in the client and records. Should it ship, or stay a mockup aid?
 4. **Clips from the container or from a GPU machine?** They are not equal to the last bit (see "The same frames on every run"). The plan says official clips come from the container.
 5. **ffmpeg.** It is not on this machine. The recorder works without it and writes the command. Should the repository document a pinned ffmpeg, or only "ffmpeg with libx264 and AAC on the PATH"?
-6. **The mockup's clips in `docs/images/`.** G-10 needs the preview images and the README to come from the Godot recorder. The recorder is ready. The pictures for the README were not made here.
 
 
 ## Phase G-9: exports (Windows)
@@ -2057,49 +2056,6 @@ Why: an empty Godot project in the editor build costs 6.4 % at 30 fps and 193 MB
 6. **When to build Linux and macOS.** The owner postponed them. The tool and the presets are ready.
 
 
-
-## Phase G-10: the mockup is removed
-
-The JavaScript mockup (`tools/mockup-2d/`) is deleted. It is in the git history, at commit `1e6531a128cdf339385c0ef5df27cf8d3d3eceab` and before. The plan is `docs/godot-client-plan.md`, row G-10 and "The two code bases".
-
-### What was done
-
-1. **The six preview images in `docs/images/` come from the Godot client.** They have the same names and show the same moments as the old ones (the captions of the README and of `docs/2d-arenas-plan.md` and `docs/2d-view-plan.md` name them). Each is 1920x1080: a sheet of four stills (2x2, each still scaled by 2 with no smoothing), or one still scaled by 4 (`arena-2d-multi-agent.png`). The stills came from `node tools/record.mjs --scene <name> --stills <seconds,...> --no-switch`. A small script outside the repository joined them. The moments (seconds):
-
-   | Image | Scene | Moments |
-   |---|---|---|
-   | `arena-2d-preview.png` | `session` | 7, 14.4, 22.5, 25.5 |
-   | `arena-2d-multi-agent.png` | `multi` | 19.5 |
-   | `arena-2d-arenas.png` | `arenas` | 7.4, 10.6, 27.5, 31.5 |
-   | `arena-2d-many-arenas.png` | `many` | 4.4, 22.3, 24, 48 |
-   | `arena-2d-ten-pages.png` | `ten` | 5.2, 9.2, 17.5, 31 |
-   | `arena-2d-follow-switch.png` | `follow` | 3.1, 9.7, 19.5, 42.6 |
-
-   I looked at each image. They show the right thing in each cell. **Differences from the old images:** the client's one-agent room has no "APPROVAL NEEDED" notice and no "TURN COMPLETE!" ribbon (the log says WAIT and "Turn complete"); the light says "demo" and not "online"; the follow switch shows its ticked kinds as marks, and says AUTO or MANUAL only in the old images; the pointer and the key caps (TAB, RIGHT) are drawn, because recording mode draws them (the old images had them in some cells only); the moments of flies and slides are a little different from the mockup's, because the client's actors walk at their own speed (phase G-5). `--no-switch` hides the sound switch, which the old images did not have. The captions that the plans give were changed to say "Godot client".
-2. **The generated data are frozen.** `dump-fixtures.mjs --scenes` and `export-scenes.mjs` ran one last time (Playwright with an installed Chrome). The output equalled the committed data: the six `demo/*.json` files, `scene-reference.json` and the golden data are the same. Only the commit id in the provenance of the golden data changed (from `ae8dd5d` to `1e6531a`, the last commit that changed the mockup; its source hashes did not change), so the new files were kept. The note of each golden file now says that it is a fixed snapshot. `test/fixtures/README.md` and `demo/README.md` say that no tool makes these files again.
-3. **The tests and the tools do not read the mockup.**
-   * `tools/parity.test.mjs` reads a fixed list of the 34 titles (`test/fixtures/arena-rules-test-titles.json`, made from the old test file) and still checks that each title has a counterpart in `test_arena_rules.gd`.
-   * `test_stations.gd` has the `PTS` table of the mockup as a frozen constant. One check was dropped: that the spot names appear in `crowd.js` (it compared two copies).
-   * `art-render.test.mjs` lost the checks that `look.js`, `base.js` and `effects_src.js` equal the mockup's files, and the checks of the cord and rug colours against the mockup. `art/image_src/` is the only copy now.
-   * `export-scenes.test.mjs` keeps the schema and bridge validation of the scene files, the story checks and the tour checks. It lost the checks that the files equal what the mockup gives. `record.test.mjs` compares the recorder's scene list with the files in `demo/`.
-   * `render-art.mjs`, `render-sound.mjs` and `record.mjs` do not look into `tools/mockup-2d/`. The fonts for `render-art.mjs` come from `FONTSOURCE_DIR` or `godot/node_modules/`.
-   * `dump-fixtures.mjs`, `export-scenes.mjs` and `dump-fixtures.test.mjs` are deleted.
-   * Comments in the code that named mockup paths now say "the JavaScript mockup (removed, see the git history)". The comments that explain where a number comes from stay.
-   * The comments in `art/image_src/` changed, so the hashes of those sources changed. `node tools/render-art.mjs` ran again: the 14 PNG files and `MANIFEST.txt` are byte for byte the same, and `art_variants.json` has the new source hashes.
-4. **The folder is deleted** (`git rm -r tools/mockup-2d`). Before that, all Godot tests ran with the folder renamed.
-5. **Other files:** `LICENSE-ASSETS`, `CLAUDE.md`, `.gitignore`, the root `README.md` and the plans in `docs/`.
-
-### What the owner accepted
-
-The reference laptop is not measured, and the budgets are proposals. The font licence question for the glyph atlas is undecided. Tablets, Linux and macOS are postponed. The owner listened to the sound and found it fine. See "The two code bases" in the plan.
-
-### What was checked, and what was not
-
-See the numbers in the report of the phase. The images were made on Windows with a GPU, so they are not equal to the last bit to images from the Linux container (see "The same frames on every run" in phase G-8). **Not checked:** the images in the Linux container; a render of the sound files (`render-sound.mjs --check`) after the change of its comments (the files did not change, and the manifest check passes).
-
-### What cannot be made again
-
-The golden data and the scene files, the 34 test titles, the stand points of the mockup: they are copied values. If a rule of the client changes on purpose, change `src/core/arena_rules.gd` and the expected values by hand, with a comment that says why. The pictures and the sounds can still be rendered (`render-art.mjs`, `render-sound.mjs`).
 
 ## Open points
 

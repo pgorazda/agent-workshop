@@ -43,7 +43,7 @@ static func steps_at_frame(frame: int, fps: int) -> int:
 
 # ---------------------------------------------------------------- the scripted pointer, keys and menu
 
-## The place of a pointer on a path `[[t, x, y], ...]` at the time `t` (`cursorAt` of the JavaScript mockup, removed), or null before the first point and after the
+## The place of a pointer on a path `[[t, x, y], ...]` at the time `t` (`cursorAt` of the JavaScript mockup), or null before the first point and after the
 ## last. The pointer eases from point to point (smoothstep) and its place is rounded like `Math.round`.
 static func cursor_at(t: float, path: Array) -> Variant:
 	if path.size() < 2:

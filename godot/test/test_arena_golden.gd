@@ -1,6 +1,6 @@
 extends GutTest
 ## Golden data: the GDScript arena rules give the same results as the JavaScript reference.
-## The JavaScript mockup (removed, see the git history) ran its rules on a list of specs. This test runs the same specs through
+## The JavaScript mockup ran its rules on a list of specs. This test runs the same specs through
 ## `arena_rules.gd` and compares. Floats must agree within 1e-9.
 ## `test/fixtures/arena_rules.json` holds the specs of the 34 cases and more. `camera-<scene>.json` holds the
 ## camera input of one scene of the mockup and the camera log and frames of the JavaScript.

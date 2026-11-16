@@ -1,7 +1,7 @@
 // Parity test: every case of the old JavaScript arena-rules tests has a counterpart in the GDScript tests.
 //
 // `test/fixtures/arena-rules-test-titles.json` is a fixed list of the 34 test titles of the JavaScript
-// mockup (removed, see the git history). `godot/test/test_arena_rules.gd` ports them. Above each GDScript
+// mockup. `godot/test/test_arena_rules.gd` ports them. Above each GDScript
 // test, a comment `# JS: <exact title of the JavaScript test>` names its source.
 // This test fails when a title has no counterpart, when a comment names a title that is not in the list,
 // or when the order or the number differs. No case can be dropped without notice.

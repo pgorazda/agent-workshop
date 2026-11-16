@@ -5,7 +5,7 @@ extends RefCounted
 ## table gives the station "other", as an unknown category does in `event.gd`.
 ##
 ## Where a penguin stands is a pixel point in the room picture (480x232 pixels). The points are the `PTS` of the
-## JavaScript mockup (removed, see the git history) and they are the reference for the look. The station table of the client plan
+## JavaScript mockup and they are the reference for the look. The station table of the client plan
 ## gives the same places in metres. `project()` turns metres into room pixels, and a test shows how far it is from the
 ## pixel points. The points win: no code derives a stand point from the metres. See `godot/README.md`, "Phase G-3".
 ##
@@ -19,7 +19,7 @@ const ROOM_SIZE := Vector2i(480, 232)
 const PROJECTION_ORIGIN := Vector2(240.0, 138.0)
 const PROJECTION_SCALE := Vector2(28.0, 11.0)
 
-## The stand points, in room pixels. The names and values are those of `PTS` of the JavaScript mockup (removed). A test keeps them.
+## The stand points, in room pixels. The names and values are those of `PTS` of the JavaScript mockup. A test keeps them.
 ## `door` and `out` are the way out of the room. `helperPop` is where a helper appears. `rug` and `stage` are in
 ## the open floor: `stage` is where a penguin celebrates.
 const POINTS: Dictionary = {

@@ -1,9 +1,6 @@
 # Test fixtures
 
-Some of these files are fixed snapshots. The JavaScript mockup made them at commit
-`1e6531a128cdf339385c0ef5df27cf8d3d3eceab`. That is the last commit before the mockup was removed.
-The mockup is in the git history, in `tools/mockup-2d/`. No tool makes these files again.
-Do not edit them by hand.
+Some of these files are fixed. No tool makes them. Do not edit them by hand.
 
 | File | What it is |
 |---|---|
@@ -15,7 +12,7 @@ Do not edit them by hand.
 | `*.events.jsonl`, `expected-trace.json` | The example sessions as canonical events, and the expected visits. These are not from the mockup. `node tools/example-events.mjs` makes the events again. |
 
 The first four rows come from the mockup. Each file with a `provenance` field names the commit
-and the SHA-256 hash of each mockup source file. The hashes are those at that commit.
+and the SHA-256 hash of each mockup source file.
 
 If a rule changes in the future, change `src/core/arena_rules.gd` and write the new expected
 values by hand, with a comment that says why. Do not try to run the old JavaScript again.

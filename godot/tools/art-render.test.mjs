@@ -6,8 +6,7 @@
 // With CHROMIUM_PATH set (and Playwright and the fonts found, see render-art.mjs) it also renders the pictures again:
 // two runs give the same bytes, and the pixels equal the committed files.
 //
-// The art sources in art/image_src/ started as copies of files of the JavaScript mockup (removed in phase G-10, see the
-// git history). They are the only copy now, so no test compares them with the mockup.
+// The art sources in art/image_src/ are the only copy of the art code, so no test compares them with another file.
 
 import { test } from 'node:test';
 import assert from 'node:assert/strict';

@@ -1,6 +1,6 @@
 #!/usr/bin/env node
 // Records a scene of the Godot client, frame by frame, and encodes it with ffmpeg (phase G-8). It is the counterpart of the
-// recorder of the old JavaScript mockup (removed, see the git history) and keeps its options.
+// recorder of the old JavaScript mockup and keeps its options.
 //
 //   cd godot
 //   node tools/record.mjs                          # out/session.mp4 (1920x1080, about 28 s)

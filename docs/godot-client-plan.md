@@ -1,6 +1,6 @@
 # Plan: the Godot client
 
-**State: phases G-0 to G-10 are done (G-4 to G-10 on 2026-11-16, the others on 2026-11-15). G-9 is done for Windows only: the owner postponed the Linux and macOS exports, and tablets. G-10 removed the JavaScript mockup; it is in the git history. The owner waived some conditions of that removal (see "The two code bases"). The owner listened to the sound and found it fine.** The rest is a plan. The decision is ADR 0008 (accepted on 2026-11-15). It replaces the drawing technology of the browser client (ADR 0002 and ADR 0003) with a Godot 4 project. The look (ADR 0004), the license split (ADR 0006) and the sound made by code (ADR 0007) stay as the source of the art. The client plays the result as image and sound files, which the old code renders at build time. The rules of the [2D view](2d-view-plan.md) and of the [arenas](2d-arenas-plan.md) stay too. This plan changes only how the client is built.
+**State: phases G-0 to G-9 are done (G-4 to G-9 on 2026-11-16, the others on 2026-11-15). G-9 is done for Windows only: the owner postponed the Linux and macOS exports, and tablets. The owner listened to the sound and found it fine.** The rest is a plan. The decision is ADR 0008 (accepted on 2026-11-15). It replaces the drawing technology of the browser client (ADR 0002 and ADR 0003) with a Godot 4 project. The look (ADR 0004), the license split (ADR 0006) and the sound made by code (ADR 0007) stay as the source of the art. The client plays the result as image and sound files, which the old code renders at build time. The rules of the [2D view](2d-view-plan.md) and of the [arenas](2d-arenas-plan.md) stay too. This plan changes only how the client is built.
 
 ## Goal
 
@@ -32,16 +32,16 @@ Not in scope: changes to the schema, the adapters or the bridge, a 3D view, and 
 
 ## What already exists
 
-This table describes the state before phase G-0. The JavaScript mockup is removed now (phase G-10). Its files are in the git history.
+This table describes the state before phase G-0.
 
 | Piece | Where it is now | What to do with it |
 |---|---|---|
 | Event stream | Bridge, `WS /ws`. Each connection first gets `{"v":1,"type":"hello"}`. The bridge keeps no history for late clients | Use as it is |
 | Event schema | [`schema/event.schema.json`](../schema/event.schema.json) | Read the same fields. Keep the enums in step (a test) |
 | Example sessions | [`schema/examples/`](../schema/examples/) and `npm run replay` in `bridge/` | Fixtures for tests and for the replay check |
-| Arena rules, with no drawing, and their 34 tests | `arena-rules.js` and `arena-rules.test.mjs` of the mockup (removed in G-10) | Port to GDScript with the same cases |
-| Drawing and sound code (about 120 KB of JavaScript) | The art code of the mockup (removed in G-10) | Move `look.js` and `sound.js` to `godot/art/` as the source that renders image and sound files. Port the code that draws each frame (effects, interface) to GDScript |
-| Scripted scenes, recorder, tests | The mockup (removed in G-10) | Scenes become data. The recorder gets a Godot counterpart |
+| Arena rules, with no drawing, and their 34 tests | `arena-rules.js` and `arena-rules.test.mjs` of the mockup | Port to GDScript with the same cases |
+| Drawing and sound code (about 120 KB of JavaScript) | The art code of the mockup | Move `look.js` and `sound.js` to `godot/art/` as the source that renders image and sound files. Port the code that draws each frame (effects, interface) to GDScript |
+| Scripted scenes, recorder, tests | The mockup | Scenes become data. The recorder gets a Godot counterpart |
 | The behaviour modules (event parsing, director, actor, clock, bridge client, timeline player) | Only planned: [the client plan](browser-client-plan.md) and [the demo mode plan](demo-mode-plan.md). **Not written in any language** | Write them in GDScript, from those designs |
 
 The last row matters. The mockup does not read events. It plays hand-written timelines, and every frame is a function of the time (`renderAt(t)`). The Godot client must be event-driven, with a state that moves forward. So the choreography of `crowd.js` is not ported. It is written again as a live actor (see choice 5).
@@ -230,7 +230,7 @@ Decided on 2026-11-15: the client plays **audio files**, and the existing JavaSc
 
 1. **The files.** Four tunes and five event sounds (a hammer's tink, the desk bell, a flop, a chime, a fanfare) in `godot/art/sound/`. A tune is rendered for one whole loop. The loop includes the change of the lead's sound on every second round.
 2. **The renderer.** `godot/tools/render-sound.mjs` opens the synthesiser in headless Chromium, as the recorder does, and calls its offline render (`OfflineAudioContext`) once for each tune and each sound. Noise is seeded, so a render is the same every time. The tool prints the peak and the RMS level of each file, and fails on silence or clipping.
-3. **The source moves.** In phase G-7, a copy of the mockup's `sound.js` goes to `godot/art/sound_src/sound.js`, with its header. The files can then be rendered again after the mockup is gone. The sound is the same as the mockup's, because the same code makes it.
+3. **The source moves.** In phase G-7, a copy of the mockup's `sound.js` goes to `godot/art/sound_src/sound.js`, with its header. The files can then be rendered again without the mockup. The sound is the same as the mockup's, because the same code makes it.
 4. **Format and size.** The format is WAV (decided on 2026-11-15). WAV loops exactly. It is large: one minute at 44.1 kHz, mono, 16 bits is about 5 MB, so four tunes may take about 20 MB at that rate. At 22.05 kHz it is about half, and chiptune sound may not need more (a listening check). Proposed budget: 10 MB for all files. Spike S-4 measures the real loop lengths and picks the sample rate. Each new render adds its full size to the git history, so render rarely.
 5. **The manifest.** `godot/art/MANIFEST.txt` lists the SHA-256 hash of each file (images and sounds). The license test checks it. A rendered file is never edited by hand.
 6. **Playing** (done in G-7). One looping player for the tune and a small pool of four for event sounds, with a hard limiter on the master bus and the tune at -3 dB (the files carry their own limiter, and a tune and an event sound can add up above full scale). Sound starts off. `core/sound_model.gd` decides which event plays which sound (unit tests). The chime and the fanfare sound from every arena. The other event sounds come only from the arena the camera rests on (the rule of the 2D view plan).
@@ -304,7 +304,7 @@ How to measure: `tools/benchmark.mjs` starts the client, plays a replayed sessio
 
 ## Phases
 
-Each phase is one pull request and leaves every test green. The mockup does not change until G-10, except for fixes to its rules (see "The two code bases"). The tools that read from it live in `godot/tools/`.
+Each phase is one pull request and leaves every test green. The mockup does not change, except for fixes to its rules. The tools that read from it live in `godot/tools/`.
 
 | Phase | Content | Done when |
 |---|---|---|
@@ -318,7 +318,6 @@ Each phase is one pull request and leaves every test green. The mockup does not 
 | G-7. Sound (done 2026-11-16, **except the listening**: no person has heard the files, the players or the limiter; see `godot/README.md`, "Phase G-7") | Spike S-4. `tools/render-sound.mjs` and the moved `sound_src/sound.js`. The rendered files and `MANIFEST.txt`. `sound_model.gd`, the players, the sound switch and menu. `LICENSE-ASSETS` names `godot/art/sound/` | The sound-model tests pass. The manifest check passes. The render tool reports no silence and no clipping. The players load and play every file under the dummy audio driver. Sound starts off and the keys work. The numbers for memory and CPU are written down. **A person listens to all four tunes and the five sounds** |
 | G-8. Replay, recording and the tour (done 2026-11-16) | Spike S-5. `tools/record.mjs`, the container, `--stills`. The `tour` scene. `npm run replay` through the bridge into the client | A replayed session plays and the penguin visits the stations in order. A scene recorded twice gives the same frames. All seven scenes record. **Checked on Windows with a GPU and in a Linux container (Docker); not on a real Linux host, on macOS, or with Podman.** Frames from the GPU and from the container differ by one level in some pixels; the sound is equal (see `godot/README.md`, "Phase G-8") |
 | G-9. Exports (done 2026-11-16 for Windows; Linux and macOS postponed by the owner) | Presets and scripts for Windows, macOS, Linux (Android, iOS and tablets are postponed; the web only if open question 10 allows). Unsigned builds first | The exports for Windows, macOS and Linux each connect to a real bridge and play a real session. **Windows: holds.** The unsigned `AgentWorkshop.exe` (115.7 MiB) connects to a real bridge, plays a replayed Claude Code session and the scene menu, and the icon and version information are set (screenshots looked at, on a fast machine; the release numbers and proposed budgets are in `godot/README.md`, "Phase G-9"). **Linux and macOS: not done.** The presets and the tool exist and are tested, but the owner postponed the builds. (Both were built once before the order arrived; Linux ran once in the G-8 container; macOS was never run. This is not a result.) |
-| G-10. Remove the mockup (done 2026-11-16) | Regenerate the six preview images in `docs/images/` with the Godot recorder. Freeze the golden data and the scene files, with a note of their origin. Make the tests and the tools independent of `tools/mockup-2d/`. Delete the folder. Update the README, `LICENSE-ASSETS`, `CLAUDE.md` and the other plans | The tests pass without `tools/mockup-2d/` (run with the folder renamed, then deleted). The images come from the Godot client. The owner waived some conditions: see "The two code bases". See `godot/README.md`, "Phase G-10" |
 
 Spikes are short experiments. Each one answers one question and ends with a note of the result in `godot/README.md`. A spike that fails sends the question back to the project owner before more code is written.
 
@@ -336,34 +335,6 @@ Notes on the order:
 * G-1 comes before the art because the rules need no screen, and the golden data find port errors early.
 * G-5 builds the incremental camera inside the phase and keeps the batch port as the oracle. The JavaScript batch camera knows the future: it reads when an approval ends (`until`). A live client does not. The incremental camera marks an approval open until the answer arrives. Both versions must agree on every fixture where the answer time is known.
 * The mockup's scenes tell a story. The Godot actor reacts to events and walks at its own speed, so its timings can differ from the scripted ones. The check is: the same moves, in the same order, with the same reasons, with times within 1 s of the mockup's camera log. Frame-by-frame equality is not a goal.
-
-## The two code bases
-
-From the day G-0 started until G-10 (2026-11-16), two code bases existed. Now one is left: the Godot client. This section tells what the rule was and what happened on the deletion.
-
-**The JavaScript mockup was a frozen reference.**
-
-* It got no new features and no new scenes.
-* A fix to `arena-rules.js` was copied to `arena_rules.gd` in the same pull request. The golden data were made again.
-* It was the source of golden data, art hashes and scene timelines, and its recorder made the clips for `docs/images/` until the Godot recorder was ready.
-* Its tests ran with `cd tools/mockup-2d && npm test`, next to `cd bridge && npm test`.
-
-**The conditions for the deletion, and how each one stood on 2026-11-16:**
-
-1. Every scene plays in the Godot client, with its phase check passed. **Held.**
-2. The ported tests and the golden data pass, and the parity test shows no missing title. **Held.**
-3. The Godot recorder makes all clips, and the preview images in `docs/images/` and the README come from it. **Held:** the six images were made again with `godot/tools/record.mjs --stills` (phase G-10).
-4. The performance target is met on the reference machine. **Waived by the owner.** The reference laptop (low-end, 8 GB) was not measured. The budgets in "Performance" are proposals, not decisions. The `ten` rule was met only on a fast machine with a discrete GPU.
-5. A real session ran on a desktop platform and on a tablet (the proof for ADR 0008). **Half held, half waived.** The desktop half held on Windows (phase G-9). Tablets are postponed, so the owner waived the tablet half. Linux and macOS builds are postponed too.
-6. A last run of `dump-fixtures.mjs` and `export-scenes.mjs` is committed. After the deletion the fixtures are fixed snapshots with a note of where they came from. **Held:** both tools ran a last time. The output equalled the committed data. Only the commit id in the provenance of the golden data changed, to `1e6531a128cdf339385c0ef5df27cf8d3d3eceab`, the last commit before the removal. Then both tools were deleted with their tests. `godot/test/fixtures/README.md` and `godot/demo/README.md` say that these files are fixed. The sound and the images can still be rendered, because `render-sound.mjs`, `sound_src/sound.js`, `render-art.mjs` and `image_src/look.js` live in `godot/`.
-
-**Other open points that the owner accepted at the removal (2026-11-16):**
-
-* The font licence question for the glyph atlas (open question 4, the OFL terms of Tiny5 and Silkscreen) is undecided.
-* The sound: the owner listened to the files and found them fine. The listening that phase G-7 left open is done.
-* The name "Agent Workshop" is no longer claimed as a trademark.
-
-**What changed on the deletion.** `LICENSE-ASSETS` dropped `tools/mockup-2d/art/`. `CLAUDE.md` lost the test line of the mockup, and rule 7 names `godot/art/` and later paths only. The README lost the section "2D mockup" and its status row, and it tells how to run the Godot client. The plans for the browser client, the 2D view, the arenas and the demo mode got a note that the Godot client builds them. The rules in the 2D view and arenas plans stay the specification. The links into `tools/mockup-2d/` became plain text. The browser client plan's origin and host checks for the bridge remain worth doing (ADR 0008 says so).
 
 ## Risks
 

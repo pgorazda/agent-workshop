@@ -1,5 +1,5 @@
 extends RefCounted
-## The random numbers of the mockup: mulberry32 (`mulberry32` of the JavaScript mockup, removed, see the git history).
+## The random numbers of the mockup: mulberry32 (`mulberry32` of the JavaScript mockup).
 ##
 ## The JavaScript works on 32-bit integers with `Math.imul` and `>>>`. GDScript integers have 64 bits.
 ## So this class keeps the state as an unsigned 32-bit number and masks every result.

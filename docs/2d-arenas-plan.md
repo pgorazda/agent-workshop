@@ -1,6 +1,6 @@
 # Plan: several arenas in the 2D view
 
-> **Note (phase G-10):** the Godot client builds this plan (see [the Godot client plan](godot-client-plan.md)). The rules in this plan stay the specification. The browser client is not built: ADR 0008 replaced it. The JavaScript mockup that played the scenes below was removed; it is in the git history. The Godot client plays the same scenes from `godot/demo/`, and the pictures below come from it.
+> **Note (phase G-10):** the Godot client builds this plan (see [the Godot client plan](godot-client-plan.md)). The rules in this plan stay the specification. The browser client is not built: ADR 0008 replaced it. The Godot client plays the same scenes from `godot/demo/`, and the pictures below come from it.
 
 **State: a plan. A mockup scene plays its rules (see "The scenes"); the view itself is not built.** The decision is ADR 0005 (proposed). It extends the [2D view plan](2d-view-plan.md) (ADR 0003) and keeps its look (ADR 0004).
 
@@ -18,7 +18,7 @@ Not in scope: a 3D view, changes to the schema, the adapters or the bridge, and 
 | Number chips, the focus and its auto/click switch (AUTO/MANUAL here), the cards, extra spots and the queue, stacked approval notices | The 2D view plan, "Several agents" (phase 2D-3); the mockup's `?scene=multi` | Keep, and apply them per arena |
 | The director: one penguin per agent, never removed, at most 12 penguins | The browser client plan, `director.js` | Two new settings (see Design) |
 | A demo with several agents | The demo mode plan, the `four-agents` scenario (phase 5c) | The browser test |
-| The rules of this plan, with no drawing, and their tests | `arena-rules.js` and `arena-rules.test.mjs` of the JavaScript mockup (removed, see the git history); ported to `godot/src/core/arena_rules.gd` and `godot/test/test_arena_rules.gd` | Start `arenas2d.js` and `camera2d.js` from them |
+| The rules of this plan, with no drawing, and their tests | `arena-rules.js` and `arena-rules.test.mjs` of the JavaScript mockup; ported to `godot/src/core/arena_rules.gd` and `godot/test/test_arena_rules.gd` | Start `arenas2d.js` and `camera2d.js` from them |
 
 ## What an arena is
 
@@ -461,7 +461,7 @@ Every number here is a guess. The Godot client uses them as they are (`DEFAULTS`
   * a tab's state: WAIT before FAIL, before running, before DONE, before idle, before empty.
 * **Browser test**, with `?demo=four-agents&arena-size=2` (needs the demo plan's phase 5c): two arenas open; an approval in the other arena brings the camera; a click on a tab moves the camera and switches to MANUAL; Tab shows the overview and Esc leaves it; there are no page errors.
 * `?arena-size=12` shows no list of arenas, as the one-room view.
-* The rules' tests were in the mockup (removed, see the git history). They are ported to `godot/test/test_arena_rules.gd`.
+* The rules' tests were in the mockup. They are ported to `godot/test/test_arena_rules.gd`.
 * The look test of ADR 0004 covers the new files.
 * **Screenshots** for a person to look at: halfway through a slide and through a fly, three tabs showing WAIT, FAIL and DONE, the page boxes, and the overview of a full page and of a page with free places.
 

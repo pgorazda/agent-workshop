@@ -8,7 +8,7 @@ extends RefCounted
 ## older. This class holds the stops and maps the clip time to the scene time. It has no state of the play and no drawing: the view
 ## keeps the clip time, and `art/tour_art.gd` draws a stop.
 ##
-## A stop is a Dictionary of the scene file (`demo/tour.json`, a fixed snapshot made from the JavaScript mockup):
+## A stop is a Dictionary of the scene file (`demo/tour.json`):
 ##   { at, kind: "event"|"thing"|"title", title, lines, dur, holes, heading?, centred?, box?, point? }
 ## `at` is the scene time, `dur` the length in clip seconds, `lines` the words (a line that starts with a quote mark and a space quotes the
 ## event), `holes` what stays lit. A hole is `{ rect }` or `{ ell }` (fixed places in the room or the bar), `{ agent: n }` (a penguin, with

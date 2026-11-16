@@ -30,7 +30,7 @@ func test_the_pose_and_direction_of_each_station() -> void:
 	var crowd: Array[Dictionary] = RoomView.standing_penguins("claude-code")
 	for i in crowd.size():
 		by_station[Stations.TABLE[i]["category"]] = crowd[i]
-	# the poses of the mockup (`act` of the JavaScript mockup, removed): the first frame of each activity
+	# the poses of the mockup (`act` of the JavaScript mockup): the first frame of each activity
 	assert_eq([by_station["read"]["dir"], by_station["read"]["pose"], by_station["read"]["flip"]], ["side", "read", true])
 	assert_eq([by_station["search"]["dir"], by_station["search"]["pose"], by_station["search"]["flip"]], ["side", "browse", false])
 	assert_eq([by_station["write"]["dir"], by_station["write"]["pose"]], ["back", "hammer"])

@@ -2,7 +2,7 @@ extends GutTest
 ## The sound cues of the actors (phase G-7): a hammer's tink at each stroke at the workbench, the desk bell when work is handed to a
 ## helper, a flop for a failed call, a chime when an agent starts to wait for approval, a fanfare for a finished turn. The actors say
 ## when, on the simulation clock. `core/sound_model.gd` decides whether a cue sounds (see `test_sound_model.gd`).
-## The expected times come from `soundCues` of the JavaScript mockup (removed).
+## The expected times come from `soundCues` of the JavaScript mockup.
 
 const Director := preload("res://src/core/director.gd")
 const Clock := preload("res://src/core/clock.gd")

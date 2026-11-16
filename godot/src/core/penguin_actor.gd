@@ -4,7 +4,7 @@ extends RefCounted
 ## The actor is an explicit state machine (choice 5 of the plan). It has a queue of events and a list of motion
 ## segments, and a step of the simulation clock moves them on. It uses no `await` and no generator, so a test can
 ## step it frame by frame. It does not draw: it exposes `position`, `facing` and `pose`, with the small values that
-## the picture needs (see the variables below). Numbers of time and speed come from the JavaScript mockup (removed, see the git history).
+## the picture needs (see the variables below). Numbers of time and speed come from the JavaScript mockup.
 ##
 ## The story, event by event (docs/2d-view-plan.md, choice 4, and the README "Event schema" table):
 ##   tool_start         walks to the station of its `category` and takes the pose there, until `tool_end`
@@ -23,7 +23,7 @@ const Event := preload("res://src/core/event.gd")
 const Stations := preload("res://src/core/stations.gd")
 const Data := preload("res://art/atlas_data.gd")
 
-# ---- times and speeds, from the JavaScript mockup (removed, see the git history)
+# ---- times and speeds, from the JavaScript mockup
 const WALK_SPEED := 150.0
 const HELPER_WALK_SPEED := 120.0
 const WALK_FRAME := 0.13
@@ -556,7 +556,7 @@ func _begin(segment: Dictionary, world: RefCounted) -> void:
 				world.effects.add("sparkle", world.now + float(entry[0]), at.x + float(entry[1]), at.y + float(entry[2]), 1.0, i)
 
 
-## The fanfare of a finished turn sounds this long after the cheer starts (`soundCues` of the JavaScript mockup, removed).
+## The fanfare of a finished turn sounds this long after the cheer starts (`soundCues` of the JavaScript mockup).
 const FANFARE_DELAY := 0.15
 
 

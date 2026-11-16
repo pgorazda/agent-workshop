@@ -23,7 +23,7 @@ const LIFE: Dictionary = {
 	"sparkle": 0.5,
 }
 
-## A failure shakes the room for this long, at most once in SHAKE_GAP seconds (`shakeAt` of the JavaScript mockup, removed).
+## A failure shakes the room for this long, at most once in SHAKE_GAP seconds (`shakeAt` of the JavaScript mockup).
 const SHAKE_TIME := 0.4
 const SHAKE_GAP := 1.0
 

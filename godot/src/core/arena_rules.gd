@@ -1,5 +1,5 @@
 extends RefCounted
-## The rules of the arenas, with no drawing in them. This is a port of the arena rules of the JavaScript mockup (removed, see the git history):
+## The rules of the arenas, with no drawing in them. This is a port of the arena rules of the JavaScript mockup:
 ## which arena an agent goes to, where the arenas are, and what the camera shows.
 ## The rules are in `docs/2d-arenas-plan.md`.
 ##

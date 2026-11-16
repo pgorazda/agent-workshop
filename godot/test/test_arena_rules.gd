@@ -1,5 +1,5 @@
 extends GutTest
-## The 34 cases of the arena-rules tests of the JavaScript mockup (removed, see the git history), in the same order.
+## The 34 cases of the arena-rules tests of the JavaScript mockup, in the same order.
 ## Above each test, `# JS: <title>` holds the exact title of the JavaScript test.
 ## `tools/parity.test.mjs` reads this file and the fixed list of titles in `test/fixtures/`, and fails when a title has no counterpart here.
 

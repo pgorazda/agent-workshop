@@ -12,7 +12,7 @@ const PROJECTION_TOLERANCE := 45.0
 ## Two stand points of different places are at least this far apart, so that penguins do not overlap.
 const MIN_DISTANCE := 16.0
 const LINE_PLACES_IN_ROOM := 4
-## The `PTS` table of the JavaScript mockup (removed, see the git history), frozen at commit 1e6531a. The stand points
+## The `PTS` table of the JavaScript mockup. The stand points
 ## in `stations.gd` must stay equal to it. A deliberate change to a point changes this table in the same step.
 const MOCKUP_POINTS: Dictionary = {
 	"map": Vector2i(96, 86), "shelf": Vector2i(66, 126), "benchL": Vector2i(222, 98), "benchR": Vector2i(258, 98),

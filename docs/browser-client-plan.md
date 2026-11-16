@@ -17,7 +17,7 @@ Not in scope: changes to the schema or the adapters, a 3D view (ADR 0003), navig
 | Event stream | bridge, `WS /ws` | Use as it is |
 | Event schema | [`schema/event.schema.json`](../schema/event.schema.json) | Parse the same fields |
 | Recorded sessions | [`schema/examples/`](../schema/examples/) | Fixtures for the tests |
-| The room, the penguin and its poses, the effects, the activity log, the rules for several agents and several arenas | The JavaScript mockup (removed, see the git history); now the Godot client in `godot/` | The 2D view; see the 2D view plan |
+| The room, the penguin and its poses, the effects, the activity log, the rules for several agents and several arenas | The JavaScript mockup; now the Godot client in `godot/` | The 2D view; see the 2D view plan |
 
 ## Design
 

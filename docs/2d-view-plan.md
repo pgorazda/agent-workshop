@@ -1,6 +1,6 @@
 # Plan: the 2D view of the browser client
 
-> **Note (phase G-10):** the Godot client builds this plan (see [the Godot client plan](godot-client-plan.md)). The rules in this plan stay the specification. The browser client is not built: ADR 0008 replaced it. The JavaScript mockup that is named below was removed; it is in the git history.
+> **Note (phase G-10):** the Godot client builds this plan (see [the Godot client plan](godot-client-plan.md)). The rules in this plan stay the specification. The browser client is not built: ADR 0008 replaced it.
 
 **State: a plan, nothing built yet.** The decisions are ADR 0003 (the view, proposed) and ADR 0004 (its look, accepted). It builds on the browser client of ADR 0002 and [its plan](browser-client-plan.md).
 
@@ -16,7 +16,7 @@ Not in scope: a 3D view, changes to the schema or the adapters, and bridge chang
 
 | Piece | Where it is now | What to do with it |
 |---|---|---|
-| The drawing code (see below) | The art code of the JavaScript mockup (removed, see the git history), about 680 lines | Now in `godot/art/` (see the Godot client plan) |
+| The drawing code (see below) | The art code of the JavaScript mockup, about 680 lines | Now in `godot/art/` (see the Godot client plan) |
 | Event parsing, the bridge client, the clock, the director, the actor, demo mode, the shared trace | The browser client plan (not built yet) | Use as they are |
 | The station table | The browser client plan, `stations.js` | Project it from above |
 
@@ -152,7 +152,7 @@ Each phase leaves every test green. The 2D view starts after phase 1 of the clie
 | 2D-1 | The projection, the room and the props from the station table, the log with the connection state | The page shows the room and `connected`; the projection tests pass |
 | 2D-2 | Penguins: sprites, directions, a picture per station, helpers, the flop and the celebration; the extra spots and the queue | The browser test follows the shared trace in the 2D view; the spot tests pass |
 | 2D-3 | The effects; the number chips, the focus and its switch, and the cards; the look test of ADR 0004 | The log, focus and card tests and the look test pass |
-| 2D-4 | Demo mode and recording in 2D; the README; ADR 0003 updated with what was verified; the JavaScript mockup deleted (done in phase G-10 of the Godot client plan) | A clip of the real 2D view against the real bridge |
+| 2D-4 | Demo mode and recording in 2D; the README; ADR 0003 updated with what was verified | A clip of the real 2D view against the real bridge |
 
 Several arenas come after 2D-3; their phases are in [the arenas plan](2d-arenas-plan.md).
 

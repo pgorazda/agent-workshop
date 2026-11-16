@@ -1,5 +1,5 @@
 extends GutTest
-## `rng.gd` gives the same numbers as `mulberry32` of the JavaScript mockup (removed, see the git history).
+## `rng.gd` gives the same numbers as `mulberry32` of the JavaScript mockup.
 ## `test/fixtures/rng.json` holds the first outputs of the JavaScript for some seeds, as 32-bit integers.
 
 const Rng := preload("res://src/core/rng.gd")

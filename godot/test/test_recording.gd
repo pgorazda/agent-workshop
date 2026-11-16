@@ -79,7 +79,7 @@ func test_the_pointer_rounds_like_math_round() -> void:
 
 
 func test_the_mockups_pointer_of_the_scene_multi_is_at_the_same_places() -> void:
-	# computed with cursorAt of the JavaScript mockup (removed) for the path of the scene multi
+	# computed with cursorAt of the JavaScript mockup for the path of the scene multi
 	var path: Array = [[21.9, 486, 214], [22.6, 232, 237], [23.4, 279, 255], [24.4, 279, 255], [25.2, 492, 268]]
 	assert_eq(Recording.cursor_at(22.25, path), Vector2i(359, 226))
 	assert_eq(Recording.cursor_at(23.0, path), Vector2i(256, 246))
