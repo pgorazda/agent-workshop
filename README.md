@@ -1,10 +1,14 @@
 # Agent Workshop
 
+[Polski](README.pl.md)
+
 Watch AI coding agents work as penguins in a pixel-art workshop.
 
 ![The Godot client: an agent thinks, uses the forge with a helper, waits for approval and completes its turn](docs/images/agent-workshop.gif)
 
 Agent activity (tool calls, subagents, permission prompts, errors) is turned into a small, framework-neutral event stream. A local bridge streams it to the Godot client, where a penguin walks between workshop stations and uses a different tool for each kind of work. Claude Code, OpenCode, Pi and Hermes Agent are supported through small adapters.
+
+This project is mostly for fun. It is a way to watch agents work, and it is not a monitoring tool. The look and the music come from Polish folk art and dances. See [The look and the sound](#the-look-and-the-sound).
 
 ```
 Claude Code hooks / OpenCode plugin / Pi extension or JSON stream / Hermes shell hooks / transcript replay
