@@ -1,17 +1,16 @@
 # Tests for every pull request and every push to main. The release workflow runs the same tests before it builds.
+# The job "All checks pass" (last in this file) is the one check that the ruleset of main requires.
 #
 # Actions are pinned to a commit. The comment gives the version. Dependabot (.github/dependabot.yml) updates both.
 
 name: CI
 
-# A change to documents only (Markdown files and docs/) starts no run: no test reads them. A release (workflow_call)
-# and a run by hand always run everything.
+# Every change runs everything, also a change to documents only. A required check that a path filter skips would stay
+# "pending" and block the merge.
 on:
   pull_request:
-    paths-ignore: ['**.md', 'docs/**']
   push:
     branches: [main]
-    paths-ignore: ['**.md', 'docs/**']
   workflow_call:
   workflow_dispatch:
 
@@ -151,3 +150,24 @@ jobs:
       # The GUT tests, then all Node tests. The test that renders the art again needs Chromium and is skipped here (no CHROMIUM_PATH).
       - run: npm test
         working-directory: godot
+
+  # The one check that the ruleset of main requires. It fails when any job above failed, was cancelled or was skipped, so a new
+  # job needs only a line in "needs", and the ruleset needs no change.
+  ci-ok:
+    name: All checks pass
+    if: always()
+    needs: [version, bridge, supply-chain, adapters, godot]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - name: Every job succeeded
+        env:
+          RESULTS: ${{ join(needs.*.result, ' ') }}
+        run: |
+          echo "Results: $RESULTS"
+          for r in $RESULTS; do
+            if [ "$r" != "success" ]; then
+              echo "::error::A job did not succeed."
+              exit 1
+            fi
+          done
