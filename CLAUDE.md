@@ -4,6 +4,8 @@ Agent Workshop shows AI coding agents at work as penguins in a pixel-art worksho
 
 ## Tests
 
+`mise run check` runs all of the checks below and the CI's other checks (`mise.toml`; `mise run check-fast` skips the Godot tests). Or one by one:
+
 ```bash
 cd bridge && cargo test                # the bridge (Rust)
 node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge (Node 22+)

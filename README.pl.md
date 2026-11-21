@@ -138,6 +138,21 @@ Pierwsze uruchomienie pobiera szablony eksportu (około 1,3 GB). Aplikacja przyj
 
 ### 4. Uruchom testy
 
+Z [mise](https://mise.jdx.dev) jedno polecenie uruchamia na Twoim komputerze kontrole z CI, bez pusha i bez podbijania wersji (`mise.toml` przypina Node 24 i Rusta oraz wymienia zadania):
+
+```bash
+mise install          # raz: Node i Rust w przypiętych wersjach
+mise run check        # version, fmt, clippy, testy bridge'a, testy adapterów, testy Godot (za pierwszym razem pobiera edytor Godot)
+mise run check-fast   # to samo bez testów Godot
+mise tasks            # wszystkie zadania
+mise run bridge       # uruchom bridge ze źródeł
+mise run app          # aplikacja Godot (najpierw uruchom bridge); dodatkowe argumenty po --, na przykład: mise run app -- --start-bridge=bridge/target/release/agent-workshop-bridge
+mise run replay       # zdarzenia dla aplikacji: odtwórz przykładową sesję Claude Code
+mise run demo         # aplikacja na wymyślonej scenie bez bridge'a (mise run demo arenas dla innej sceny)
+```
+
+Obejmuje system, na którym go uruchamiasz. Błąd, który występuje tylko w Windows lub Linuksie, pokaże CI. Bez mise polecenia są takie:
+
 ```bash
 cd bridge && cargo test               # the bridge: unit tests and tests with the real binary (also checks godot/test/fixtures)
 node --test 'adapters/test/*.test.mjs'             # the OpenCode plugin, the Pi extension and the Hermes script against the real bridge (Node 22 or later)
