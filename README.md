@@ -32,7 +32,7 @@ When one room gets full, more rooms (arenas) open next to it. One arena is on sc
 | Event schema v1 (`schema/`) | Done |
 | Bridge, adapters for Claude Code, OpenCode, Pi and Hermes, transcript replay (`bridge/`) | Done, covered by 45 automated tests |
 | OpenCode plugin, Pi extension, Hermes hook script (`adapters/`) | Written against the published type definitions, docs and source, tested with fixtures. **Not yet run inside a real OpenCode, Pi or Hermes** |
-| Godot client (`godot/`) | **Done for desktop: phases G-0 to G-9 of [the plan](docs/godot-client-plan.md).** It plays a live session from the bridge, with the arenas, the interface and the sound, and it plays seven made-up scenes with no bridge. `godot/tools/record.mjs` records each scene as a clip. `node godot/tools/export.mjs --platform windows` builds an unsigned Windows app. **Not done:** Linux and macOS builds, tablets and phones (all postponed), and a measurement on the low-end reference laptop. See [`godot/README.md`](godot/README.md) |
+| Godot client (`godot/`) | **Done for desktop: phases G-0 to G-9 of [the plan](docs/godot-client-plan.md).** It plays a live session from the bridge, with the arenas, the interface and the sound, and it plays seven made-up scenes with no bridge. `godot/tools/record.mjs` records each scene as a clip. `node godot/tools/export.mjs --platform all` builds unsigned apps for Windows, Linux and macOS, and the release workflow publishes them (see [`docs/releasing.md`](docs/releasing.md)). Only the Windows x86_64 app was run on real hardware. **Not done:** signing, tablets and phones (postponed), and a measurement on the low-end reference laptop. See [`godot/README.md`](godot/README.md) |
 | Browser client (`web/`) | **Not built.** ADR 0008 replaced it with the Godot client. [Its plan](docs/browser-client-plan.md), [the 2D view plan](docs/2d-view-plan.md), [the arenas plan](docs/2d-arenas-plan.md) and [the demo mode plan](docs/demo-mode-plan.md) stay as the specification of the look and the rules |
 
 The plans mention architecture decision records (ADRs) by number, for example ADR 0003. The ADRs are kept outside this repository.
@@ -115,10 +115,11 @@ cd godot && node tools/record.mjs --scene arenas      # out/arenas.mp4
 cd godot && node tools/record.mjs --scene multi --stills 19.5 --no-switch    # out/still-multi-19.5.png
 ```
 
-To get an app that runs with no editor (Windows only; unsigned):
+To get an app that runs with no editor (unsigned), download one from the releases page, or build it:
 
 ```bash
 cd godot && node tools/export.mjs --platform windows     # out/export/windows/AgentWorkshop.exe
+# also: windows-arm64, linux, linux-arm64, macos (universal: Intel and Apple silicon), all
 ```
 
 The first run downloads the export templates (about 1.3 GB). The app takes the same options as the editor, after `--`.

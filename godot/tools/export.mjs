@@ -5,12 +5,14 @@
 //   node tools/export.mjs --templates-only            # only get the export templates (about 1.3 GB download)
 //   node tools/export.mjs --platform windows          # out/export/windows/AgentWorkshop.exe
 //   node tools/export.mjs --platform linux            # out/export/linux/AgentWorkshop.x86_64
-//   node tools/export.mjs --platform macos            # out/export/macos/AgentWorkshop.zip (an .app inside)
-//   node tools/export.mjs --platform all
+//   node tools/export.mjs --platform macos            # out/export/macos/AgentWorkshop.zip (an .app inside, universal)
+//   node tools/export.mjs --platform windows-arm64    # out/export/windows-arm64/AgentWorkshop.exe
+//   node tools/export.mjs --platform linux-arm64      # out/export/linux-arm64/AgentWorkshop.arm64
+//   node tools/export.mjs --platform all              # all five
 //   options: --out <folder>  (default: out/export)   --debug  (a debug export instead of a release export)
 //
 // Export templates: the tool downloads the official archive `Godot_v<version>_export_templates.tpz` from godotengine.org, checks its
-// SHA-512 hash against the official SHA512-SUMS.txt of the release (the table below), and installs the templates that these three
+// SHA-512 hash against the official SHA512-SUMS.txt of the release (the table below), and installs the templates that the chosen
 // platforms need into the folder where the editor looks for them (`<user data>/Godot/export_templates/<version>.stable/`). The
 // archive stays in godot/.editor/ (git-ignored) until the install works, then the tool deletes it, because it is large.
 // If the templates are installed already, the tool downloads nothing.
@@ -38,21 +40,45 @@ export const TEMPLATE_ARCHIVES = {
   },
 };
 
-/** The export presets: the name in export_presets.cfg, the folder, the file name and the templates that the export needs. */
+/**
+ * The export presets: the name in export_presets.cfg, the file name and the templates that the export needs.
+ * `os` and `arch` name the app in a release file (see package.mjs). The macOS app is universal: it runs on Intel and on Apple silicon.
+ * The template names were checked in the file list of the official archive of 4.7.2.
+ */
 export const PLATFORMS = {
   windows: {
     preset: 'Windows Desktop',
     file: 'AgentWorkshop.exe',
+    os: 'windows',
+    arch: 'x86_64',
     templates: ['windows_release_x86_64.exe', 'windows_debug_x86_64.exe', 'windows_release_x86_64_console.exe', 'windows_debug_x86_64_console.exe'],
+  },
+  'windows-arm64': {
+    preset: 'Windows Desktop ARM64',
+    file: 'AgentWorkshop.exe',
+    os: 'windows',
+    arch: 'arm64',
+    templates: ['windows_release_arm64.exe', 'windows_debug_arm64.exe', 'windows_release_arm64_console.exe', 'windows_debug_arm64_console.exe'],
   },
   linux: {
     preset: 'Linux',
     file: 'AgentWorkshop.x86_64',
+    os: 'linux',
+    arch: 'x86_64',
     templates: ['linux_release.x86_64', 'linux_debug.x86_64'],
+  },
+  'linux-arm64': {
+    preset: 'Linux ARM64',
+    file: 'AgentWorkshop.arm64',
+    os: 'linux',
+    arch: 'arm64',
+    templates: ['linux_release.arm64', 'linux_debug.arm64'],
   },
   macos: {
     preset: 'macOS',
     file: 'AgentWorkshop.zip',
+    os: 'macos',
+    arch: 'universal',
     templates: ['macos.zip'],
   },
 };
@@ -83,7 +109,7 @@ export function templatesDir(version = pinnedVersion(), { platform = process.pla
 
 export function platformsFor(name) {
   if (name === 'all') return Object.keys(PLATFORMS);
-  if (!PLATFORMS[name]) throw new Error(`Unknown platform "${name}". Use windows, linux, macos or all.`);
+  if (!PLATFORMS[name]) throw new Error(`Unknown platform "${name}". Use ${Object.keys(PLATFORMS).join(', ')} or all.`);
   return [name];
 }
 
@@ -215,7 +241,7 @@ export function parseArgs(argv) {
     else if (arg === '--templates-only') options.templatesOnly = true;
     else throw new Error(`Unknown option: ${arg}`);
   }
-  if (!options.platform && !options.templatesOnly) throw new Error('Give --platform windows|linux|macos|all, or --templates-only.');
+  if (!options.platform && !options.templatesOnly) throw new Error('Give --platform windows|windows-arm64|linux|linux-arm64|macos|all, or --templates-only.');
   return options;
 }
 

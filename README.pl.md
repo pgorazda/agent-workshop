@@ -32,7 +32,7 @@ Gdy jeden pokój się zapełni, obok otwierają się kolejne pokoje (areny). Na 
 | Schemat zdarzeń v1 (`schema/`) | Gotowe |
 | Bridge, adaptery dla Claude Code, OpenCode, Pi i Hermes, odtwarzanie transkryptów (`bridge/`) | Gotowe, 45 testów automatycznych |
 | Wtyczka OpenCode, rozszerzenie Pi, skrypt hooka Hermes (`adapters/`) | Napisane na podstawie opublikowanych definicji typów, dokumentacji i kodu źródłowego, sprawdzone na danych testowych. **Jeszcze nie uruchomione w prawdziwym OpenCode, Pi ani Hermes** |
-| Klient Godot (`godot/`) | **Gotowy dla komputerów stacjonarnych: fazy G-0 do G-9 z [planu](docs/godot-client-plan.md).** Odtwarza sesję na żywo z bridge'a, z arenami, interfejsem i dźwiękiem, oraz siedem wymyślonych scen bez bridge'a. `godot/tools/record.mjs` nagrywa każdą scenę jako klip. `node godot/tools/export.mjs --platform windows` buduje niepodpisaną aplikację dla Windows. **Niegotowe:** wersje na Linux i macOS, tablety i telefony (wszystko odłożone) oraz pomiar na słabym laptopie referencyjnym. Zobacz [`godot/README.md`](godot/README.md) |
+| Klient Godot (`godot/`) | **Gotowy dla komputerów stacjonarnych: fazy G-0 do G-9 z [planu](docs/godot-client-plan.md).** Odtwarza sesję na żywo z bridge'a, z arenami, interfejsem i dźwiękiem, oraz siedem wymyślonych scen bez bridge'a. `godot/tools/record.mjs` nagrywa każdą scenę jako klip. `node godot/tools/export.mjs --platform all` buduje niepodpisane aplikacje dla Windows, Linuksa i macOS, a workflow wydań je publikuje (zobacz [`docs/releasing.md`](docs/releasing.md)). Na prawdziwym sprzęcie uruchomiono tylko aplikację dla Windows x86_64. **Niegotowe:** podpisywanie, tablety i telefony (odłożone) oraz pomiar na słabym laptopie referencyjnym. Zobacz [`godot/README.md`](godot/README.md) |
 | Klient przeglądarkowy (`web/`) | **Niezbudowany.** ADR 0008 zastąpił go klientem Godot. [Jego plan](docs/browser-client-plan.md), [plan widoku 2D](docs/2d-view-plan.md), [plan aren](docs/2d-arenas-plan.md) i [plan trybu demo](docs/demo-mode-plan.md) zostają jako specyfikacja wyglądu i zasad |
 
 Plany wspominają o rekordach decyzji architektonicznych (ADR) po numerze, na przykład ADR 0003. ADR-y są przechowywane poza tym repozytorium.
@@ -115,10 +115,11 @@ cd godot && node tools/record.mjs --scene arenas      # out/arenas.mp4
 cd godot && node tools/record.mjs --scene multi --stills 19.5 --no-switch    # out/still-multi-19.5.png
 ```
 
-Aby zbudować aplikację, która działa bez edytora (tylko Windows; niepodpisana):
+Aby dostać aplikację, która działa bez edytora (niepodpisana), pobierz ją ze strony wydań albo zbuduj:
 
 ```bash
 cd godot && node tools/export.mjs --platform windows     # out/export/windows/AgentWorkshop.exe
+# także: windows-arm64, linux, linux-arm64, macos (uniwersalna: Intel i Apple silicon), all
 ```
 
 Pierwsze uruchomienie pobiera szablony eksportu (około 1,3 GB). Aplikacja przyjmuje te same opcje co edytor, po `--`.

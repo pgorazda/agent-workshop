@@ -62,7 +62,31 @@ function files(folder, base = folder) {
 test('there is one preset for each desktop platform, named as the tool expects', () => {
   const list = presets();
   assert.deepEqual(list.map((p) => p.name).sort(), Object.values(PLATFORMS).map((p) => p.preset).sort());
-  assert.deepEqual(list.map((p) => p.platform).sort(), ['Linux', 'Windows Desktop', 'macOS']);
+  assert.deepEqual(list.map((p) => p.platform).sort(), ['Linux', 'Linux', 'Windows Desktop', 'Windows Desktop', 'macOS']);
+});
+
+test('each preset builds for the architecture that its platform entry names, and macOS is universal', () => {
+  const list = presets();
+  const wanted = { x86_64: 'x86_64', arm64: 'arm64', universal: 'universal' };
+  for (const spec of Object.values(PLATFORMS)) {
+    const preset = list.find((p) => p.name === spec.preset);
+    assert.ok(preset, `${spec.preset} exists`);
+    assert.equal(preset.options['binary_format/architecture'], wanted[spec.arch], `${spec.preset}: architecture`);
+    assert.ok(spec.templates.every((t) => (spec.arch === 'universal' ? true : t.includes(spec.arch))), `${spec.preset}: the templates fit the architecture`);
+  }
+  assert.equal(PLATFORMS.macos.arch, 'universal');
+});
+
+test('the ARM64 presets differ from the x86_64 ones only in the name and the architecture', () => {
+  const list = presets();
+  for (const [arm, base] of [['Windows Desktop ARM64', 'Windows Desktop'], ['Linux ARM64', 'Linux']]) {
+    const a = list.find((p) => p.name === arm);
+    const b = list.find((p) => p.name === base);
+    const { options: ao, name: an, ...ar } = a;
+    const { options: bo, name: bn, ...br } = b;
+    assert.deepEqual(ar, br, `${arm}: same settings as ${base}`);
+    assert.deepEqual({ ...ao, 'binary_format/architecture': '' }, { ...bo, 'binary_format/architecture': '' }, `${arm}: same options as ${base}`);
+  }
 });
 
 test('the presets hold no secret and no identity', () => {
@@ -179,11 +203,14 @@ test('the templates go where the editor looks for them', () => {
 });
 
 test('the needed templates, and the check for missing ones', () => {
-  assert.deepEqual(platformsFor('all'), ['windows', 'linux', 'macos']);
+  assert.deepEqual(platformsFor('all'), ['windows', 'windows-arm64', 'linux', 'linux-arm64', 'macos']);
+  assert.deepEqual(platformsFor('linux-arm64'), ['linux-arm64']);
   assert.throws(() => platformsFor('amiga'), /Unknown platform/);
   const needed = neededTemplates(['macos', 'linux']);
   for (const name of [...COMMON_TEMPLATES, 'macos.zip', 'linux_release.x86_64']) assert.ok(needed.includes(name), name);
   assert.ok(!needed.some((n) => n.startsWith('windows_')));
+  assert.ok(neededTemplates(['linux-arm64', 'windows-arm64']).includes('linux_release.arm64'));
+  assert.ok(neededTemplates(['windows-arm64']).includes('windows_release_arm64.exe'));
   const dir = mkdtempSync(join(tmpdir(), 'agent-workshop-templates-'));
   try {
     writeFileSync(join(dir, 'version.txt'), '4.7.2.stable\n');

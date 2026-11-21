@@ -1,0 +1,17 @@
+# The groups of the release notes that GitHub writes ("Generate release notes"). A pull request goes into the first group
+# that has one of its labels.
+changelog:
+  exclude:
+    labels: [skip-changelog]
+    authors: [dependabot]
+  categories:
+    - title: New
+      labels: [enhancement, feature]
+    - title: Fixes
+      labels: [bug]
+    - title: Adapters
+      labels: [adapter]
+    - title: Documentation
+      labels: [documentation]
+    - title: Other changes
+      labels: ['*']
