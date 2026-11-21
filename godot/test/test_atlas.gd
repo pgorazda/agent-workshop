@@ -74,7 +74,7 @@ func _manifest() -> Dictionary:
 
 
 func test_the_sheets_use_the_expected_import_settings() -> void:
-	# nearest filtering is the project default; the import files say: lossless; only the rooms have mipmaps (spike S-6: a
+	# nearest filtering is the project default; the import files say: lossless; only the rooms have mipmaps (a
 	# room scaled down in a fly or in the overview needs trilinear filtering, and the sheets of sprites do not)
 	assert_eq(ProjectSettings.get_setting("rendering/textures/canvas_textures/default_texture_filter"), 0, "the default texture filter is nearest")
 	var dir: DirAccess = DirAccess.open(IMAGES_DIR)

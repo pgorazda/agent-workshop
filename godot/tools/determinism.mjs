@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Checks that a scene gives the same frames and the same sound on every run (spike S-5). It records the scene two times (or
+// Checks that a scene gives the same frames and the same sound on every run. It records the scene two times (or
 // more) with tools/record.mjs's engine arguments, hashes every PNG frame and the WAV file with SHA-256, and compares the runs. It needs
 // a real window and the Godot editor, not ffmpeg.
 //

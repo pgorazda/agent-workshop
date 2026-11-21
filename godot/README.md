@@ -16,7 +16,6 @@ This folder holds the app: a 2D client made with Godot that reads the event stre
 | `art/` | The art, not MIT (see `LICENSE-ASSETS`): drawing code, the generated atlas data, the PNG and WAV files in `images/` and `sound/`, their source in `image_src/` and `sound_src/`, and `MANIFEST.txt` (hashes) |
 | `addons/gut/` | GUT 9.7.1 (MIT), the test framework, kept in the repository |
 | `test/` | GUT tests. `test/fixtures/` holds the example sessions as canonical events and the golden data of the arena rules |
-| `spikes/s6/` | A benchmark of two ways to draw several rooms (a `SubViewport` for each room, or one world) |
 | `tools/` | Node scripts and their tests: export, recording, rendering of art and sound, the bridge link test, the license check |
 
 ## Set up

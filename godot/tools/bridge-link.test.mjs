@@ -1,4 +1,4 @@
-// The link between the bridge and the Godot client (spikes S-1).
+// The link between the bridge and the Godot client.
 //
 //   node --test        (from godot/; set GODOT, see README.md)
 //
@@ -145,7 +145,7 @@ test('the client keeps trying when no bridge runs, and connects when one starts'
   await bridge.stop();
 });
 
-test('the client sends no Origin header (spike S-1)', async () => {
+test('the client sends no Origin header', async () => {
   // A native WebSocket client has no page, so it has no origin. The origin checks that are planned for
   // the bridge must let such a client in. This test fails when a Godot update starts to send one.
   const port = await freePort();
