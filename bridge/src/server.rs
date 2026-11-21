@@ -240,6 +240,9 @@ fn check_origin(shared: &Shared, req: &Request) -> Option<Response> {
 
 async fn handle(shared: Arc<Shared>, req: Request) -> Response {
     if let Some(refusal) = check_origin(&shared, &req) {
+        // Read the body first. Closing a connection with an unread request body can reset it on Windows before the client has
+        // read the answer (the same reason as for the final 404).
+        let _ = to_bytes(req.into_body(), MAX_BODY_BYTES).await;
         return refusal;
     }
     let path = req.uri().path().to_string();
