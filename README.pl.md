@@ -42,7 +42,7 @@ Na macOS po rozpakowaniu uruchom raz `xattr -d com.apple.quarantine agent-worksh
 
 **3. Podłącz agenta.** Wybierz go w [docs/adapters.md](docs/adapters.md): Claude Code (hooki), OpenCode (wtyczka), Pi (rozszerzenie albo potok JSON) lub Hermes Agent (skrypt hooka). Każdy wymaga skopiowania jednego pliku albo scalenia jednej konfiguracji.
 
-Agent może działać na innym komputerze, na przykład przez SSH: zobacz [Agent on another machine](docs/adapters.md#agent-on-another-machine) (po angielsku).
+Agent może działać na innym komputerze, na przykład przez SSH: zobacz [docs/deployments.md](docs/deployments.md) (po angielsku): jeden komputer, wspólny most, agent zdalny, ekran zespołu i kontener.
 
 Nie masz agenta pod ręką? Odtwórz nagraną sesję, przy działającej aplikacji:
 
@@ -75,6 +75,10 @@ agent (hooki, wtyczka, rozszerzenie)  -->  most  -->  aplikacja
 ```
 
 Adapter zamienia natywne zdarzenia każdego agenta na jeden, niezależny od frameworka format zdarzeń ([docs/event-schema.md](docs/event-schema.md)). Aplikacja wybiera stanowisko warsztatu z kategorii zdarzenia, nigdy z nazwy narzędzia. Gdy jeden pokój się zapełni, otwierają się kolejne pokoje (areny), a kamera przesuwa się między nimi ([docs/arenas.md](docs/arenas.md)). Dlaczego jest to zbudowane w ten sposób, opisuje [docs/design.md](docs/design.md).
+
+Jeden most może obsługiwać wielu agentów i wiele aplikacji naraz: każda aplikacja dostaje wszystkie zdarzenia. Most nie ma logowania, więc udostępniaj go tylko w zaufanej sieci. Inne układy opisuje [docs/deployments.md](docs/deployments.md) (po angielsku).
+
+![Jeden wspólny most: agenci z kilku komputerów wysyłają do niego zdarzenia, a każda aplikacja Workshop dostaje wszystkie](docs/diagrams/shared-bridge.svg)
 
 ![Kilka aren w aplikacji Godot: kamera przesuwa się do nowej areny, zgoda ją przywraca, a przegląd jest pod klawiszem Tab](docs/images/arena-2d-arenas.png)
 

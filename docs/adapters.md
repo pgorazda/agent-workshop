@@ -44,6 +44,8 @@ Hermes runs hooks synchronously and without a shell, so the forwarder is a scrip
 
 ## Agent on another machine
 
+Pictures of the usual setups (one machine, a shared bridge, a team wall display, a container) are in [deployments.md](deployments.md).
+
 The bridge listens on `127.0.0.1` by default, so the agent, the bridge and the app must run on one machine unless you connect them. Two safe ways:
 
 - **The agent is remote** (an SSH session, a dev container, a remote box) and you watch locally. Keep the bridge on your machine and forward its port with a reverse tunnel:

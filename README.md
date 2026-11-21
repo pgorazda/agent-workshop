@@ -42,7 +42,7 @@ On macOS, run `xattr -d com.apple.quarantine agent-workshop-bridge` once after y
 
 **3. Connect your agent.** Pick one in [docs/adapters.md](docs/adapters.md): Claude Code (hooks), OpenCode (plugin), Pi (extension, or a JSON pipe) or Hermes Agent (hook script). Each takes one file copy or one config merge.
 
-The agent can run on another machine, for example over SSH: see [Agent on another machine](docs/adapters.md#agent-on-another-machine).
+The agent can run on another machine, for example over SSH. All the setups (one machine, a shared bridge, a remote agent, a team wall display, a container) are in [docs/deployments.md](docs/deployments.md).
 
 No agent at hand? Replay a recorded session, with the app already running:
 
@@ -75,6 +75,10 @@ agent (hooks, plugin, extension)  -->  bridge  -->  app
 ```
 
 An adapter turns each agent's native events into one framework-neutral event format ([docs/event-schema.md](docs/event-schema.md)). The app picks a workshop station from the event's category, never from a tool name. When one room is full, more rooms (arenas) open and a camera moves between them ([docs/arenas.md](docs/arenas.md)). Why it is built this way is in [docs/design.md](docs/design.md).
+
+One bridge can serve several agents and several apps at once: every app receives every event. The bridge has no login, so share it only on a trusted network. Other setups are in [docs/deployments.md](docs/deployments.md).
+
+![One shared bridge: agents on several machines post to it, and every Workshop app receives all events](docs/diagrams/shared-bridge.svg)
 
 ![Several arenas in the Godot client: the camera slides to a new arena, an approval brings it back, and the overview behind Tab](docs/images/arena-2d-arenas.png)
 

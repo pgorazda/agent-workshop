@@ -1,0 +1,31 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="680" height="235" viewBox="0 0 680 235" role="img"><title>Single machine deployment</title><desc>Agent, bridge and app run on one machine and talk over localhost.</desc>
+<style>
+  :root { --ink:#2C2C2A; --ink2:#5F5E5A; --line:#888780; }
+  text { font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; fill: var(--ink2); font-size: 12px; }
+  .th { font-size: 14px; font-weight: 500; }
+  .ts { font-size: 12px; }
+  .ic { fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+  .zone { fill: none; stroke: var(--line); stroke-width: 0.8; stroke-dasharray: 4 4; }
+  .arr { stroke: var(--line); stroke-width: 1.5; fill: none; }
+  .purple rect { fill:#EEEDFE; stroke:#534AB7; } .purple .th { fill:#3C3489; } .purple .ts { fill:#534AB7; }
+  .teal rect { fill:#E1F5EE; stroke:#0F6E56; } .teal .th { fill:#085041; } .teal .ts { fill:#0F6E56; }
+  .coral rect { fill:#FAECE7; stroke:#993C1D; } .coral .th { fill:#712B13; } .coral .ts { fill:#993C1D; }
+  @media (prefers-color-scheme: dark) {
+    :root { --ink:#F1EFE8; --ink2:#B4B2A9; --line:#888780; }
+    .purple rect { fill:#3C3489; stroke:#AFA9EC; } .purple .th { fill:#CECBF6; } .purple .ts { fill:#AFA9EC; }
+    .teal rect { fill:#085041; stroke:#5DCAA5; } .teal .th { fill:#9FE1CB; } .teal .ts { fill:#5DCAA5; }
+    .coral rect { fill:#712B13; stroke:#F0997B; } .coral .th { fill:#F5C4B3; } .coral .ts { fill:#F0997B; }
+  }
+</style>
+<defs><marker id="arrow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M2 1L8 5L2 9" fill="none" stroke="#888780" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/></marker></defs>
+<rect class="zone" x="20" y="40" width="640" height="150" rx="12"/>
+<text class="ts" x="36" y="60" text-anchor="start">One machine, localhost only</text>
+<g class="purple"><rect x="45" y="87" width="160" height="56" rx="8" stroke-width="0.8"/><text class="th" x="89" y="105" dominant-baseline="central">Claude Code</text><text class="ts" x="89" y="125" dominant-baseline="central">your terminal</text></g><g class="ic"><rect x="57" y="108" width="20" height="14" rx="2"/><polyline points="61,112 65,115 61,118"/><line x1="68" y1="119" x2="73" y2="119"/></g>
+<g class="teal"><rect x="260" y="87" width="160" height="56" rx="8" stroke-width="0.8"/><text class="th" x="304" y="105" dominant-baseline="central">Bridge</text><text class="ts" x="304" y="125" dominant-baseline="central">127.0.0.1:8787</text></g><g class="ic"><circle cx="282" cy="117" r="3.5"/><circle cx="274" cy="109" r="2.5"/><circle cx="290" cy="109" r="2.5"/><circle cx="282" cy="126" r="2.5"/><line x1="276" y1="111" x2="279.5" y2="115"/><line x1="288" y1="111" x2="284.5" y2="115"/><line x1="282" y1="120.5" x2="282" y2="123.5"/></g>
+<g class="coral"><rect x="475" y="87" width="160" height="56" rx="8" stroke-width="0.8"/><text class="th" x="519" y="105" dominant-baseline="central">Workshop app</text><text class="ts" x="519" y="125" dominant-baseline="central">same desktop</text></g><g class="ic"><rect x="487" y="107" width="20" height="12" rx="2"/><line x1="497" y1="119" x2="497" y2="123"/><line x1="492" y1="123" x2="502" y2="123"/></g>
+<line class="arr" x1="207" y1="115" x2="258" y2="115" marker-end="url(#arrow)"/>
+<line class="arr" x1="422" y1="115" x2="473" y2="115" marker-end="url(#arrow)"/>
+<text class="ts" x="232" y="172" text-anchor="middle">HTTP POST</text>
+<text class="ts" x="448" y="172" text-anchor="middle">WebSocket</text>
+<text class="ts" x="340" y="216" text-anchor="middle">The app can start the bridge itself with --start-bridge</text>
+</svg>

@@ -498,6 +498,35 @@ async fn a_foreign_host_name_is_refused_when_the_bridge_listens_on_loopback() {
 }
 
 #[tokio::test]
+async fn a_bridge_on_a_network_address_takes_any_host_name_but_still_refuses_web_pages() {
+    // A shared bridge or a container reaches the bridge by a name such as host.docker.internal.
+    let running = start_with(BridgeOptions {
+        port: 0,
+        host: "0.0.0.0".into(),
+        ..BridgeOptions::default()
+    })
+    .await;
+    let (status, _) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Host", "host.docker.internal:8787")],
+    )
+    .await;
+    assert_eq!(status, 200);
+    let (status, text) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Origin", "https://evil.example")],
+    )
+    .await;
+    assert_eq!(status, 403);
+    assert!(text.contains("forbidden origin"), "{text}");
+    running.bridge.close().await;
+}
+
+#[tokio::test]
 async fn known_difference_json_nested_deeper_than_128_levels_gets_400() {
     // The Node bridge parses it. The JSON library of the bridge stops at 128 levels.
     let running = start().await;
