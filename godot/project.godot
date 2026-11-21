@@ -9,7 +9,7 @@ config/name="Agent Workshop"
 config/description="Shows AI coding agents at work as penguins in a pixel-art workshop."
 run/main_scene="res://src/live.tscn"
 config/features=PackedStringArray("4.7", "GL Compatibility")
-config/version="0.1.0"
+config/version="0.2.0"
 config/icon="res://art/images/app_icon.png"
 run/flush_stdout_on_print=true
 

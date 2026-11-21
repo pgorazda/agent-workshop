@@ -64,6 +64,6 @@ node tools/package.mjs --version 0.2.0 --bridge-in out/bridge
 * One Linux job exports all five apps. Godot can export every target from one host. The templates are about 1.3 GB, so the workflow caches them.
 * The bridge is built on five runners (Linux x86_64 and ARM, Windows x86_64 and ARM, macOS), each for its own system, because that is the only way to run each binary once before it is released. Linux binaries use musl, so they are static and run on any Linux. The runners `ubuntu-24.04-arm` and `windows-11-arm` must be available to the repository. If one is not, that job fails and the release stops: run the workflow by hand first ("Run workflow") to see.
 * The first release runs the Linux, macOS and ARM64 exports for the first time. Only the Windows x86_64 app was run on real hardware. Make the first releases pre-releases.
-* The macOS bundle identifier in `godot/export_presets.cfg` is a placeholder. Set a real one before the first release (an app's identity should not change later).
+* The macOS bundle identifier in `godot/export_presets.cfg` is `pl.com.abece.agentworkshop`. It is the identity of the app on macOS: do not change it after a release.
 * The release job uses the environment `release`. Add required reviewers to it in the repository settings to approve each release.
 * Signing is not done. It needs an Apple Developer ID for macOS and a code-signing certificate for Windows.
