@@ -1,23 +1,39 @@
 # CLAUDE.md
 
-Agent Workshop shows AI coding agents at work as penguins in a pixel-art workshop. The layout is in `README.md`, and the contributor guide is `CONTRIBUTING.md`.
+Agent Workshop shows AI coding agents at work as penguins in a pixel-art workshop. The layout is in `README.md`, and the contributor guide is `CONTRIBUTING.md`. Its "Rules" section has the 7 rules that apply to every change. Read it before you change anything.
 
-## Tests
+## Check before you push
 
-`mise run check` runs all of the checks below and the CI's other checks (`mise.toml`; `mise run check-fast` skips the Godot tests). Or one by one:
+Run `mise run check-fast` (Node 24 and Rust are pinned in `mise.toml`). It runs what the CI runs, except the Godot tests: version, `cargo fmt --check`, `clippy` with warnings as errors, `cargo deny` with the notices check, the bridge tests and the adapter tests. Run `mise run check` too when you change `godot/`; it needs the Godot editor (set `GODOT`, see `godot/README.md`) and builds the bridge.
+
+Running only `cargo test`, the adapter tests and `npm test` is not enough: the CI also checks formatting, clippy, dependencies and notices.
 
 ```bash
 cd bridge && cargo test                # the bridge (Rust)
-node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge (Node 22+)
-cd godot && npm test                   # needs the Godot editor (set GODOT, see godot/README.md) and builds the bridge
+node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge
+cd godot && npm test                   # the Godot tests; needs GODOT and builds the bridge
+cd godot && node tools/check.mjs       # GDScript warnings count as errors; NOT run by mise or the CI, run it by hand after you change GDScript
 ```
 
-## Rules
+## Change the repository
 
-1. Write documents and comments in simple technical English.
-2. The event schema (`schema/event.schema.json`) is the contract. Adapters map native events to it; clients read only the schema and pick stations by `category`, never by tool name. Keep `bridge/src/schema.rs` in step with it (a test checks the enums).
-3. The bridge listens on `127.0.0.1` only, stores nothing, broadcasts only schema fields, and refuses requests that carry a foreign `Origin` (a web page) or, on a loopback address, a foreign `Host`.
-4. The 2D view has a look of its own. Do not use Anthropic or Claude logos, the Claude Code mascot, Anthropic's typefaces, Claude's colours as a colour scheme, the asterisk spinner and its verbs, or layouts copied from Claude Code's terminal.
-5. This repository is public. Do not add personal data, real transcripts, real paths or names, or references to private projects. Example sessions are made up. The copyright holder's name in license and copyright notices is fine.
-6. "Agent Workshop" is the project; an "arena" is one room of the 2D view. Existing code names (`ARENA_*` variables, `arena.js`) stay as they are.
-7. Code is MIT; art is all rights reserved (`LICENSE-ASSETS`). Drawing and sound code (the palette, sprites, props, room, effects, interface drawing, music and event sounds) lives only in `art/` folders (`godot/art/`, later `web/src/view2d/art/`), and each file there starts with the copyright header. Images and sounds made from the art code are art too: in `godot/art/` they live in `images/` and `sound/`, and `MANIFEST.txt` holds their hashes. Code outside `art/` may call the art but must not contain it. `cd godot && node --test` checks the headers and the split.
+- `main` is protected. Work on a branch and open a pull request. It is merged by squash, and only when the CI job "All checks pass" is green. Never push to `main`.
+- Do not change repository settings, rulesets, workflow permissions or the `release` environment. Ask the maintainer.
+- A change to a file listed in `LICENSE-ASSETS` (the art) needs an agreement in an issue and a written grant. See "Terms of contribution" in `CONTRIBUTING.md`. Do not take a change to the art from a contributor without it.
+- Workflows (`.github/workflows/`): pin every action to a commit SHA with the version in a comment, keep `permissions` as small as possible, never use `pull_request_target`, and do not add `paths-ignore` to `ci.yml` (a skipped required check blocks the merge). A new job in `ci.yml` goes into `needs` of the job `ci-ok`.
+
+## Files made from other files
+
+- `Cargo.lock` changes: run `mise run notices` (CI fails when `bridge/THIRD-PARTY-NOTICES.txt` is out of date).
+- `schema/examples/` or an adapter changes: run `cd bridge && cargo run --example fixtures` to make `godot/test/fixtures/` again.
+- `godot/GODOT_VERSION` changes: make `godot/THIRD-PARTY-NOTICES.txt` again (command in `CONTRIBUTING.md`).
+- A version bump: `node godot/tools/version.mjs bump <x.y.z>`, never by hand. See `docs/releasing.md`.
+- `README.pl.md` is a translation of `README.md`. Change it when `README.md` changes.
+
+## Rules to keep in mind
+
+The full text is in `CONTRIBUTING.md`. These are the ones that are broken most:
+
+- The event schema is the contract: clients pick stations by `category`, never by tool name, and `bridge/src/schema.rs` stays in step with it.
+- The repository is public: no personal data, real transcripts, real paths or names, or references to private projects.
+- Drawing and sound code lives only in `art/` folders, with the copyright header, and no Anthropic or Claude look.
