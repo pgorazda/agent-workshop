@@ -43,7 +43,7 @@ cd bridge && cargo test                        # the bridge: unit tests, and tes
 node --test 'adapters/test/*.test.mjs'         # the OpenCode plugin, Pi extension and Hermes script against the real bridge (Node 22 or later)
 cd godot && node tools/run-gut.mjs             # GUT tests, headless
 cd godot && node --test                        # Node tests: bridge link, license split, tools
-cd godot && node tools/check.mjs               # GDScript check: warnings count as errors
+cd godot && node tools/check.mjs               # GDScript check: warnings count as errors (`npm test` runs it too)
 ```
 
 The `godot/` commands need `GODOT`. The tests that start the bridge build it with `cargo build` first. Set `ARENA_BRIDGE_BIN` to use a binary you already have.
