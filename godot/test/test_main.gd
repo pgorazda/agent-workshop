@@ -1,5 +1,5 @@
 extends GutTest
-## The text view of phase G-0. It must show the connection state and list the events.
+## The text view. It must show the connection state and list the events.
 
 const Event := preload("res://src/core/event.gd")
 

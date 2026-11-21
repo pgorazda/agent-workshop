@@ -1,5 +1,5 @@
 extends GutTest
-## Recording mode (phase G-8): the pure helpers of `core/recording.gd`, the new options, and the live view that runs in recording mode
+## Recording mode: the pure helpers of `core/recording.gd`, the new options, and the live view that runs in recording mode
 ## (a frame is a time, the scripted pointer, key caps and follow menu, no keys, no wall clock). The files are written by the engine's
 ## Movie Maker, which a unit test cannot run: `tools/determinism.mjs` and `tools/record.mjs` cover that.
 

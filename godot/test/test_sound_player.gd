@@ -1,5 +1,5 @@
 extends GutTest
-## The players of phase G-7, under the dummy audio driver (a headless run has no sound device). Each sound file loads, plays and stops
+## The players, under the dummy audio driver (a headless run has no sound device). Each sound file loads, plays and stops
 ## with no error, nothing exists while sound is off, and a tune is loaded when it is chosen and freed when another one is chosen.
 ## No test here listens to anything: a test can only see that a player says it plays.
 

@@ -5,18 +5,18 @@ extends RefCounted
 ##   godot --path godot -- --demo=session --speed=2
 
 const DEFAULT_BRIDGE := "ws://127.0.0.1:8787/ws"
-## The frame rate of a window that has no focus (choice 13 of the plan).
+## The frame rate of a window that has no focus.
 const DEFAULT_UNFOCUSED_FPS := 30
 ## The frame rate of a window with focus (the rate of the simulation).
 const DEFAULT_FOCUSED_FPS := 60
-## The most penguins. The view with arenas raises the limit of the director (12) so that ten pages of arenas fit (phase G-5).
+## The most penguins. The view with arenas raises the limit of the director (12) so that ten pages of arenas fit.
 const DEFAULT_PENGUIN_LIMIT := 200
-## The agents in an arena, and the seconds after which a quiet agent leaves (the plan's starting values).
+## The agents in an arena, and the seconds after which a quiet agent leaves (starting values).
 const DEFAULT_ARENA_SIZE := 4
 const DEFAULT_LEAVE_AFTER := 600.0
 
 var bridge: String = DEFAULT_BRIDGE
-## Start the bridge program when none runs (ADR 0014). Off by default. The saved setting (`net/bridge_settings.gd`) may turn it on, unless the
+## Start the bridge program when none runs. Off by default. The saved setting (`net/bridge_settings.gd`) may turn it on, unless the
 ## command line decided: `--start-bridge[=<path>]` or `--no-start-bridge`.
 var start_bridge: bool = false
 var start_bridge_set: bool = false
@@ -66,7 +66,7 @@ var unfocused_fps: int = DEFAULT_UNFOCUSED_FPS
 var reduced_motion: bool = false
 ## Start with sound on: "on", "events" (event sounds only), "off", or the name of a tune. Empty for the default: all sound off.
 var sound: String = ""
-## Recording mode (phase G-8): the frame rate of the recording, or 0 for a normal run. `tools/record.mjs` sets it together with
+## Recording mode: the frame rate of the recording, or 0 for a normal run. `tools/record.mjs` sets it together with
 ## the engine's own `--write-movie` and `--fixed-fps`. In this mode frame number `i` shows the story at the time `i / record_fps`, the
 ## window policy and the keys and the mouse are off, a scene is played once, and the client quits after the last frame.
 var record_fps: int = 0

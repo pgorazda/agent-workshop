@@ -1,5 +1,5 @@
 extends Node2D
-## The camera view (phase G-5): the rooms of all arenas in one shared world, seen through the camera.
+## The camera view: the rooms of all arenas in one shared world, seen through the camera.
 ##
 ## The world is a node that is moved and scaled by the camera's pose. Each arena is a room node (`art/room_stage_art.gd`) at its
 ## place on its page. The camera gives the centre `(cx, cy)` in rooms and how many rooms across it spans (`s`). So the scale of the

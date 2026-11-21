@@ -1,4 +1,4 @@
-# A Linux recorder for the Godot client (phase G-8): Godot at the pinned version, a virtual display (Xvfb), a software renderer (Mesa
+# A Linux recorder for the Godot client: Godot at the pinned version, a virtual display (Xvfb), a software renderer (Mesa
 # llvmpipe), Node and ffmpeg. Clips from this image do not depend on a GPU or on the computer that records them.
 #
 #   docker build -f godot/tools/Dockerfile -t agent-workshop-godot-recorder .          # from the root of the repository
@@ -10,7 +10,7 @@
 #   docker run --rm --init --entrypoint xvfb-run agent-workshop-godot-recorder -a node tools/determinism.mjs --scene session
 # Podman takes the same commands.
 #
-# STATUS: see "Phase G-8" in godot/README.md for what was run. The Godot download is checked against the hash in tools/get-godot.mjs.
+# STATUS: see godot/README.md for what was run. The Godot download is checked against the hash in tools/get-godot.mjs.
 # The software renderer may give other pixels than a GPU: only clips from the same image can be compared with each other.
 FROM node:24-bookworm-slim
 

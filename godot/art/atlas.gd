@@ -59,7 +59,7 @@ static func draw(ci: CanvasItem, picture: String, pos: Vector2, flip_h: bool = f
 
 ## The rectangle on the screen for a picture of `size` with its top left corner at `top_left`. A negative width tells Godot
 ## to mirror the picture. The rectangle keeps its left edge: Godot 4.7.2 draws the mirrored picture on the same pixels
-## (phase G-2 moved it one width to the right, and the room view of phase G-3 showed this).
+## (it was once drawn one width to the right).
 static func destination(top_left: Vector2, size: Vector2, flip_h: bool) -> Rect2:
 	return Rect2(top_left, Vector2(-size.x if flip_h else size.x, size.y))
 

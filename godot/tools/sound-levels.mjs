@@ -1,4 +1,4 @@
-// Measures the levels of the sound files when a tune and an event sound play together (phase G-7).
+// Measures the levels of the sound files when a tune and an event sound play together.
 //
 //   node tools/sound-levels.mjs                 the table, for the files in art/sound/
 //   node tools/sound-levels.mjs --hop 64        a finer search for the share of start times (slower)

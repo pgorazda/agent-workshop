@@ -1,5 +1,5 @@
 extends Node
-## The live view (phases G-4 and G-5): the rooms of the arenas, seen through the camera, with the penguins of the director. It is
+## The live view: the rooms of the arenas, seen through the camera, with the penguins of the director. It is
 ## fed by the bridge or by a timeline file.
 ##
 ##   godot --path godot                                  the bridge (ws://127.0.0.1:8787/ws)
@@ -9,23 +9,23 @@ extends Node
 ##
 ## The frame code is small. It gives the frame time to the clock, runs the steps that the clock answers with (the source
 ## hands on its events, the director and the actors step, the camera advances), and then gives the result to the view. The
-## simulation step is 1/60 s, so a frame rate of 30 or 144 shows the same story (choice 4 of the plan). Nothing here reads the
+## simulation step is 1/60 s, so a frame rate of 30 or 144 shows the same story. Nothing here reads the
 ## wall clock for the picture: the frame time only decides how many steps run.
 ##
-## Keys (phase G-6): F switches between AUTO and MANUAL, Tab opens and closes the overview, Esc leaves it, Left and Right go to the previous
+## Keys: F switches between AUTO and MANUAL, Tab opens and closes the overview, Esc leaves it, Left and Right go to the previous
 ## or next arena (a page in the overview), N goes to the arena that needs you. In demo mode Space pauses, 1 to 3 set the speed (1x, 2x, 4x)
 ## and `[` and `]` change it; while the follow menu is open, 1 to 6, `[`, `]` and 0 are the menu's (see `ui_input.gd`). R starts the
 ## scene again, D opens the list of scenes (Up, Down, Enter, Esc), C hides or shows the bar. The mouse: a click on a tab, a box of
 ## the list of pages, an arena in the overview, a penguin or a card; the follow switch opens its menu; a hover over a tab shows that
 ## arena's cards. The hit tests are in `interface_model.gd`, in the 480x270 pixels of the viewport.
 ##
-## Sound (phase G-7): M turns all sound on or off, S opens the sound menu (1 to 4 pick a tune, 0 none, E the event sounds, Esc closes it).
+## Sound: M turns all sound on or off, S opens the sound menu (1 to 4 pick a tune, 0 none, E the event sounds, Esc closes it).
 ## While the menu is open these keys are the menu's, so 1 to 3 are the speed of a demo only while it and the follow menu are closed.
 ## All sound starts off. `--sound=<tune>|on|events` starts with sound on.
 ##
 ## The frame cap without focus and the stop when the window is minimized are in `core/frame_policy.gd`; this node applies them.
 ##
-## Recording (phase G-8, `--record-fps=<n>` or `--stills=<seconds,...>`, started by `tools/record.mjs`): the engine's Movie Maker calls
+## Recording (`--record-fps=<n>` or `--stills=<seconds,...>`, started by `tools/record.mjs`): the engine's Movie Maker calls
 ## `_process` once for each frame of the clip. Frame `i` shows the story at the time `i / fps` (`core/recording.gd`): the view runs the
 ## simulation up to that time and draws. The window policy, the keys and the mouse are off, a scene plays once, the scripted pointer, key
 ## caps and follow menu of the scene are drawn, and the client quits after the last frame. `--stills` runs with no drawing up to each time,
@@ -78,7 +78,7 @@ var arena_view: ArenaView
 var interface: InterfaceModel = InterfaceModel.new()
 var bar: Node2D
 var overview_art: Node2D
-## The sound (phase G-7): the state, the players that play the files, and the switch with its menu (top right). All sound starts off.
+## The sound: the state, the players that play the files, and the switch with its menu (top right). All sound starts off.
 var sound_model: SoundModel = SoundModel.new()
 var sound_player: SoundPlayer
 var sound_ui: Node2D
@@ -94,7 +94,7 @@ var status: Node2D
 ## The list of scenes of the demo mode (the key D), over everything.
 var scene_list: Node2D
 var client: Node = null
-## Starts the bridge program when the person asked for it (ADR 0014). Null when it was not asked or no live source was chosen.
+## Starts the bridge program when the person asked for it. Null when it was not asked or no live source was chosen.
 var launcher: Node = null
 ## The timeline that plays, or null when the events come from the bridge.
 var player: RefCounted = null
@@ -433,7 +433,7 @@ func load_live() -> void:
 		add_child(client)
 
 
-## One short message from the launcher (ADR 0014): the bridge could not be started. It shows with the other notes.
+## One short message from the launcher: the bridge could not be started. It shows with the other notes.
 func _on_bridge_note(text: String) -> void:
 	_notes.append(text)
 	_refresh()

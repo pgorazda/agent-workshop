@@ -1,5 +1,5 @@
 extends RefCounted
-## What the interface shows and where, for one frame (phase G-6). It reads the director, the camera and the log model and gives
+## What the interface shows and where, for one frame. It reads the director, the camera and the log model and gives
 ## one Dictionary (`ui`) that the art nodes draw (`art/bar_art.gd`, `art/overview_art.gd`) and that the hit tests read. It has no
 ## drawing call.
 ##
@@ -40,7 +40,7 @@ const LOST_AFTER := 10.0
 var menu_open: bool = false
 ## The mouse position in the pixels of the viewport. Far away when there is no mouse.
 var hover_point: Vector2 = Vector2(-100.0, -100.0)
-## Show the top line and the cards also for one arena with one agent (the scene `tour` of phase G-8 explains the bar of several agents
+## Show the top line and the cards also for one arena with one agent (the scene `tour` explains the bar of several agents
 ## from the start). Without it, one agent gets the log.
 var force_cards: bool = false
 ## What the person is told about the link, for the next build: { kind, word }.

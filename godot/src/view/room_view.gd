@@ -1,7 +1,7 @@
 extends Node
-## The room view of phase G-3: one arena with the baked room, its props and one penguin standing at each station.
+## The room view: one arena with the baked room, its props and one penguin standing at each station.
 ##
-## It shows pictures only. The penguins do not move, and no event changes anything: that is phase G-4. The art
+## It shows pictures only. The penguins do not move, and no event changes anything: the live view does that. The art
 ## code draws everything (`art/room_stage_art.gd`). This file chooses who stands where, through the spot logic
 ## of `src/core/spots.gd`, and gives the result to the art node.
 ##

@@ -1,5 +1,5 @@
 extends GutTest
-## What a key of the open follow menu and a click do to the camera (phase G-6). The calls are queued on the camera with the time.
+## What a key of the open follow menu and a click do to the camera. The calls are queued on the camera with the time.
 
 const UiInput := preload("res://src/view/ui_input.gd")
 const InterfaceModel := preload("res://src/view/interface_model.gd")

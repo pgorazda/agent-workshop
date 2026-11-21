@@ -1,5 +1,5 @@
 extends RefCounted
-## The saved setting that starts the bridge (ADR 0014). It lives in `user://settings.cfg`:
+## The saved setting that starts the bridge. It lives in `user://settings.cfg`:
 ##
 ##   [bridge]
 ##   start=true

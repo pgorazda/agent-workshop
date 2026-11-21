@@ -1,5 +1,5 @@
 extends RefCounted
-## The tour (phase G-8, `tour.js` of the mockup): a quick introduction to one arena. One Claude Code agent visits every station, and each
+## The tour (`tour.js` of the mockup): a quick introduction to one arena. One Claude Code agent visits every station, and each
 ## time an event arrives or the penguin reaches a station the scene stops for a moment while a callout says what it is. Then three more
 ## agents join, to show what changes when an arena has several agents.
 ##

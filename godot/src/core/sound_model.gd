@@ -1,6 +1,6 @@
 extends RefCounted
-## The sound model (phase G-7): which event plays which sound, and the sound state. It has no audio call, no node and no clock.
-## The player (`src/view/sound_player.gd`) plays what this model says. The rules come from docs/2d-view-plan.md, "Sound", and from
+## The sound model: which event plays which sound, and the sound state. It has no audio call, no node and no clock.
+## The player (`src/view/sound_player.gd`) plays what this model says. The rules come from
 ## `soundCues` and `arenas.js` of the mockup.
 ##
 ## The state: one tune of four (or none), the event sounds on or off, and all sound on or off. All sound starts off. Picking a tune,

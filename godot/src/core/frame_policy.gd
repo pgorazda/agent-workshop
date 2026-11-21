@@ -1,5 +1,5 @@
 extends RefCounted
-## How much the app draws, by the state of its window (choice 13 of the plan, "Cost beside a coding agent").
+## How much the app draws, by the state of its window.
 ##
 ## The client runs next to a coding agent and is often visible but not focused. So:
 ##   * with focus, it draws at FOCUSED_FPS (60 by default; 0 is no cap). The simulation steps at 60 a second and the picture only

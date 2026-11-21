@@ -5,16 +5,16 @@ extends RefCounted
 ## table gives the station "other", as an unknown category does in `event.gd`.
 ##
 ## Where a penguin stands is a pixel point in the room picture (480x232 pixels). The points are the `PTS` of the
-## JavaScript mockup and they are the reference for the look. The station table of the client plan
+## JavaScript mockup and they are the reference for the look. The station table below
 ## gives the same places in metres. `project()` turns metres into room pixels, and a test shows how far it is from the
-## pixel points. The points win: no code derives a stand point from the metres. See `godot/README.md`, "Phase G-3".
+## pixel points. The points win: no code derives a stand point from the metres.
 ##
 ## No nodes and no drawing here. `spots.gd` uses this table to give out spots and queue places.
 
 ## The size of the room picture in pixels. The bar of the interface lies below it, in the 480x270 viewport.
 const ROOM_SIZE := Vector2i(480, 232)
 
-## Floor position (x to the right, z to the back wall, in metres) to room pixels, as the 2D view plan says:
+## Floor position (x to the right, z to the back wall, in metres) to room pixels, as follows:
 ## screen x = 240 + 28 * x, screen y = 138 - 11 * z.
 const PROJECTION_ORIGIN := Vector2(240.0, 138.0)
 const PROJECTION_SCALE := Vector2(28.0, 11.0)
@@ -47,7 +47,7 @@ const POINTS: Dictionary = {
 }
 
 ## Waiting places that the mockup does not have. It has a queue only at the forge (`forgeQ`) and at the sign post
-## (`signQ`). These seven are a choice of phase G-3: each lies on free floor beside its station. A later phase
+## (`signQ`). These seven are a choice: each lies on free floor beside its station. A later version
 ## may move them. `CHOSEN_POINTS` lists their names, so that the README and the tests can say which they are.
 const QUEUE_POINTS: Dictionary = {
 	"readQ": Vector2i(98, 128),
@@ -125,7 +125,7 @@ const TABLE: Array[Dictionary] = [
 	},
 ]
 
-## The floor position of the station table of the client plan, in metres (x, z): where a penguin stands.
+## The floor position of the station table, in metres (x, z): where a penguin stands.
 const FLOOR_METRES: Dictionary = {
 	"read": Vector2(-7.0, 3.0),
 	"search": Vector2(-4.0, 6.0),

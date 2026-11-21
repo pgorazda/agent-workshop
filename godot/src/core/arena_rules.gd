@@ -1,10 +1,10 @@
 extends RefCounted
 ## The rules of the arenas, with no drawing in them. This is a port of the arena rules of the JavaScript mockup:
 ## which arena an agent goes to, where the arenas are, and what the camera shows.
-## The rules are in `docs/2d-arenas-plan.md`.
+## The rules are in `docs/arenas.md`.
 ##
 ## This is a faithful batch port. `simulate_camera` reads the whole script of a session, and it can see
-## the future (the `until` time of an approval). The incremental camera of phase G-5 comes later.
+## the future (the `until` time of an approval). The incremental camera comes later.
 ##
 ## Names are the JavaScript names in snake_case, with two changes:
 ##   * `ease` is `ease_k`, because `ease` is a built-in GDScript function;
@@ -23,7 +23,7 @@ extends RefCounted
 
 const Self := preload("res://src/core/arena_rules.gd")
 
-## The plan's starting values. Every one of them is a guess to tune by watching the mockup.
+## The starting values. Every one of them is a guess to tune by watching the mockup.
 const DEFAULTS := {
 	"arena_size": 4, # agents in an arena; helpers stay with their parent and do not count
 	"max_arenas": INF, # no limit of its own: names go on after Z (AA, AB, ...)

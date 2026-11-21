@@ -4,10 +4,14 @@
 
 name: CI
 
+# A change to documents only (Markdown files and docs/) starts no run: no test reads them. A release (workflow_call)
+# and a run by hand always run everything.
 on:
   pull_request:
+    paths-ignore: ['**.md', 'docs/**']
   push:
     branches: [main]
+    paths-ignore: ['**.md', 'docs/**']
   workflow_call:
   workflow_dispatch:
 

@@ -1,5 +1,5 @@
 extends RefCounted
-## Spots and the queue of each station (docs/2d-view-plan.md, "Several agents", item 3).
+## Spots and the queue of each station.
 ##
 ## Most stations have one or more spots. A penguin that arrives takes the first free spot. When every spot is taken,
 ## it waits in the line of the station. When a penguin leaves, its spot is free, and the first one in the line takes it.

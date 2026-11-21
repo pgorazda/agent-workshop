@@ -1,6 +1,6 @@
 extends GutTest
 ## The camera view: where the world is for a pose, which rooms are drawn, the filter at each scale, the free places and the
-## page numbers of a wide view. The pictures themselves are looked at by a person (README.md, phase G-5).
+## page numbers of a wide view. The pictures themselves are looked at by a person (README.md).
 
 const ArenaView := preload("res://src/view/arena_view.gd")
 const ArenaRules := preload("res://src/core/arena_rules.gd")

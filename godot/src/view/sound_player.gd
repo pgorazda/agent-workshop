@@ -1,10 +1,10 @@
 extends Node
-## Plays the sound files of `art/sound/` (phase G-7). It plays what `core/sound_model.gd` says and makes no sound of its own: every sound
-## is a file, rendered at build time (docs/godot-client-plan.md, "Sound").
+## Plays the sound files of `art/sound/`. It plays what `core/sound_model.gd` says and makes no sound of its own: every sound
+## is a file, rendered at build time.
 ##
 ## One looping player for the tune and a small pool for the event sounds. The loop flag and the loop end are set in the `.import` files
 ## (see the README, "Sound files"), so the stream loops by itself. Nothing exists while sound is off: no player node, no stream in
-## memory, no effect on the master bus. The app stays light beside an agent (choice 13 of the plan). When sound turns on, the players
+## memory, no effect on the master bus. The app stays light beside an agent. When sound turns on, the players
 ## are made and the five event sounds are loaded (about 150 KB). A tune is loaded when it is chosen, and it is freed when another one is
 ## chosen or sound turns off (a tune is 1.8 to 3 MB).
 ##

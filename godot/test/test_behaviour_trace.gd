@@ -1,5 +1,5 @@
 extends GutTest
-## The behaviour trace (testing layer 5 of the plan): events go to the director in fixed steps, and the penguin must visit
+## The behaviour trace: events go to the director in fixed steps, and the penguin must visit
 ## the stations in the order of `test/fixtures/expected-trace.json`. The trace has no language in it, so a later client in
 ## another language can use the same file.
 ##
@@ -7,8 +7,8 @@ extends GutTest
 ##   "claude-code-fixture"  the real Claude Code example, after the bridge adapter (`claude-code.events.jsonl`). It has no
 ##                          permission prompt and runs each tool once.
 ##   "session-scene"        the made-up session of the demo (`res://demo/session.json`), with a prompt for approval and a second
-##                          visit to the workbench and the forge, as in the plan.
-## The plan's list (map table, bookshelf, workbench, forge, sign post, flop, helper desk and its helper, telescope, workbench,
+##                          visit to the workbench and the forge, as in the story below.
+## The list (map table, bookshelf, workbench, forge, sign post, flop, helper desk and its helper, telescope, workbench,
 ## forge, celebration) is the story of the made-up session, in the order of its events. The real example has fewer calls.
 
 const Trace := preload("res://test/support/trace.gd")
@@ -37,7 +37,7 @@ func test_the_real_claude_code_example_visits_the_stations_in_order() -> void:
 	assert_eq(trace, expected["trace"])
 
 
-func test_the_made_up_session_visits_the_stations_of_the_plan() -> void:
+func test_the_made_up_session_visits_the_stations_of_the_story() -> void:
 	var expected: Dictionary = _expected("session-scene")
 	var player: RefCounted = TimelinePlayer.load_file("res://demo/session.json")
 	var director: RefCounted = Director.new()
@@ -58,9 +58,9 @@ func test_the_multi_agent_scene_gives_every_agent_its_own_walk() -> void:
 		spots[penguin.position] = true
 
 
-func test_the_story_of_the_plan_is_in_the_made_up_session_in_order() -> void:
+func test_the_story_is_in_the_made_up_session_in_order() -> void:
 	# map table, bookshelf, workbench, forge, sign post, flop, helper desk and its helper, telescope, workbench, forge,
-	# celebration: the made-up session has these, in a story order of its own. This checks the order of the plan's list as a
+	# celebration: the made-up session has these, in a story order of its own. This checks the order of that list as a
 	# subsequence of the trace (the made-up session also thinks in the armchair, and the flop comes at the forge).
 	var player: RefCounted = TimelinePlayer.load_file("res://demo/session.json")
 	var trace: Dictionary = Trace.play(Director.new(), _timeline_of(player), 40.0)

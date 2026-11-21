@@ -1,5 +1,5 @@
 extends GutTest
-## The porting traps of `docs/godot-client-plan.md`, each with a test. A trap that a golden fixture cannot
+## The porting traps (differences between JavaScript and GDScript), each with a test. A trap that a golden fixture cannot
 ## show (it needs a negative half, or a language rule) has its test here.
 
 const ArenaRules := preload("res://src/core/arena_rules.gd")

@@ -1,5 +1,5 @@
 extends GutTest
-## The drawing of the interface (phase G-6): the parts that are data (the focus ring, the text widths, the colours of the states), and
+## The drawing of the interface: the parts that are data (the focus ring, the text widths, the colours of the states), and
 ## a smoke test that draws every kind of bar, the overview, the follow menu, the notices and the chips for a moment of each scene.
 ## The pictures themselves were looked at by a person (see the README); a headless run draws nothing that a test can compare.
 

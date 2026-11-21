@@ -1,5 +1,5 @@
 extends GutTest
-## The gallery shows every picture of the atlas on some page (the exit check of phase G-2 asks for every pose).
+## The gallery shows every picture of the atlas on some page (the exit check asks for every pose).
 
 const GalleryArt := preload("res://art/gallery_art.gd")
 const Data := preload("res://art/atlas_data.gd")

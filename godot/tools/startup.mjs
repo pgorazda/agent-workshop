@@ -1,11 +1,11 @@
 // Measures the start-up of the Godot client: the time from the start of the process to the first frame of the room, and the parts
-// of it (phase G-6). It starts the client several times with `--startup-report=<file>`. The client writes the times of its engine
+// of it. It starts the client several times with `--startup-report=<file>`. The client writes the times of its engine
 // clock and the time of the system clock at its first drawn frame, and quits. This tool adds the time at which it started the process.
 //
 //   node tools/startup.mjs                       # five runs of the scene `multi`
 //   node tools/startup.mjs --runs 9 --scene ten  # nine runs of another scene
 //   node tools/startup.mjs --json                # the numbers as JSON
-//   node tools/startup.mjs --app <path to an exported app>   # a release export (phase G-9)
+//   node tools/startup.mjs --app <path to an exported app>   # a release export
 //
 // It needs a window (not --headless) and the Godot editor (see godot/README.md). On Windows it uses the window build of the editor
 // when it finds one next to the console build, so that no console wrapper adds a process. The runs are warm: the files of the project

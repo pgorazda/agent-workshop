@@ -2,8 +2,8 @@ extends RefCounted
 ## The simulation clock: fixed steps of 1/60 s, whatever the frame rate.
 ##
 ## The frame code gives the time of the frame to `advance()`. The clock answers with the number of steps to run.
-## The simulation, the effects and the timeline player all read `now`. No code reads the wall clock for the picture
-## (choice 11 of the plan). A test or a recording calls `tick()` in a loop and needs no frame time at all.
+## The simulation, the effects and the timeline player all read `now`. No code reads the wall clock for the picture.
+## A test or a recording calls `tick()` in a loop and needs no frame time at all.
 ##
 ## `now` is `steps * STEP`, so it does not drift when many steps run.
 

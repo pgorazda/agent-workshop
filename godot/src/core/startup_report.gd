@@ -1,5 +1,5 @@
 extends RefCounted
-## The times of the start-up (`--startup-report=<file>`, phase G-6): when the client began, when its atlases were loaded, when the first
+## The times of the start-up (`--startup-report=<file>`): when the client began, when its atlases were loaded, when the first
 ## frame was processed, and when each of the first frames was drawn. All times are microseconds of the engine clock (`Time.get_ticks_usec`),
 ## which starts when the engine starts. `tools/startup.mjs` runs the client several times and prints the medians. The report also has the
 ## time of the clock of the system at the first drawn frame, so that the tool can add the time from the start of the process.

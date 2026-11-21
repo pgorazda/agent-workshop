@@ -1,5 +1,5 @@
 extends GutTest
-## The image files and the atlas data (phase G-2, layer 4 of the tests in docs/godot-client-plan.md).
+## The image files and the atlas data.
 ##
 ## The pictures come from the art code of the mockup, so they match it by construction. These tests check the files and
 ## how they are used: the hashes in MANIFEST.txt, the rectangles of atlas_data.gd, and that every picture that the
@@ -73,7 +73,7 @@ func _manifest() -> Dictionary:
 	return listed
 
 
-func test_the_sheets_use_the_import_settings_of_the_plan() -> void:
+func test_the_sheets_use_the_expected_import_settings() -> void:
 	# nearest filtering is the project default; the import files say: lossless; only the rooms have mipmaps (spike S-6: a
 	# room scaled down in a fly or in the overview needs trilinear filtering, and the sheets of sprites do not)
 	assert_eq(ProjectSettings.get_setting("rendering/textures/canvas_textures/default_texture_filter"), 0, "the default texture filter is nearest")
@@ -240,8 +240,8 @@ func test_the_atlas_api_finds_a_picture() -> void:
 
 
 func test_a_mirrored_picture_keeps_its_left_edge() -> void:
-	# Phase G-2 moved a mirrored picture one width to the right. A negative width mirrors in place in Godot 4.7.2.
-	# The room view of phase G-3 showed it on a screenshot. This test keeps the rectangle.
+	# An earlier version moved a mirrored picture one width to the right. A negative width mirrors in place in Godot 4.7.2.
+	# The room view showed it on a screenshot. This test keeps the rectangle.
 	var plain: Rect2 = Atlas.destination(Vector2(10, 5), Vector2(48, 50), false)
 	var mirrored: Rect2 = Atlas.destination(Vector2(10, 5), Vector2(48, 50), true)
 	assert_eq(plain, Rect2(10, 5, 48, 50))

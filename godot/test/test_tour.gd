@@ -1,5 +1,5 @@
 extends GutTest
-## The tour (phase G-8): the stops of `demo/tour.json`, the clip clock against the scene clock, the lit parts of a stop, the drawing of a
+## The tour: the stops of `demo/tour.json`, the clip clock against the scene clock, the lit parts of a stop, the drawing of a
 ## callout, and the tour as it runs in the live view.
 
 const Tour := preload("res://src/core/tour.gd")

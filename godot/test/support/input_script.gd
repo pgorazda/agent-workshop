@@ -1,5 +1,5 @@
 extends RefCounted
-## Plays the inputs of a scene through the real input path (phase G-6): a key becomes an `InputEventKey`, a click becomes a mouse
+## Plays the inputs of a scene through the real input path: a key becomes an `InputEventKey`, a click becomes a mouse
 ## move and a left click at the place where the interface shows the thing, and a line of the follow menu becomes a click on the
 ## follow switch and the keys of the menu. The events go to the viewport with `push_input`, so they reach `LiveView`'s
 ## `_unhandled_key_input` and `_unhandled_input` as a real key or click does. Nothing calls the camera directly.

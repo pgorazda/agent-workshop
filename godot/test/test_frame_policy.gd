@@ -1,5 +1,5 @@
 extends GutTest
-## The frame policy: the frame cap without focus and no drawing when minimized (choice 13 of the plan).
+## The frame policy: the frame cap without focus and no drawing when minimized.
 
 const FramePolicy := preload("res://src/core/frame_policy.gd")
 const Options := preload("res://src/core/options.gd")

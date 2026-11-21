@@ -24,7 +24,7 @@ export const CORDS = {
 };
 
 /**
- * The kilim rug colours, in the order of docs/2d-arenas-plan.md: red (arena A, and the single room), cobalt,
+ * The kilim rug colours, in the order of docs/arenas.md: red (arena A, and the single room), cobalt,
  * emerald, yellow, teal, then red again. `dark` is the colour of the ribbon and plate shade (RUGS in arenas-art.js).
  */
 export const RUGS = [

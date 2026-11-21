@@ -1,6 +1,6 @@
 extends RefCounted
-## The focus of one room: which penguin has the ring and the label (docs/2d-view-plan.md, "Several agents", item 2).
-## The ring and the label are drawn in phase G-6. This class only decides who has the focus.
+## The focus of one room: which penguin has the ring and the label.
+## The ring and the label are drawn elsewhere. This class only decides who has the focus.
 ##
 ## Two modes:
 ##   AUTO    the focus follows the newest event, held for at least HOLD seconds so that it does not flicker. A failure,

@@ -394,7 +394,7 @@ async fn a_client_without_an_origin_header_is_let_in() {
 
 #[tokio::test]
 async fn known_difference_json_nested_deeper_than_128_levels_gets_400() {
-    // The Node bridge parses it. The JSON library of the bridge stops at 128 levels. See docs/rust-bridge-plan.md.
+    // The Node bridge parses it. The JSON library of the bridge stops at 128 levels.
     let running = start().await;
     let deep = format!("{}1{}", "[".repeat(200), "]".repeat(200));
     let (status, _) = request("POST", format!("{}/event", running.http), Some(deep)).await;

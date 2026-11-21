@@ -1,5 +1,5 @@
 extends SceneTree
-## Saves stills of the live view for the screenshot pass of phase G-6: one picture of the 480x270 viewport for each shot, all in one
+## Saves stills of the live view for the screenshot pass: one picture of the 480x270 viewport for each shot, all in one
 ## run. It needs a window (not --headless).
 ##
 ##   godot --path godot -s res://tools/ui_shots.gd -- --out=/some/folder --shots="session:12.5,arenas:11.5:menu,arenas:23.2:hover=137,237"
@@ -11,7 +11,7 @@ extends SceneTree
 ##   `key=NAME`    a key of the camera (F, Tab, Esc, Left, Right, N) and 0.6 s of simulation
 ##   `ever`        the link was open once (so a link that is not open is "reconnecting")
 ##   `down=N`      the link has not been open for N seconds
-##   `sound=...`   the sound switch (phase G-7), set on the model only, so no sound plays: `on`, `menu`, `toast`, `events-off`,
+##   `sound=...`   the sound switch, set on the model only, so no sound plays: `on`, `menu`, `toast`, `events-off`,
 ##                `tune-NAME` (a tune; it also turns sound on), `hover-N` (the row under the mouse in the open menu, 0 to 5)
 ## The scene "live" is the live view with no bridge (and no events): it shows the state of the link.
 ## The file is `<scene>-<seconds>[-<action>...].png`. The scene starts as a demo scene does: with the clock paused at the time.

@@ -1,5 +1,5 @@
 extends SceneTree
-## Times the loading of the scripts of the client (phase G-6, start-up). Run it headless:
+## Times the loading of the scripts of the client (start-up). Run it headless:
 ##   godot --headless --path godot -s res://tools/load_scripts_probe.gd
 ## It loads the scripts that the main scene needs, one after the other, leaves first, and prints the milliseconds of each load
 ## (a script that another one needs is loaded with it, so the first user pays), and then the total for the main scene.

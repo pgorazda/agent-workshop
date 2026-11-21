@@ -1,5 +1,5 @@
 extends GutTest
-## The scripted input test of phase G-6. A scene of `demo/` has the keys and clicks of a person (`inputs`). The timeline player hands
+## The scripted input test. A scene of `demo/` has the keys and clicks of a person (`inputs`). The timeline player hands
 ## them to the camera directly. Here the same inputs go through the real input path instead: a key is an `InputEventKey`, a click is a
 ## mouse move and a left click on the place where the interface shows the tab, the box, the cell or the follow switch, and a line of
 ## the follow menu is a click on the switch and a key of the menu. The events are pushed into the viewport with `push_input`, so they

@@ -1,5 +1,5 @@
-// Tests of the helpers of tools/record.mjs and tools/determinism.mjs (phase G-8). They need neither a window nor ffmpeg. The recording
-// itself is run by hand (see godot/README.md, "Phase G-8").
+// Tests of the helpers of tools/record.mjs and tools/determinism.mjs. They need neither a window nor ffmpeg. The recording
+// itself is run by hand (see godot/README.md).
 
 import assert from 'node:assert/strict';
 import { existsSync, mkdtempSync, readdirSync, rmSync } from 'node:fs';

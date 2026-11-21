@@ -1,5 +1,5 @@
 extends Control
-## Phase G-0: a text view of the connection and of the events.
+## A text view of the connection and of the events.
 ##
 ## The later phases replace this view with the workshop. The link to the bridge stays.
 
@@ -55,7 +55,7 @@ func _emit_log(text: String) -> void:
 
 func _refresh() -> void:
 	var head: PackedStringArray = [
-		"Agent Workshop - phase G-0 (text view)",
+		"Agent Workshop - text view",
 		"bridge: %s" % _options.bridge,
 		"state: %s   events: %d" % [_client.state_name(), _client.events_received],
 	]

@@ -1,4 +1,4 @@
-// Tests the export presets and the parts of export.mjs that need no network and no export (phase G-9):  node --test
+// Tests the export presets and the parts of export.mjs that need no network and no export:  node --test
 // A full export is not run here: it needs the templates (1.3 GB) and takes a minute. Run it with tools/export.mjs.
 
 import { test } from 'node:test';

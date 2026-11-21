@@ -1,6 +1,6 @@
 extends GutTest
-## The sound in the live view (phase G-7), through the real input path: sound starts off, M turns it on (a key becomes an `InputEventKey`
-## pushed into the viewport, as in the scripted input test of phase G-6), S opens the menu, and the keys and clicks of the menu work.
+## The sound in the live view, through the real input path: sound starts off, M turns it on (a key becomes an `InputEventKey`
+## pushed into the viewport, as in the scripted input test), S opens the menu, and the keys and clicks of the menu work.
 ## The cues of the actors reach the players. The drawing of the switch and its menu runs for each state. A headless run has no sound
 ## device: Godot uses the dummy audio driver, and nothing here is heard.
 

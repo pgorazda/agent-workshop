@@ -1,5 +1,5 @@
 extends GutTest
-## The levels of the sound files, and the master limiter (phase G-7). Each file has its own limiter from the mockup's mixer, so each file
+## The levels of the sound files, and the master limiter. Each file has its own limiter from the mockup's mixer, so each file
 ## alone stays below full scale. A tune and an event sound can add up above it (`tools/sound-levels.mjs` measures how far, from the
 ## files). This test checks the files' own peaks, and then measures the master bus itself: sounds that add up far above full scale are
 ## played under the dummy audio driver, and an `AudioEffectCapture` after the limiter reads what leaves the bus.

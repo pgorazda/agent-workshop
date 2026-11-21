@@ -52,7 +52,7 @@ func test_unknown_event_type_is_emitted_as_generic_work() -> void:
 	assert_true(_events[0].is_generic_work())
 
 
-func test_constants_follow_the_plan() -> void:
+func test_constants_have_the_expected_values() -> void:
 	assert_eq(BridgeClient.RECONNECT_SECONDS, 2.0)
 	assert_eq(BridgeClient.MAX_EVENTS_PER_FRAME, 64)
 

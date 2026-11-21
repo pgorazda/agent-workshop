@@ -1,5 +1,5 @@
 extends RefCounted
-## Recording mode (phase G-8): the pure parts. `tools/record.mjs` starts the client with the engine's Movie Maker (`--write-movie`,
+## Recording mode: the pure parts. `tools/record.mjs` starts the client with the engine's Movie Maker (`--write-movie`,
 ## `--fixed-fps`) and `--record-fps`. Godot calls `_process` once for each frame of the clip, and the view runs the simulation up to the
 ## time of that frame. Nothing here reads a clock, a window or a file.
 ##

@@ -1,5 +1,5 @@
 extends RefCounted
-## The incremental camera of the arenas (docs/2d-arenas-plan.md, "The camera"; phase G-5).
+## The incremental camera of the arenas.
 ##
 ## It gives the same results as the batch camera `ArenaRules.simulate_camera`, but it does not read the future. The batch
 ## camera is given the whole story of a session and knows when an approval ends (`until`). This camera is fed while the
@@ -11,7 +11,7 @@ extends RefCounted
 ##      `arena_opened()`, `arena_closed()`, `answer()` when an approval ends, and the person's inputs;
 ##   2. calls `advance(now)`: it runs the steps of 1/30 s (`DEFAULTS.step`) up to the simulation time `now`;
 ##   3. asks for the pose with `pose_at_time(t)`. The decisions come every 1/30 s, but the pose is a function of the time,
-##      so it is smooth at any frame rate (choice 4 of the plan).
+##      so it is smooth at any frame rate.
 ##
 ## Events must not be dated in the future. Equal times keep the order of arrival. An event of the same agent, or of any
 ## other kind, is activity too (every event is activity).
