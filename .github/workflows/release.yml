@@ -163,7 +163,7 @@ jobs:
           The apps are **not signed**. Your system may warn you:
 
           - **Windows:** SmartScreen says "Windows protected your PC". Choose "More info", then "Run anyway".
-          - **macOS:** Gatekeeper blocks the app. Right-click the app and choose "Open", or run `xattr -dr com.apple.quarantine AgentWorkshop.app`.
+          - **macOS:** Gatekeeper blocks the app. Right-click the app and choose "Open", or run `xattr -dr com.apple.quarantine "Agent Workshop.app"`.
           - **Linux:** unpack the archive and run the file `AgentWorkshop.x86_64` or `AgentWorkshop.arm64`.
 
           The apps read the event stream of the bridge. See the README for how to start the bridge.
