@@ -43,8 +43,9 @@ jobs:
           node-version: 24
       - name: The tagged commit is on main
         if: github.ref_type == 'tag'
+        # The checkout above has fetched every branch (fetch-depth: 0), so origin/main is there. A later fetch would need credentials,
+        # which the checkout does not keep.
         run: |
-          git fetch --no-tags origin main
           if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
             echo "::error::The tag ${GITHUB_REF_NAME} is not on main. Release only commits that were merged into main."
             exit 1
