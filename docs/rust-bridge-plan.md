@@ -128,15 +128,15 @@ Do this after one pre-release was run on at least two platforms by hand.
 
 ### R-8: the app starts the bridge (after R-7)
 
-The owner wants a setting in the Godot app that starts the bridge by itself. Write the ADR first (the next free number). It must answer the questions below, and it touches rule 3 (the bridge stays on `127.0.0.1`, stores nothing and broadcasts only schema fields).
+The owner wants a setting in the Godot app that starts the bridge by itself. The rules are in ADR 0014 (proposed). It touches rule 3 (the bridge stays on `127.0.0.1`, stores nothing and broadcasts only schema fields). In short:
 
-* **Where the app finds the bridge.** The archives are separate, so the app cannot count on a file next to it. Options: look for `agent-workshop-bridge` next to the app and on the `PATH`, and let the person pick a file in the setting.
-* **Default.** Off, so the app never starts a program that the person did not choose.
-* **When it starts.** Only when `GET /health` on the configured address gets no answer. If a bridge already runs, the app uses it.
-* **Who stops it.** The app stops a bridge that it started, when it quits (also after a crash of the app, so no bridge is left behind). It never stops one that it did not start.
-* **Port clash.** Another program holds the port: show a short message and use the demo mode.
-* **Errors.** Show the first lines of the bridge's output when it exits at once.
-* **Code.** The process handling sits outside `art/` (rule 7). Test it with a fake bridge program, and with the real binary in the Godot link test.
+* **Where the app finds the bridge.** The archives are separate, so the app looks for the configured path, then `agent-workshop-bridge` next to the app, then on the `PATH`. It never downloads it.
+* **Default.** Off, so the app never starts a program that the person did not choose. The command line wins over the saved setting.
+* **When it starts.** Only for a local address, and only when `GET /health` gets no answer. If a bridge already runs, the app uses it.
+* **Who stops it.** The app stops a bridge that it started, when it quits. It never stops one that it did not start. After a crash of the app the bridge ends too: it exits when its standard input closes, or when its parent process is gone. The bridge needs a flag for this (add it in phase R-4 or R-8).
+* **Port clash and errors.** Show one short message with the first lines of the bridge's output, and keep the reconnect loop and the demo mode.
+* **Checks first.** Whether the app has a saved setting and a place for it in the interface, how Godot's pipe start works on the three systems, and how macOS treats a downloaded unsigned bridge.
+* **Code.** The process handling sits outside `art/` (rule 7). Test it with the real binary and the real client (the cases are in the ADR).
 
 ## Risks
 
