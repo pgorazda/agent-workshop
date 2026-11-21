@@ -1,6 +1,6 @@
 // The Pi extension (adapters/pi/arena.ts) posts reduced events to the real bridge.
 //
-//   node --test adapters/test        (Node 22 or later; needs a Node that can import .ts files, or the test is skipped)
+//   node --test 'adapters/test/*.test.mjs'        (Node 22 or later; needs a Node that can import .ts files, or the test is skipped)
 
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';

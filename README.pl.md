@@ -140,7 +140,7 @@ Pierwsze uruchomienie pobiera szablony eksportu (około 1,3 GB). Aplikacja przyj
 
 ```bash
 cd bridge && cargo test               # the bridge: unit tests and tests with the real binary (also checks godot/test/fixtures)
-node --test adapters/test             # the OpenCode plugin, the Pi extension and the Hermes script against the real bridge (Node 22 or later)
+node --test 'adapters/test/*.test.mjs'             # the OpenCode plugin, the Pi extension and the Hermes script against the real bridge (Node 22 or later)
 cd godot && node tools/run-gut.mjs    # GUT tests, headless
 cd godot && node --test               # Node tests: bridge link, license split, tools
 cd godot && node tools/check.mjs      # GDScript check, warnings count as errors

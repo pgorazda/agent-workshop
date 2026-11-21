@@ -1,7 +1,7 @@
 // The Hermes hook script (adapters/hermes/arena-hook.sh) forwards its standard input to the real
 // bridge, and stays silent with exit code 0 when the bridge is down.
 //
-//   node --test adapters/test        (Node 22 or later; needs sh and curl, or the test is skipped)
+//   node --test 'adapters/test/*.test.mjs'        (Node 22 or later; needs sh and curl, or the test is skipped)
 
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';

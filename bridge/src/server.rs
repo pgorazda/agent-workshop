@@ -247,6 +247,9 @@ async fn handle(shared: Arc<Shared>, req: Request) -> Response {
         };
     }
 
+    // The answer comes before the body is read. Read it now (up to the limit): on Windows, closing a connection with unread data
+    // resets it, and the client would never see the answer.
+    let _ = to_bytes(req.into_body(), MAX_BODY_BYTES).await;
     error_response(StatusCode::NOT_FOUND, "not found")
 }
 

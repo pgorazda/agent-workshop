@@ -6,7 +6,7 @@ Agent Workshop shows AI coding agents at work as penguins in a pixel-art worksho
 
 ```bash
 cd bridge && cargo test                # the bridge (Rust)
-node --test adapters/test              # the adapter scripts against the real bridge (Node 22+)
+node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge (Node 22+)
 cd godot && npm test                   # needs the Godot editor (set GODOT, see godot/README.md) and builds the bridge
 ```
 

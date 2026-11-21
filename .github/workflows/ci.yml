@@ -88,7 +88,7 @@ jobs:
           key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
           restore-keys: bridge-${{ runner.os }}-
       # The tests of the OpenCode plugin, the Pi extension and the Hermes hook script run the real bridge. They build it when it is missing.
-      - run: node --test adapters/test
+      - run: node --test 'adapters/test/*.test.mjs'
 
   godot:
     name: Godot client tests

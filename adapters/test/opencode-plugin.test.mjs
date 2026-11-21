@@ -1,7 +1,7 @@
 // The OpenCode plugin (adapters/opencode/arena.js) posts a reduced event stream to the real bridge,
 // which maps it to the same canonical events as the raw stream.
 //
-//   node --test adapters/test        (Node 22 or later; builds the bridge with cargo when needed)
+//   node --test 'adapters/test/*.test.mjs'        (Node 22 or later; builds the bridge with cargo when needed)
 
 import { test, before } from 'node:test';
 import assert from 'node:assert/strict';
