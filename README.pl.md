@@ -30,7 +30,7 @@ Gdy jeden pokój się zapełni, obok otwierają się kolejne pokoje (areny). Na 
 | Część | Stan |
 |---|---|
 | Schemat zdarzeń v1 (`schema/`) | Gotowe |
-| Bridge, adaptery dla Claude Code, OpenCode, Pi i Hermes, odtwarzanie transkryptów (`bridge/`) | Gotowe, 45 testów automatycznych |
+| Bridge, adaptery dla Claude Code, OpenCode, Pi i Hermes, odtwarzanie transkryptów (`bridge/`) | Gotowe. To program w Ruście, który buduje się do jednego pliku wykonywalnego dla każdego systemu i nie potrzebuje Node. Pokryty 104 testami w Ruście (testy jednostkowe oraz prawdziwy plik z prawdziwymi klientami HTTP i WebSocket) i 3 testami skryptów adapterów z prawdziwym plikiem. Zastępuje pierwszą, węzłową wersję (ADR 0013), której wyniki zgadzają się z nim na kilkuset tysiącach danych testowych |
 | Wtyczka OpenCode, rozszerzenie Pi, skrypt hooka Hermes (`adapters/`) | Napisane na podstawie opublikowanych definicji typów, dokumentacji i kodu źródłowego, sprawdzone na danych testowych. **Jeszcze nie uruchomione w prawdziwym OpenCode, Pi ani Hermes** |
 | Klient Godot (`godot/`) | **Gotowy dla komputerów stacjonarnych: fazy G-0 do G-9 z [planu](docs/godot-client-plan.md).** Odtwarza sesję na żywo z bridge'a, z arenami, interfejsem i dźwiękiem, oraz siedem wymyślonych scen bez bridge'a. `godot/tools/record.mjs` nagrywa każdą scenę jako klip. `node godot/tools/export.mjs --platform all` buduje niepodpisane aplikacje dla Windows, Linuksa i macOS, a workflow wydań je publikuje (zobacz [`docs/releasing.md`](docs/releasing.md)). Na prawdziwym sprzęcie uruchomiono tylko aplikację dla Windows x86_64. **Niegotowe:** podpisywanie, tablety i telefony (odłożone) oraz pomiar na słabym laptopie referencyjnym. Zobacz [`godot/README.md`](godot/README.md) |
 | Klient przeglądarkowy (`web/`) | **Niezbudowany.** ADR 0008 zastąpił go klientem Godot. [Jego plan](docs/browser-client-plan.md), [plan widoku 2D](docs/2d-view-plan.md), [plan aren](docs/2d-arenas-plan.md) i [plan trybu demo](docs/demo-mode-plan.md) zostają jako specyfikacja wyglądu i zasad |
@@ -39,14 +39,26 @@ Plany wspominają o rekordach decyzji architektonicznych (ADR) po numerze, na pr
 
 ## Szybki start
 
-### 1. Uruchom bridge (Node 20+)
+### 1. Uruchom bridge
+
+Bridge to jeden program, `agent-workshop-bridge`, bez Node ani innego środowiska uruchomieniowego. Pobierz archiwum bridge'a dla swojego systemu z najnowszego wydania (`AgentWorkshopBridge-<wersja>-<system>`), rozpakuj je i uruchom:
+
+```bash
+./agent-workshop-bridge serve        # http://127.0.0.1:8787, WebSocket path /ws
+```
+
+Bridge nie jest podpisany. W macOS po rozpakowaniu uruchom raz `xattr -d com.apple.quarantine agent-workshop-bridge`. Windows może pokazać SmartScreen („Więcej informacji", potem „Uruchom mimo to").
+
+Aby zbudować go samodzielnie, potrzebujesz Rusta (stabilny toolchain):
 
 ```bash
 cd bridge
-npm install
-npm test
-npm start            # http://127.0.0.1:8787, WebSocket path /ws
+cargo run --release -- serve         # to samo, ze źródeł (plik to bridge/target/release/agent-workshop-bridge)
 ```
+
+Opcje: `--port` (domyślnie 8787, `0` wybiera wolny port), `--host` (domyślnie `127.0.0.1`), `--redact-targets`. Zmienne `ARENA_PORT`, `ARENA_HOST` i `ARENA_REDACT_TARGETS` robią to samo.
+
+Aplikacja Godot może uruchomić bridge za Ciebie: uruchom ją z `--start-bridge` (albo ustaw `start=true` w jej pliku ustawień, zobacz `godot/README.md`). Robi to tylko wtedy, gdy żaden bridge nie odpowiada na lokalnym adresie, używa programu obok aplikacji lub w `PATH` (albo ścieżki, którą podasz) i zatrzymuje go przy zamknięciu.
 
 Bridge nasłuchuje tylko na `127.0.0.1`. Zdarzenia mogą zawierać polecenia i nazwy plików. Uruchom bridge z `--redact-targets` (lub `ARENA_REDACT_TARGETS=1`), aby usunąć cele i tekst błędów, zanim opuszczą bridge.
 
@@ -64,8 +76,8 @@ Niezależnie od wyboru strumień, który dostają klienci, nie zawiera tekstu wi
 Odtwórz nagrany transkrypt Claude Code (czas zachowany, `--speed 0` oznacza brak opóźnień):
 
 ```bash
-cd bridge
-npm run replay -- ../schema/examples/claude-code-transcript.jsonl --speed 4
+agent-workshop-bridge replay schema/examples/claude-code-transcript.jsonl --speed 4
+# from the source: cd bridge && cargo run --release -- replay ../schema/examples/claude-code-transcript.jsonl --speed 4
 # your own sessions: ~/.claude/projects/<project>/<session>.jsonl
 ```
 
@@ -78,7 +90,7 @@ npm run replay -- ../schema/examples/claude-code-transcript.jsonl --speed 4
 **Pi** (bez instalacji, tryb JSON): przepuść strumień zdarzeń Pi przez CLI bridge'a. `--tee` zachowuje widoczne wyjście Pi.
 
 ```bash
-pi --mode json "your prompt" | node bridge/src/cli.js ingest pi --tee
+pi --mode json "your prompt" | agent-workshop-bridge ingest pi --tee
 ```
 
 **Hermes Agent** (na żywo): Hermes może uruchamiać polecenia powłoki przy swoich zdarzeniach cyklu życia, z ładunkiem podobnym do Claude Code. Skopiuj [`adapters/hermes/arena-hook.sh`](adapters/hermes/arena-hook.sh) do `~/.hermes/hooks/arena-hook.sh` (zostaw go jako wykonywalny) i dołącz blok `hooks:` z [`adapters/hermes/config.example.yaml`](adapters/hermes/config.example.yaml) do `~/.hermes/config.yaml`. Hermes pyta o zgodę przy pierwszym spotkaniu każdego hooka. Dla uruchomienia nieinteraktywnego użyj `--accept-hooks` (lub ustaw `HERMES_ACCEPT_HOOKS=1`). Hermes uruchamia hooki synchronicznie i bez powłoki. Dlatego przekaźnik jest skryptem, który kończy się kodem 0 w ciągu sekundy, cokolwiek się stanie. Obejmuje wywołania narzędzi i błędy, prośby o zgodę (drogowskaz), subagentów (pingwiny pomocnicy) oraz początek i koniec tury.
@@ -87,12 +99,12 @@ Wtyczka OpenCode, rozszerzenie Pi i skrypt Hermes domyślnie wysyłają dane na 
 
 ### 3. Uruchom klienta Godot
 
-Potrzebujesz Node 20 lub nowszego i edytora Godot w przypiętej wersji (plik `godot/GODOT_VERSION`). Ustaw `GODOT` na swój edytor albo pozwól, by `node godot/tools/get-godot.mjs` go pobrał. Szczegóły są w `godot/README.md`.
+Potrzebujesz edytora Godot w przypiętej wersji (plik `godot/GODOT_VERSION`). Ustaw `GODOT` na swój edytor albo pozwól, by `node godot/tools/get-godot.mjs` go pobrał (ten skrypt wymaga Node 20 lub nowszego). Szczegóły są w `godot/README.md`. Do sesji na żywo potrzebujesz też bridge'a (krok 1).
 
 ```bash
-cd bridge && npm start                                                              # the bridge
+cd bridge && cargo run --release -- serve                                           # the bridge (or the downloaded binary: agent-workshop-bridge serve)
 cd godot && "$GODOT" --path .                                                       # the client (import the project once: "$GODOT" --headless --path . --import)
-cd bridge && npm run replay -- ../schema/examples/claude-code-transcript.jsonl --speed 4   # events for the client
+cd bridge && cargo run --release -- replay ../schema/examples/claude-code-transcript.jsonl --speed 4   # events for the client
 cd godot && "$GODOT" --path . -- --demo=multi                                       # a made-up scene, no bridge (also session, arenas, many, follow, ten, tour)
 ```
 
@@ -127,13 +139,14 @@ Pierwsze uruchomienie pobiera szablony eksportu (około 1,3 GB). Aplikacja przyj
 ### 4. Uruchom testy
 
 ```bash
-cd bridge && npm test
+cd bridge && cargo test               # the bridge: unit tests and tests with the real binary (also checks godot/test/fixtures)
+node --test adapters/test             # the OpenCode plugin, the Pi extension and the Hermes script against the real bridge (Node 22 or later)
 cd godot && node tools/run-gut.mjs    # GUT tests, headless
 cd godot && node --test               # Node tests: bridge link, license split, tools
 cd godot && node tools/check.mjs      # GDScript check, warnings count as errors
 ```
 
-Polecenia z `godot/` wymagają Node 20 lub nowszego oraz `GODOT`.
+Polecenia z `godot/` wymagają Node 20 lub nowszego, `GODOT` oraz toolchainu Rusta: testy, które uruchamiają bridge, najpierw budują go przez `cargo build` (albo ustaw `ARENA_BRIDGE_BIN` na plik wykonywalny).
 
 ## Schemat zdarzeń
 
@@ -155,8 +168,8 @@ Ponadto: `tool_end` z `ok: false` powoduje, że pingwin się przewraca, `waiting
 
 ## Dodawanie frameworka agenta
 
-1. Napisz adapter w `bridge/src/adapters/`, który zamienia natywne zdarzenia frameworka na zdarzenia schematu v1. Użyj `categoryFor()` z `bridge/src/categories.js` i `describeTarget()` z `bridge/src/targets.js`. W razie potrzeby dodaj do `categories.js` nadpisania nazw narzędzi dla frameworka. `opencode.js`, `pi.js` i `hermes.js` to krótkie, kompletne przykłady.
-2. Zarejestruj go w tablicy `adapters` w `bridge/src/server.js`. To daje mu trasę `POST /hook/<framework>`. Albo uruchom go obok agenta i wysyłaj (`POST`) zdarzenia kanoniczne na `/event`.
+1. Napisz adapter w `bridge/src/adapters/`, który zamienia natywne zdarzenia frameworka na zdarzenia schematu v1. Użyj `category_for()` z `bridge/src/categories.rs` i `describe_target()` z `bridge/src/targets.rs`. W razie potrzeby dodaj do `categories.rs` nadpisania nazw narzędzi dla frameworka. `opencode.rs`, `pi.rs` i `hermes.rs` to krótkie, kompletne przykłady.
+2. Zarejestruj go w `Adapters::map` i `Adapters::knows` w `bridge/src/adapters/mod.rs`. To daje mu trasę `POST /hook/<framework>`. Albo uruchom go obok agenta i wysyłaj (`POST`) zdarzenia kanoniczne na `/event`.
 3. Dostarcz mały przekaźnik dla agenta (konfigurację hooków, wtyczkę lub rozszerzenie), który wysyła tylko pola potrzebne adapterowi, i umieść go w `adapters/<framework>/`.
 4. Nadaj frameworkowi kolor sznura w reżyserze klienta. Kolory są wymienione w [planie klienta przeglądarkowego](docs/browser-client-plan.md).
 
@@ -172,8 +185,8 @@ Klient gra cztery oryginalne melodie w duchu polskich tańców ludowych (krakowi
 
 ```
 schema/          event.schema.json and example sessions for Claude Code, OpenCode, Pi and Hermes (synthetic, built from the documented formats)
-bridge/          Node bridge: schema validation, categories, adapters (Claude Code, OpenCode, Pi, Hermes), server, CLI, tests
-adapters/        forwarders that run inside or beside each agent: Claude Code hooks, OpenCode plugin, Pi extension, Hermes hook script
+bridge/          the bridge in Rust: schema validation, categories, adapters (Claude Code, OpenCode, Pi, Hermes), server, CLI, tests
+adapters/        forwarders that run inside or beside each agent: Claude Code hooks, OpenCode plugin, Pi extension, Hermes hook script (and adapters/test/, their tests)
 godot/           the Godot client: project, bridge link, scenes, tools and tests (GUT is kept in godot/addons/gut/, MIT)
 godot/art/       the Godot client's art: drawing code, rendered images and sounds (all rights reserved, see LICENSE-ASSETS)
 godot/demo/      the seven made-up scenes (JSON timelines)

@@ -1,4 +1,5 @@
-// Tests of the scene timelines in godot/demo/: they follow the event schema and the bridge validation, and they tell a
+// Tests of the scene timelines in godot/demo/: they follow the event schema (the bridge's own validation is checked in
+// bridge/tests/demo_scenes.rs), and they tell a
 // sensible story. The files are fixed: no tool makes them (see demo/README.md).
 
 import assert from 'node:assert/strict';
@@ -6,7 +7,6 @@ import { readFileSync } from 'node:fs';
 import { join } from 'node:path';
 import { test } from 'node:test';
 import { fileURLToPath } from 'node:url';
-import { normalizeEvent, validateEvent } from '../../bridge/src/schema.js';
 
 const GODOT_DIR = fileURLToPath(new URL('..', import.meta.url));
 const REPO_DIR = join(GODOT_DIR, '..');
@@ -50,11 +50,10 @@ test('the checker finds a wrong event (a test of the test)', () => {
 for (const name of SCENES) {
   const timeline = load(name);
 
-  test(`${name}: every event is valid by the schema and by the bridge`, () => {
+  test(`${name}: every event is valid by the schema`, () => {
     assert.ok(timeline.events.length > 10);
     for (const { event } of timeline.events) {
       assert.deepEqual(check(SCHEMA, event), [], JSON.stringify(event));
-      assert.deepEqual(validateEvent(normalizeEvent(event)), [], JSON.stringify(event));
     }
   });
 

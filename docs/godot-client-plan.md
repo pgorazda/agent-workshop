@@ -38,7 +38,7 @@ This table describes the state before phase G-0.
 |---|---|---|
 | Event stream | Bridge, `WS /ws`. Each connection first gets `{"v":1,"type":"hello"}`. The bridge keeps no history for late clients | Use as it is |
 | Event schema | [`schema/event.schema.json`](../schema/event.schema.json) | Read the same fields. Keep the enums in step (a test) |
-| Example sessions | [`schema/examples/`](../schema/examples/) and `npm run replay` in `bridge/` | Fixtures for tests and for the replay check |
+| Example sessions | [`schema/examples/`](../schema/examples/) and the `replay` command of the bridge (`cargo run -- replay` in `bridge/`) | Fixtures for tests and for the replay check |
 | Arena rules, with no drawing, and their 34 tests | `arena-rules.js` and `arena-rules.test.mjs` of the mockup | Port to GDScript with the same cases |
 | Drawing and sound code (about 120 KB of JavaScript) | The art code of the mockup | Move `look.js` and `sound.js` to `godot/art/` as the source that renders image and sound files. Port the code that draws each frame (effects, interface) to GDScript |
 | Scripted scenes, recorder, tests | The mockup | Scenes become data. The recorder gets a Godot counterpart |
@@ -213,7 +213,7 @@ What headless cannot do: draw. Godot's `--headless` mode uses a dummy renderer. 
 
 ### The license check
 
-`godot/tools/license.test.mjs` runs with `node --test` (Node is already needed for the bridge). It checks that:
+`godot/tools/license.test.mjs` runs with `node --test` (Node is already needed for the tools). It checks that:
 
 * each `.gd` file in `godot/art/` starts with the header above, and each `.js` file there starts with the same lines behind `//`;
 * `godot/art/images/` and `godot/art/sound/` hold only image and sound files (and the `.import` files that Godot makes). `godot/art/MANIFEST.txt` starts with the copyright line and lists the SHA-256 hash of each file in both folders. The hashes match the files, so nobody edits a rendered file by hand;

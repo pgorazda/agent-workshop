@@ -1,6 +1,6 @@
 extends GutTest
 ## Parsing of schema v1 events. The fixtures in test/fixtures/ are the example sessions of
-## schema/examples/ after the bridge adapters mapped them (made by tools/example-events.mjs).
+## schema/examples/ after the bridge adapters mapped them (made by `cargo run --example fixtures` in bridge/).
 
 const Event := preload("res://src/core/event.gd")
 

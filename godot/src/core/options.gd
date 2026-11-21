@@ -16,6 +16,12 @@ const DEFAULT_ARENA_SIZE := 4
 const DEFAULT_LEAVE_AFTER := 600.0
 
 var bridge: String = DEFAULT_BRIDGE
+## Start the bridge program when none runs (ADR 0014). Off by default. The saved setting (`net/bridge_settings.gd`) may turn it on, unless the
+## command line decided: `--start-bridge[=<path>]` or `--no-start-bridge`.
+var start_bridge: bool = false
+var start_bridge_set: bool = false
+## The bridge program to start. Empty means: next to the app, then on the PATH.
+var bridge_path: String = ""
 ## Print each event line to standard output too. For tests and for checks without a screen.
 var log_events: bool = false
 ## The name of a scene in `res://demo/` to play instead of reading the bridge ("" for the bridge).
@@ -105,6 +111,16 @@ static func parse(args: PackedStringArray) -> RefCounted:
 				options.bridge = url
 			else:
 				options.warnings.append("Ignored --bridge: the address must start with ws:// or wss://")
+		elif arg == "--start-bridge":
+			options.start_bridge = true
+			options.start_bridge_set = true
+		elif arg.begins_with("--start-bridge="):
+			options.start_bridge = true
+			options.start_bridge_set = true
+			options.bridge_path = arg.trim_prefix("--start-bridge=")
+		elif arg == "--no-start-bridge":
+			options.start_bridge = false
+			options.start_bridge_set = true
 		elif arg == "--log-events":
 			options.log_events = true
 		elif arg.begins_with("--demo="):
