@@ -138,6 +138,21 @@ The first run downloads the export templates (about 1.3 GB). The app takes the s
 
 ### 4. Run the tests
 
+With [mise](https://mise.jdx.dev) one command runs the checks of the CI on your machine, with no push and no version bump (`mise.toml` pins Node 24 and Rust, and lists the tasks):
+
+```bash
+mise install          # once: Node and Rust at the pinned versions
+mise run check        # version, fmt, clippy, bridge tests, adapter tests, Godot tests (downloads the Godot editor the first time)
+mise run check-fast   # the same without the Godot tests
+mise tasks            # all tasks
+mise run bridge       # run the bridge from the source
+mise run app          # the Godot app (start the bridge first); extra arguments after --, for example: mise run app -- --start-bridge=bridge/target/release/agent-workshop-bridge
+mise run replay       # events for the app: replay the example Claude Code session
+mise run demo         # the app on a made-up scene with no bridge (mise run demo arenas for another one)
+```
+
+It covers the system you run it on. A failure that only Windows or Linux has shows in the CI. Without mise, the commands are:
+
 ```bash
 cd bridge && cargo test               # the bridge: unit tests and tests with the real binary (also checks godot/test/fixtures)
 node --test 'adapters/test/*.test.mjs'             # the OpenCode plugin, the Pi extension and the Hermes script against the real bridge (Node 22 or later)
