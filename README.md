@@ -40,6 +40,8 @@ On macOS, run `xattr -d com.apple.quarantine agent-workshop-bridge` once after y
 
 **3. Connect your agent.** Pick one in [docs/adapters.md](docs/adapters.md): Claude Code (hooks), OpenCode (plugin), Pi (extension, or a JSON pipe) or Hermes Agent (hook script). Each takes one file copy or one config merge.
 
+The agent can run on another machine, for example over SSH: see [Agent on another machine](docs/adapters.md#agent-on-another-machine).
+
 No agent at hand? Replay a recorded session, with the app already running:
 
 ```bash

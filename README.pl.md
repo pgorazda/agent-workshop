@@ -40,6 +40,8 @@ Na macOS po rozpakowaniu uruchom raz `xattr -d com.apple.quarantine agent-worksh
 
 **3. Podłącz agenta.** Wybierz go w [docs/adapters.md](docs/adapters.md): Claude Code (hooki), OpenCode (wtyczka), Pi (rozszerzenie albo potok JSON) lub Hermes Agent (skrypt hooka). Każdy wymaga skopiowania jednego pliku albo scalenia jednej konfiguracji.
 
+Agent może działać na innym komputerze, na przykład przez SSH: zobacz [Agent on another machine](docs/adapters.md#agent-on-another-machine) (po angielsku).
+
 Nie masz agenta pod ręką? Odtwórz nagraną sesję, przy działającej aplikacji:
 
 ```bash

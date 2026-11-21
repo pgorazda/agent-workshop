@@ -42,6 +42,21 @@ Hermes can run shell commands on its lifecycle events, with a payload much like 
 
 Hermes runs hooks synchronously and without a shell, so the forwarder is a script that exits 0 within a second whatever happens. It covers tool calls and failures, approval prompts (the sign post), subagents (helper penguins), and turn start and end.
 
+## Agent on another machine
+
+The bridge listens on `127.0.0.1` by default, so the agent, the bridge and the app must run on one machine unless you connect them. Two safe ways:
+
+- **The agent is remote** (an SSH session, a dev container, a remote box) and you watch locally. Keep the bridge on your machine and forward its port with a reverse tunnel:
+
+  ```bash
+  ssh -R 8787:127.0.0.1:8787 user@remote
+  ```
+
+  The agent's hooks post to `127.0.0.1:8787` on the remote side, and the events reach your local bridge. If you use another port, set `ARENA_BRIDGE_HTTP` in the agent's environment.
+- **The app is on another machine than the bridge.** Forward the bridge's port with `ssh -L 8787:127.0.0.1:8787 user@bridge-host`, then start the app as usual. Or start the app with `--bridge=ws://<host>:8787/ws`. With a non-local address the app never starts a bridge itself.
+
+Avoid `--host 0.0.0.0`. The bridge has no authentication: anyone who can reach the port can read the event stream, which can contain commands and file names, and can post fake events. If you must open it, do it on a trusted network only, and use `--redact-targets`.
+
 ## Known limits
 
 - Claude Code hook payloads do not say which subagent made a call. Subagent work shows as a helper penguin that looks busy, not as that subagent's real calls. OpenCode and Hermes report subagent sessions, so their subagents show their real work.
