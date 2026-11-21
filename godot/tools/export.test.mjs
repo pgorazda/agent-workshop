@@ -120,10 +120,10 @@ test('the presets hold no absolute path and no path of a user', () => {
   }
 });
 
-test('every preset leaves out the tests, the tools, the spike, GUT, the output and the texts, and adds the scene files', () => {
+test('every preset leaves out the tests, the tools, GUT, the output and the texts, and adds the scene files', () => {
   for (const preset of presets()) {
     const excluded = filterMatcher(preset.exclude_filter);
-    for (const path of ['test/test_clock.gd', 'tools/export.mjs', 'spikes/s6/s6_runner.gd', 'addons/gut/gut.gd', 'out/export/a.exe', 'README.md', 'art/image_src/look.js', 'art/sound_src/sound.js']) {
+    for (const path of ['test/test_clock.gd', 'tools/export.mjs', 'addons/gut/gut.gd', 'out/export/a.exe', 'README.md', 'art/image_src/look.js', 'art/sound_src/sound.js']) {
       assert.ok(excluded(path), `${preset.name}: ${path} is excluded`);
     }
     assert.equal(preset.include_filter, 'demo/*.json', `${preset.name}: the scene files are included`);
@@ -146,7 +146,7 @@ test('nothing that the client needs at run time is excluded', () => {
     for (const path of needed) assert.ok(!excluded(path), `${preset.name}: ${path} must not be excluded`);
   }
   // every res:// path that a script or a scene of src/ names must stay out of the excluded folders
-  const excludedFolders = /^res:\/\/(test|tools|spikes|addons|out)\//;
+  const excludedFolders = /^res:\/\/(test|tools|addons|out)\//;
   for (const path of files(join(GODOT_DIR, 'src'))) {
     if (!/\.(gd|tscn)$/.test(path)) continue;
     const code = readFileSync(join(GODOT_DIR, 'src', path), 'utf8');

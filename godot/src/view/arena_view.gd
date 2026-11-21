@@ -6,8 +6,8 @@ extends Node2D
 ## world is 1/s: one arena fills the view at 1 (on whole pixels, with the nearest filter), a page fills it at 0.5, and a long move
 ## widens the view to 8 rooms across (0.125).
 ##
-## Smooth scaling comes from the room textures: they have mipmaps and the room node uses trilinear filtering when the scale is not 1
-## (spike S-6). The project does not snap vertices to whole pixels, so a scaled room does not jump. A room that is not in view is
+## Smooth scaling comes from the room textures: they have mipmaps and the room node uses trilinear filtering when the scale is not 1.
+## The project does not snap vertices to whole pixels, so a scaled room does not jump. A room that is not in view is
 ## hidden: it does not draw, and the view does not even give it its penguins.
 ##
 ## This node has no drawing call. The free places, the page numbers and the rooms are drawn by the art nodes.

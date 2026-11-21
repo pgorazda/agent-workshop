@@ -2,7 +2,7 @@ extends SceneTree
 ## Loads every GDScript file of the project (not the addons). Godot prints the parse errors and the
 ## warnings while it loads. `check.mjs` reads that output and fails when it finds any.
 
-const ROOTS: Array[String] = ["res://src", "res://art", "res://spikes", "res://test", "res://tools"]
+const ROOTS: Array[String] = ["res://src", "res://art", "res://test", "res://tools"]
 
 
 func _init() -> void:

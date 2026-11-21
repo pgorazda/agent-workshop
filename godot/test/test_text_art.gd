@@ -1,5 +1,5 @@
 extends GutTest
-## Text from the glyph atlas (spike S-3): the widths agree with textW() of look.js, the sign of a room has the
+## Text from the glyph atlas: the widths agree with textW() of look.js, the sign of a room has the
 ## layout of room(), and a character that the atlas lacks shows as "?".
 ## `test/fixtures/art_variants.json` holds the numbers that the browser measured.
 
@@ -50,7 +50,7 @@ func test_the_width_of_every_text_in_tiny5_equals_textw() -> void:
 
 
 func test_polish_text_in_silkscreen_is_at_most_three_pixels_wider_than_textw() -> void:
-	# a known limit (see godot/README.md, spike S-3): the font has fractional advances for some Polish letters
+	# a known limit: the font has fractional advances for some Polish letters
 	var seen: int = 0
 	for entry: Dictionary in _fixture().get("widths", []):
 		if entry["font"] != TextArt.TINY5 and not _is_ascii(entry["text"]):
