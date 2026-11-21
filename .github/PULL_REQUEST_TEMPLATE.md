@@ -9,3 +9,5 @@
 - [ ] `mise run check` passes, or I say below what I could not run
 - [ ] No personal data, real transcripts, real paths or names in the change (the repository is public; example sessions are made up)
 - [ ] Drawing and sound code is only in `godot/art/`, with the copyright header (the art is all rights reserved: see `LICENSE-ASSETS`)
+- [ ] The change is mine to give, and it is under the MIT license (see "Terms of contribution" in `CONTRIBUTING.md`)
+- [ ] If the change touches a file listed in `LICENSE-ASSETS` (the art): the maintainer agreed in an issue, and the written grant is pasted below

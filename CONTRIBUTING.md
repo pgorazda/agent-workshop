@@ -76,6 +76,21 @@ cd godot && node tools/export.mjs --platform windows     # out/export/windows/Ag
 
 The first export downloads the export templates (about 1.3 GB). How a release is made is in [docs/releasing.md](docs/releasing.md).
 
+## Terms of contribution
+
+**Code.** When you open a pull request you say that you wrote the change, or have the right to send it, and that it is under the MIT license of this repository ([LICENSE](LICENSE)).
+
+**Art.** The art is all rights reserved ([LICENSE-ASSETS](LICENSE-ASSETS)). The maintainer takes a change to the art only with a written grant:
+
+1. Open an issue first and describe the change. Wait for the maintainer to agree. A pull request that adds, changes or removes a file listed in `LICENSE-ASSETS` without this is closed.
+2. Paste this grant into the pull request, with your full name and the date:
+
+   > I wrote this contribution myself, or I have the right to give it. I give the copyright holder of Agent Workshop (see LICENSE-ASSETS) all my rights in it: I transfer the copyright, or, where the law does not allow that, I give an exclusive license with no limit in time or place, with the right to change it, to sublicense it and to publish it with or without credit to me. I keep no right to use it myself except as the copyright holder allows. [full name, date]
+
+   The maintainer may ask for the grant in another written form, for example a signed document.
+
+A change that only uses the art, for example code outside `art/` that calls it, is a change to the code.
+
 ## Rules
 
 1. Write documents and comments in simple technical English.

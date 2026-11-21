@@ -1,4 +1,4 @@
-# Keeps the pinned actions and the bridge dependencies (Cargo) up to date. One pull request a week for each group.
+# Keeps the pinned actions, the bridge dependencies (Cargo) and the scripts of the Godot client (npm) up to date. One pull request a week for each group.
 version: 2
 updates:
   - package-ecosystem: github-actions
@@ -14,4 +14,11 @@ updates:
       interval: weekly
     groups:
       bridge:
+        patterns: ['*']
+  - package-ecosystem: npm
+    directory: /godot
+    schedule:
+      interval: weekly
+    groups:
+      godot-tools:
         patterns: ['*']
