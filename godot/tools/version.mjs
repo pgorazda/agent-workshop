@@ -10,7 +10,7 @@
 // suffix is a pre-release. The suffix is not written into any file: the files hold the plain `x.y.z`, because the Windows and
 // macOS version fields take numbers only.
 //
-// The places: bridge/package.json, bridge/package-lock.json (two entries), godot/project.godot and godot/export_presets.cfg
+// The places: bridge/Cargo.toml, bridge/Cargo.lock (the entry of the bridge), godot/project.godot and godot/export_presets.cfg
 // (the Windows file and product version, the macOS short version and version).
 
 import { readFileSync, writeFileSync } from 'node:fs';
@@ -26,9 +26,8 @@ const plain = { format: (v) => v, parse: (raw) => raw };
 
 /** Each place: a file, a label, a pattern with three groups (text before, the version, text after) and how the value is written. */
 export const PLACES = [
-  { file: 'bridge/package.json', label: 'bridge/package.json', pattern: /^(  "version": ")([^"]+)(")/m, ...plain },
-  { file: 'bridge/package-lock.json', label: 'bridge/package-lock.json (top)', pattern: /^(  "version": ")([^"]+)(")/m, ...plain },
-  { file: 'bridge/package-lock.json', label: 'bridge/package-lock.json (package)', pattern: /^(    "": \{\n {6}"name": "[^"]+",\n {6}"version": ")([^"]+)(")/m, ...plain },
+  { file: 'bridge/Cargo.toml', label: 'bridge/Cargo.toml', pattern: /^(version = ")([^"]+)(")/m, ...plain },
+  { file: 'bridge/Cargo.lock', label: 'bridge/Cargo.lock (agent-workshop-bridge)', pattern: /^(name = "agent-workshop-bridge"\nversion = ")([^"]+)(")/m, ...plain },
   { file: 'godot/project.godot', label: 'godot/project.godot', pattern: /^(config\/version=")([^"]+)(")/m, ...plain },
   { file: 'godot/export_presets.cfg', label: 'export_presets.cfg (Windows file version)', pattern: /^(application\/file_version=")([^"]+)(")/m, ...windowsFour },
   { file: 'godot/export_presets.cfg', label: 'export_presets.cfg (Windows product version)', pattern: /^(application\/product_version=")([^"]+)(")/m, ...windowsFour },

@@ -1,5 +1,7 @@
 # Plan: demo mode for the browser client
 
+> **Note (2026-11):** the bridge is now a Rust program (ADR 0013), not a Node program. Where this plan says `npm run replay` or another `npm` command for the bridge, read `agent-workshop-bridge replay` (or `cargo run -- replay` in `bridge/`). The browser client was not built (ADR 0008).
+
 > **Note (phase G-10):** the Godot client builds demo mode (`--demo=<scene>`, with the timelines in `godot/demo/`; see [the Godot client plan](godot-client-plan.md)). The rules in this plan stay the specification. The browser client is not built: ADR 0008 replaced it.
 
 **State: a plan, nothing built yet.** Demo mode is phase 5 of the [browser client plan](browser-client-plan.md) (ADR 0002). Whether to host it is an open question (see the end).

@@ -45,10 +45,10 @@ test('a bump writes the version into every place, and the check then passes for 
     assert.match(presets, /^application\/short_version="9\.8\.7"$/m);
     assert.match(presets, /^application\/version="9\.8\.7"$/m);
     assert.match(readFileSync(join(root, 'godot/project.godot'), 'utf8'), /^config\/version="9\.8\.7"$/m);
-    const lock = JSON.parse(readFileSync(join(root, 'bridge/package-lock.json'), 'utf8'));
-    assert.equal(lock.version, '9.8.7');
-    assert.equal(lock.packages[''].version, '9.8.7');
-    assert.equal(JSON.parse(readFileSync(join(root, 'bridge/package.json'), 'utf8')).version, '9.8.7');
+    const lock = readFileSync(join(root, 'bridge/Cargo.lock'), 'utf8');
+    assert.match(lock, /^name = "agent-workshop-bridge"\nversion = "9\.8\.7"$/m);
+    assert.equal(lock.match(/^version = "9\.8\.7"$/gm).length, 1, 'no other package in the lock file changes');
+    assert.match(readFileSync(join(root, 'bridge/Cargo.toml'), 'utf8'), /^version = "9\.8\.7"$/m);
     assert.deepEqual(bumpVersions('9.8.7', root), [], 'a second bump to the same version changes nothing');
   } finally {
     rmSync(root, { recursive: true, force: true });

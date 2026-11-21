@@ -8,7 +8,8 @@
 #
 # One Linux job exports all five apps, because Godot exports every target from one host:
 #   Windows x86_64 and arm64, Linux x86_64 and arm64, macOS universal (Intel and Apple silicon in one app).
-# The apps are NOT signed or notarized.
+# The bridge (Rust) is built for the same five platforms, each on a runner of its own system, and gets archives of its own.
+# The apps and the bridge are NOT signed or notarized.
 
 name: Release
 
@@ -65,9 +66,77 @@ jobs:
     needs: verify
     uses: ./.github/workflows/ci.yml
 
+  # The bridge is built on a runner of each system and tested there: the binary must start, answer /health and pass an event on.
+  bridge:
+    name: Bridge (${{ matrix.platform }})
+    needs: [verify, test]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { platform: linux, runner: ubuntu-24.04, targets: x86_64-unknown-linux-musl }
+          - { platform: linux-arm64, runner: ubuntu-24.04-arm, targets: aarch64-unknown-linux-musl }
+          - { platform: windows, runner: windows-2025, targets: x86_64-pc-windows-msvc }
+          - { platform: windows-arm64, runner: windows-11-arm, targets: aarch64-pc-windows-msvc }
+          - { platform: macos, runner: macos-15, targets: 'aarch64-apple-darwin x86_64-apple-darwin' }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install Rust and the targets
+        shell: bash
+        run: |
+          # The runner images have rustup. Windows on ARM is the one that may not: install it then.
+          if ! command -v rustup >/dev/null 2>&1; then
+            curl --proto '=https' --tlsv1.2 -sSfL -o rustup-init.exe "https://win.rustup.rs/aarch64"
+            ./rustup-init.exe -y --default-toolchain none --profile minimal
+            export PATH="$HOME/.cargo/bin:$PATH"
+            echo "$USERPROFILE/.cargo/bin" >> "$GITHUB_PATH"
+          fi
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          for target in ${{ matrix.targets }}; do rustup target add "$target"; done
+      - name: Build
+        shell: bash
+        working-directory: bridge
+        run: |
+          mkdir -p ../bridge-out
+          exe=""
+          if [ "${{ matrix.platform }}" = "windows" ] || [ "${{ matrix.platform }}" = "windows-arm64" ]; then exe=".exe"; fi
+          for target in ${{ matrix.targets }}; do
+            cargo build --release --locked --target "$target"
+          done
+          if [ "${{ matrix.platform }}" = "macos" ]; then
+            # One file for Intel and Apple silicon. An Apple silicon program must be signed, so it gets a local (ad-hoc) signature.
+            lipo -create -output ../bridge-out/agent-workshop-bridge \
+              target/aarch64-apple-darwin/release/agent-workshop-bridge target/x86_64-apple-darwin/release/agent-workshop-bridge
+            codesign --force --sign - ../bridge-out/agent-workshop-bridge
+            lipo -info ../bridge-out/agent-workshop-bridge
+          else
+            cp "target/${{ matrix.targets }}/release/agent-workshop-bridge${exe}" "../bridge-out/agent-workshop-bridge${exe}"
+          fi
+          ls -l ../bridge-out
+      - name: Start the binary and check it
+        shell: bash
+        run: |
+          exe=""
+          if [ "${{ matrix.platform }}" = "windows" ] || [ "${{ matrix.platform }}" = "windows-arm64" ]; then exe=".exe"; fi
+          node bridge/tools/smoke.mjs "bridge-out/agent-workshop-bridge${exe}"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: bridge-${{ matrix.platform }}
+          path: bridge-out/*
+          if-no-files-found: error
+          retention-days: 14
+
   build:
     name: Build the apps
-    needs: [verify, test]
+    needs: [verify, test, bridge]
     runs-on: ubuntu-24.04
     timeout-minutes: 60
     steps:
@@ -106,11 +175,20 @@ jobs:
             echo "::error::The exported app printed script errors."
             exit 1
           fi
+      # The bridge binaries of the bridge jobs. Each artifact is `bridge-<platform>`. package.mjs wants <folder>/<platform>/<binary>.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: bridge-*
+          path: godot/out/bridge-artifacts
       - name: Make the archives and SHA256SUMS
         working-directory: godot
         env:
           VERSION: ${{ needs.verify.outputs.version }}
-        run: node tools/package.mjs --version "$VERSION"
+        run: |
+          mkdir -p out/bridge
+          for dir in out/bridge-artifacts/bridge-*; do mv "$dir" "out/bridge/${dir##*/bridge-}"; done
+          ls -R out/bridge
+          node tools/package.mjs --version "$VERSION" --bridge-in out/bridge
       - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
         with:
           name: release-files
@@ -166,7 +244,21 @@ jobs:
           - **macOS:** Gatekeeper blocks the app. Right-click the app and choose "Open", or run `xattr -dr com.apple.quarantine "Agent Workshop.app"`.
           - **Linux:** unpack the archive and run the file `AgentWorkshop.x86_64` or `AgentWorkshop.arm64`.
 
-          The apps read the event stream of the bridge. See the README for how to start the bridge.
+          ## The bridge
+
+          The apps read the event stream of the bridge. The bridge is a separate program that needs no Node or other runtime.
+          Download the file for your system, unpack it and run `agent-workshop-bridge serve`. Then start the app. See the README.
+
+          | System | File |
+          |---|---|
+          | Windows, Intel or AMD | `AgentWorkshopBridge-*-windows-x86_64.zip` |
+          | Windows on ARM | `AgentWorkshopBridge-*-windows-arm64.zip` |
+          | Linux, Intel or AMD | `AgentWorkshopBridge-*-linux-x86_64.tar.gz` |
+          | Linux on ARM | `AgentWorkshopBridge-*-linux-arm64.tar.gz` |
+          | macOS, Intel and Apple silicon | `AgentWorkshopBridge-*-macos-universal.zip` |
+
+          The bridge is **not signed** either. On macOS, run `xattr -d com.apple.quarantine agent-workshop-bridge` once after you unpack it.
+          Windows may show SmartScreen.
 
           To check a download: `sha256sum -c SHA256SUMS --ignore-missing`, or `gh attestation verify <file> --repo REPO_PLACEHOLDER`.
 

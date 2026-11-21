@@ -27,6 +27,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import net from 'node:net';
+import { bridgeBinary } from '../../bridge/tools/bridge-binary.mjs';
 import { GODOT_DIR, resolveGodot } from './godot-path.mjs';
 import { windowBuild } from './startup.mjs';
 
@@ -141,8 +142,8 @@ export async function measure({ scenario, state, seconds = 30, warmup = 8, clien
   try {
     if (scenario === 'idle' || scenario === 'replay') {
       const port = await freePort();
-      const bridgeCli = fileURLToPath(new URL('../../bridge/src/cli.js', import.meta.url));
-      const bridge = spawn(process.execPath, [bridgeCli, 'serve', '--port', String(port)], { stdio: 'ignore' });
+      const bridgeBin = bridgeBinary();
+      const bridge = spawn(bridgeBin, ['serve', '--port', String(port)], { stdio: 'ignore' });
       children.push(bridge);
       await sleep(1000);
       args = [...args, `--bridge=ws://127.0.0.1:${port}/ws`];
@@ -152,7 +153,7 @@ export async function measure({ scenario, state, seconds = 30, warmup = 8, clien
         const loop = async () => {
           while (!loop.stopped) {
             await new Promise((resolve) => {
-              const replay = spawn(process.execPath, [bridgeCli, 'replay', example, '--speed', '1', '--url', `http://127.0.0.1:${port}`], { stdio: 'ignore' });
+              const replay = spawn(bridgeBin, ['replay', example, '--speed', '1', '--url', `http://127.0.0.1:${port}`], { stdio: 'ignore' });
               children.push(replay);
               replay.on('exit', resolve);
             });

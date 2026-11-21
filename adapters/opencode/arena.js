@@ -5,7 +5,7 @@
 //
 // Only the few fields the bridge needs are sent: no message text, tool output, diffs or file
 // contents. Posting is queued so events keep their order, never awaited by OpenCode, and fails
-// open. The bridge maps the events (bridge/src/adapters/opencode.js).
+// open. The bridge maps the events (bridge/src/adapters/opencode.rs).
 //
 // Keep this file to a single export: OpenCode treats exports of a plugin file as plugins.
 

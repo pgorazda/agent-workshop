@@ -5,7 +5,7 @@
 // Extensions see the same events as `pi --mode json`, so this works in interactive mode too.
 // Only the few fields the bridge needs are sent: no message text, tool output or file contents.
 // Posting is queued so events keep their order, never awaited by Pi, and fails open. The bridge
-// maps the events (bridge/src/adapters/pi.js).
+// maps the events (bridge/src/adapters/pi.rs).
 
 import type { ExtensionAPI } from "@mariozechner/pi-coding-agent";
 

@@ -40,6 +40,8 @@ const BenchLog := preload("res://src/core/bench_log.gd")
 const StartupReport := preload("res://src/core/startup_report.gd")
 const FramePolicy := preload("res://src/core/frame_policy.gd")
 const BridgeClient := preload("res://src/net/bridge_client.gd")
+const BridgeLauncher := preload("res://src/net/bridge_launcher.gd")
+const BridgeSettings := preload("res://src/net/bridge_settings.gd")
 const TimelinePlayer := preload("res://src/net/timeline_player.gd")
 const ArenaView := preload("res://src/view/arena_view.gd")
 const InterfaceModel := preload("res://src/view/interface_model.gd")
@@ -92,6 +94,8 @@ var status: Node2D
 ## The list of scenes of the demo mode (the key D), over everything.
 var scene_list: Node2D
 var client: Node = null
+## Starts the bridge program when the person asked for it (ADR 0014). Null when it was not asked or no live source was chosen.
+var launcher: Node = null
 ## The timeline that plays, or null when the events come from the bridge.
 var player: RefCounted = null
 var scene_name: String = ""
@@ -157,6 +161,8 @@ func _ready() -> void:
 	Atlas.load_all()
 	_atlas_usec = Time.get_ticks_usec() - _ready_began_usec
 	options = Options.parse(OS.get_cmdline_user_args())
+	if not options.recording() and options.benchmark == "":
+		BridgeSettings.apply(options)
 	if options.startup_report != "":
 		_startup = StartupReport.new()
 		_startup.mark("ready_begin", _ready_began_usec)
@@ -414,12 +420,23 @@ func load_live() -> void:
 	_tour = null
 	scene_name = ""
 	_new_session()
+	if options.start_bridge and launcher == null:
+		launcher = BridgeLauncher.new()
+		launcher.note.connect(_on_bridge_note)
+		add_child(launcher)
+		launcher.start(options.bridge, options.bridge_path)
 	if client == null:
 		client = BridgeClient.new()
 		client.url = options.bridge
 		client.event_received.connect(_handle)
 		client.message_rejected.connect(_on_rejected)
 		add_child(client)
+
+
+## One short message from the launcher (ADR 0014): the bridge could not be started. It shows with the other notes.
+func _on_bridge_note(text: String) -> void:
+	_notes.append(text)
+	_refresh()
 
 
 func _new_session() -> void:

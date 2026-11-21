@@ -34,26 +34,61 @@ jobs:
       - run: node godot/tools/version.mjs check
 
   bridge:
-    name: Bridge tests (Node ${{ matrix.node }})
-    runs-on: ubuntu-24.04
-    timeout-minutes: 15
+    name: Bridge tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
     strategy:
       fail-fast: false
       matrix:
-        node: [20, 22, 24]
+        os: [ubuntu-24.04, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # The runners have rustup. No third-party action is needed.
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal --component clippy --component rustfmt && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      - run: cargo fmt --check
+        working-directory: bridge
+      - run: cargo clippy --all-targets --locked -- -D warnings
+        working-directory: bridge
+      # Includes the check that godot/test/fixtures are what the adapters make from schema/examples.
+      - run: cargo test --locked
+        working-directory: bridge
+
+  adapters:
+    name: Adapter script tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           persist-credentials: false
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
-          node-version: ${{ matrix.node }}
-          cache: npm
-          cache-dependency-path: bridge/package-lock.json
-      - run: npm ci
-        working-directory: bridge
-      - run: npm test
-        working-directory: bridge
+          node-version: 24
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      # The tests of the OpenCode plugin, the Pi extension and the Hermes hook script run the real bridge. They build it when it is missing.
+      - run: node --test 'adapters/test/*.test.mjs'
 
   godot:
     name: Godot client tests
@@ -66,10 +101,19 @@ jobs:
       - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
         with:
           node-version: 24
-          cache: npm
-          cache-dependency-path: bridge/package-lock.json
-      # Some client tests start the real bridge.
-      - run: npm ci
+      # Some client tests start the real bridge, so they need the binary.
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      - run: cargo build --locked
         working-directory: bridge
       - name: Cache the Godot editor
         uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0

@@ -3,8 +3,7 @@
 //   node --test        (from godot/; set GODOT, see README.md)
 //
 // The test starts a real bridge on a free port and runs the Godot client headless with `--trace` (it prints "[trace] <who>: <station>" each
-// time a penguin begins to visit a station). Then it runs the real replay command of the bridge (`node src/cli.js replay`, which is what
-// `npm run replay` runs) on the real Claude Code example, and compares what the client printed with the behaviour trace fixture
+// time a penguin begins to visit a station). Then it runs the real replay command of the bridge (`agent-workshop-bridge replay`) on the real Claude Code example, and compares what the client printed with the behaviour trace fixture
 // `test/fixtures/expected-trace.json` ("claude-code-fixture": the same example through the adapter, the real Claude Code order). The client
 // plays in real time, so the test takes the time that the penguin needs (about 15 s for each run).
 
@@ -12,13 +11,11 @@ import { test, before, after } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawn } from 'node:child_process';
 import { readFileSync } from 'node:fs';
-import net from 'node:net';
 import path from 'node:path';
-import { createBridge } from '../../bridge/src/server.js';
+import { bridgeBinary, ensureBridgeBuilt, startBridge } from '../../bridge/tools/bridge-binary.mjs';
 import { GODOT_DIR, resolveGodot } from './godot-path.mjs';
 import { importProject } from './run-gut.mjs';
 
-const BRIDGE_DIR = path.join(GODOT_DIR, '..', 'bridge');
 const EXAMPLE = path.join(GODOT_DIR, '..', 'schema', 'examples', 'claude-code-transcript.jsonl');
 const EXPECTED = JSON.parse(readFileSync(path.join(GODOT_DIR, 'test', 'fixtures', 'expected-trace.json'), 'utf8'))['claude-code-fixture'];
 
@@ -27,23 +24,13 @@ const running = [];
 
 before(() => {
   godot = resolveGodot();
+  ensureBridgeBuilt();
   importProject(godot);
 });
 
 after(() => {
   for (const child of running) child.kill();
 });
-
-function freePort() {
-  return new Promise((resolve, reject) => {
-    const server = net.createServer();
-    server.on('error', reject);
-    server.listen(0, '127.0.0.1', () => {
-      const { port } = server.address();
-      server.close(() => resolve(port));
-    });
-  });
-}
 
 /** The visits that the client printed, by actor: { 'agent 1': [labels], 'helper 1': [labels] }. */
 export function visits(lines) {
@@ -81,11 +68,10 @@ async function waitFor(predicate, what, timeoutMs) {
   throw new Error(`timed out waiting for ${what}`);
 }
 
-/** Runs `node src/cli.js replay` (what `npm run replay` runs) against the bridge. */
+/** Runs `agent-workshop-bridge replay` (the replay command of the bridge) against the bridge. */
 function replay(port, speed) {
   return new Promise((resolve, reject) => {
-    const child = spawn(process.execPath, ['src/cli.js', 'replay', EXAMPLE, '--speed', String(speed), '--url', `http://127.0.0.1:${port}`], {
-      cwd: BRIDGE_DIR,
+    const child = spawn(bridgeBinary(), ['replay', EXAMPLE, '--speed', String(speed), '--url', `http://127.0.0.1:${port}`], {
       stdio: ['ignore', 'pipe', 'pipe'],
       env: { ...process.env },
     });
@@ -98,9 +84,8 @@ function replay(port, speed) {
 }
 
 async function run(speed, waitSeconds) {
-  const port = await freePort();
-  const bridge = createBridge({ port });
-  await bridge.listen();
+  const bridge = await startBridge();
+  const port = bridge.port;
   const client = startClient(port);
   try {
     await waitFor(async () => (await (await fetch(`http://127.0.0.1:${port}/health`)).json()).clients >= 1, 'the client to connect', 30000);
@@ -112,7 +97,7 @@ async function run(speed, waitSeconds) {
     return { lines: client.lines, visits: visits(client.lines) };
   } finally {
     client.child.kill();
-    await bridge.close();
+    await bridge.stop();
   }
 }
 

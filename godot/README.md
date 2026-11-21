@@ -38,10 +38,11 @@ the art code of the mockup, and a gallery shows them (see "Phase G-2"). The room
 
 ## Set up
 
-You need two things.
+You need three things.
 
-1. **Node 20 or later.** The scripts and the bridge use it. Run `npm ci` in `bridge/` once.
-2. **The Godot editor, in the pinned version.** Use one of these ways:
+1. **Node 20 or later.** The scripts in `tools/` use it.
+2. **Rust**, for the bridge (a stable toolchain, <https://rustup.rs>). The tests that start the bridge build it with `cargo build` first. You can instead set `ARENA_BRIDGE_BIN` to a bridge binary, for example one from a release.
+3. **The Godot editor, in the pinned version.** Use one of these ways:
    * Set the environment variable `GODOT` to your editor. Use the console build on Windows
      (`Godot_v<version>-stable_win64_console.exe`), because it prints to the terminal.
 
@@ -67,9 +68,9 @@ never goes into the repository.
 Start a bridge, then the app:
 
 ```bash
-cd bridge && npm start                 # the bridge, on 127.0.0.1:8787
+cd bridge && cargo run --release -- serve    # the bridge, on 127.0.0.1:8787 (or a downloaded one: agent-workshop-bridge serve)
 cd godot && "$GODOT" --path .          # the app (import the project once: "$GODOT" --headless --path . --import)
-cd bridge && npm run replay -- ../schema/examples/claude-code-transcript.jsonl --speed 4   # events for the app
+cd bridge && cargo run --release -- replay ../schema/examples/claude-code-transcript.jsonl --speed 4   # events for the app
 ```
 
 The app shows one room. Each agent that sends an event gets a penguin, and the penguin walks through the stations. The bridge keeps no
@@ -90,6 +91,7 @@ Command-line options come after `--`:
 | Option | Meaning |
 |---|---|
 | `--bridge=ws://127.0.0.1:8787/ws` | The bridge address. This value is the default. |
+| `--start-bridge[=<path>]`, `--no-start-bridge` | Start the bridge program when no bridge answers at the address (off by default). `<path>` names the program. See "Start the bridge from the app". |
 | `--log-events` | Also print each state change and each event to standard output. Use it with `--headless`. |
 | `--demo=<name>` | Play the scene `demo/<name>.json` instead of reading the bridge. |
 | `--timeline=<path>` | Play a timeline file of your own (for example one in `user://`). It wins over `--demo`. |
@@ -113,6 +115,28 @@ Command-line options come after `--`:
 
 Example: `"$GODOT" --headless --path . -- --bridge=ws://127.0.0.1:9000/ws --log-events`.
 
+### Start the bridge from the app
+
+The app can start the bridge for you (ADR 0014). It is off by default, and there are two ways to turn it on:
+
+* `--start-bridge` or `--start-bridge=/path/to/agent-workshop-bridge` on the command line (`--no-start-bridge` turns it off, and wins over the file);
+* the file `user://settings.cfg`, which is in the user data folder of the app (the Godot "user://" folder of the project `Agent Workshop`):
+
+  ```ini
+  [bridge]
+  start=true
+  path="/path/to/agent-workshop-bridge"   ; optional
+  ```
+
+There is no switch in the interface, by decision (ADR 0014). The rules (`src/net/bridge_launcher.gd`):
+
+* It starts a bridge only for a local address (`ws://127.0.0.1`, `ws://localhost` or `ws://[::1]`), with `--host 127.0.0.1` and the port of the address. For any other address it does nothing and shows a note.
+* It first asks `GET /health` at the address (500 ms). If a bridge answers, the app uses it and never stops it.
+* The program is the configured path, or `agent-workshop-bridge` (`.exe` on Windows) next to the app (on macOS also next to the `.app`), or on the `PATH`. The app never downloads it.
+* One try for each run of the app. If it fails (no program, the port is taken, the program ends at once), one short note shows in the status line, and the client keeps trying to connect.
+* When the app quits, it stops the bridge that it started. If the app crashes or is killed, the bridge ends too: the app holds a pipe to the standard input of the program, and the program is started with `--exit-when-stdin-closes`.
+* It reads the output of the program all the time in two threads, so a bridge that logs a lot cannot block on a full pipe.
+
 The client tries again every 2 seconds when the connection is lost. It reads at most 64 events in a
 frame. It ignores the `hello` message that the bridge sends to a new connection. It accepts an event
 with an unknown `type` as generic work.
@@ -128,9 +152,9 @@ node tools/check.mjs # GDScript check: warnings count as errors
 | Command | What it does |
 |---|---|
 | `node tools/run-gut.mjs` | Imports the project, then runs the GUT tests headless (`test/`). It exits with code 1 when a test fails, when GUT ignores a script (a parse error), and, for a run of all tests, when fewer scripts ran than there are `test_*.gd` files. Extra arguments go to GUT, for example `-gselect=event`. |
-| `node --test` | All Node tests in `tools/`: the bridge link, the license check, the fixtures, the download script. |
+| `node --test` | All Node tests in `tools/`: the bridge link, the license check, the scene files, the download script. They start the real bridge. |
 | `node tools/check.mjs` | Loads every GDScript file in a debug run and fails on any warning or error. |
-| `node tools/example-events.mjs` | Makes `test/fixtures/*.events.jsonl` again. Run it when `schema/examples/` or the bridge adapters change. A Node test fails when the fixtures are out of date. |
+| `cargo run --example fixtures` (in `bridge/`) | Makes `test/fixtures/*.events.jsonl` again. Run it when `schema/examples/` or the bridge adapters change. `cargo test` in `bridge/` fails when the fixtures are out of date. |
 | `node tools/render-art.mjs` | Renders the pictures with the art code in `art/image_src/` in headless Chromium. Needs Playwright, `CHROMIUM_PATH` and the two fonts (`npm install --no-save @fontsource/tiny5@5.3.0 @fontsource/silkscreen@5.3.0` here). Add `--check` to render twice and compare with the files on disk. See "Phase G-2". |
 | `"$GODOT" --path . -s res://tools/shot.gd -- --scene=res://src/room.tscn --out=room.png` | Saves the 480x270 viewport of a scene as a PNG file after a few frames. It needs a window (not `--headless`). `--count=5 --frames=600` with `%d` in `--out` saves several pictures. See "Phase G-3". |
 | `node tools/record.mjs --scene tour` | Records a scene as a 1920x1080 clip (needs a window and ffmpeg). `--stills 7,22.5` saves stills. `node tools/determinism.mjs` records a scene twice and compares every frame. See "Phase G-8". |
@@ -145,6 +169,7 @@ What the tests cover:
   bridge adapters mapped them to canonical events). It also checks the rejection of bad messages.
 * `test/test_schema.gd`: the category list in `event.gd` equals the enum in `schema/event.schema.json`.
 * `test/test_bridge_client.gd`, `test_options.gd`, `test_main.gd`: the client, the options and the text view.
+* `test/test_bridge_launcher.gd`: the address, program search, arguments and notes of the launcher, and the saved setting. `tools/launcher.test.mjs` runs the real launcher and the real app with the real bridge: start, a normal quit, a kill of the app, a bridge that already runs, a port that is taken, an address that is not local, a path that is not a file, and no start without the option.
 * `tools/bridge-link.test.mjs`: starts the real bridge on a free port and runs the real client headless
   (`tools/link_probe.gd`). It posts events and checks the order (also for a burst of 200 events), and that
   the client reconnects after the bridge restarts. It also checks that a client with no bridge keeps trying.

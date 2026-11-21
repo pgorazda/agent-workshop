@@ -1,6 +1,9 @@
 # Node
 node_modules/
 
+# Rust (the bridge)
+bridge/target/
+
 # OS
 .DS_Store
 Thumbs.db

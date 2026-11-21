@@ -5,14 +5,15 @@ Agent Workshop shows AI coding agents at work as penguins in a pixel-art worksho
 ## Tests
 
 ```bash
-cd bridge && npm test
-cd godot && npm test    # needs the Godot editor: set GODOT, see godot/README.md
+cd bridge && cargo test                # the bridge (Rust)
+node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge (Node 22+)
+cd godot && npm test                   # needs the Godot editor (set GODOT, see godot/README.md) and builds the bridge
 ```
 
 ## Rules
 
 1. Write documents and comments in simple technical English.
-2. The event schema (`schema/event.schema.json`) is the contract. Adapters map native events to it; clients read only the schema and pick stations by `category`, never by tool name. Keep `bridge/src/schema.js` in step with it (a test checks the enums).
+2. The event schema (`schema/event.schema.json`) is the contract. Adapters map native events to it; clients read only the schema and pick stations by `category`, never by tool name. Keep `bridge/src/schema.rs` in step with it (a test checks the enums).
 3. The bridge listens on `127.0.0.1` only, stores nothing and broadcasts only schema fields.
 4. The 2D view has a look of its own. Do not use Anthropic or Claude logos, the Claude Code mascot, Anthropic's typefaces, Claude's colours as a colour scheme, the asterisk spinner and its verbs, or layouts copied from Claude Code's terminal.
 5. This repository is public. Do not add personal data, real transcripts, real paths or names, or references to private projects. Example sessions are made up. The copyright holder's name in license and copyright notices is fine.

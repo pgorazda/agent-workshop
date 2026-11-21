@@ -2,7 +2,7 @@
 //
 //   node --test        (from godot/; set GODOT, see README.md)
 //
-// The test starts the real bridge on a free port, runs the real client headless (tools/link_probe.gd),
+// The test starts the real bridge (the Rust binary) on a free port, runs the real client headless (tools/link_probe.gd),
 // posts events and reads what the client printed.
 
 import { test, before, after } from 'node:test';
@@ -10,7 +10,7 @@ import assert from 'node:assert/strict';
 import http from 'node:http';
 import net from 'node:net';
 import { spawn } from 'node:child_process';
-import { createBridge } from '../../bridge/src/server.js';
+import { ensureBridgeBuilt, startBridge } from '../../bridge/tools/bridge-binary.mjs';
 import { GODOT_DIR, resolveGodot } from './godot-path.mjs';
 import { importProject } from './run-gut.mjs';
 
@@ -19,6 +19,7 @@ const running = [];
 
 before(() => {
   godot = resolveGodot();
+  ensureBridgeBuilt();
   importProject(godot);
 });
 
@@ -94,9 +95,8 @@ async function post(port, events) {
 const expectedIds = (from, to) => makeEvents(from, to).map((e) => e.id);
 
 test('the client gets events in order, ignores hello, and reconnects after the bridge restarts', async () => {
-  const port = await freePort();
-  let bridge = createBridge({ port });
-  await bridge.listen();
+  let bridge = await startBridge();
+  const port = bridge.port;
   const probe = startProbe(port);
 
   await probe.waitFor((lines) => states(lines).includes('open'), 'the client to connect');
@@ -113,10 +113,9 @@ test('the client gets events in order, ignores hello, and reconnects after the b
 
   // Restart the bridge on the same port. The client must see the close and connect again.
   const opensBefore = count(probe.lines, 'open');
-  await bridge.close();
+  await bridge.stop();
   await probe.waitFor((lines) => count(lines, 'waiting') >= 1, 'the client to notice that the bridge is gone');
-  bridge = createBridge({ port });
-  await bridge.listen();
+  bridge = await startBridge({ port });
   const restarted = Date.now();
   await probe.waitFor((lines) => count(lines, 'open') > opensBefore, 'the client to reconnect', 10000);
   assert.ok(Date.now() - restarted < 6000, 'the client reconnects within a few seconds');
@@ -126,7 +125,7 @@ test('the client gets events in order, ignores hello, and reconnects after the b
   assert.deepEqual(ids(probe.lines), expectedIds(0, 210), 'the stream goes on in order after the restart');
 
   probe.child.kill();
-  await bridge.close();
+  await bridge.stop();
 });
 
 test('the client keeps trying when no bridge runs, and connects when one starts', async () => {
@@ -136,15 +135,14 @@ test('the client keeps trying when no bridge runs, and connects when one starts'
   // drops a try after 4 s. The client must start a second and a third try without help.
   await probe.waitFor((lines) => tries(lines) >= 3, 'three connection tries', 15000);
 
-  const bridge = createBridge({ port });
-  await bridge.listen();
+  const bridge = await startBridge({ port });
   await probe.waitFor((lines) => states(lines).includes('open'), 'the client to connect to the late bridge', 10000);
   await post(port, makeEvents(0, 3));
   await probe.waitFor((lines) => ids(lines).length >= 3, 'events from the late bridge');
   assert.deepEqual(ids(probe.lines), expectedIds(0, 3));
 
   probe.child.kill();
-  await bridge.close();
+  await bridge.stop();
 });
 
 test('the client sends no Origin header (spike S-1)', async () => {
