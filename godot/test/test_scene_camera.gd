@@ -5,7 +5,7 @@ extends GutTest
 ##
 ## The client reacts to events and walks at its own speed, and the mockup scripts every motion, so the times can differ. The rule:
 ## the same moves, in the same order, with the same reasons, and times within 1 s of the mockup's camera log.
-## The test prints both logs side by side, so that README.md can explain each difference.
+## The test prints both logs side by side, so that a person can read each difference.
 
 const LiveView := preload("res://src/view/live_view.gd")
 const Golden := preload("res://test/support/golden.gd")
@@ -13,8 +13,8 @@ const REFERENCE := "res://test/fixtures/scene-reference.json"
 ## The most that a move may be late or early against the mockup, in seconds.
 const TOLERANCE := 1.0
 const SCENES: Array[String] = ["arenas", "many", "follow", "ten"]
-## The moves that differ from the mockup by more than TOLERANCE, with the most that they differ. Each one is explained in
-## godot/README.md ("The camera log against the mockup").
+## The moves that differ from the mockup by more than TOLERANCE, with the most that they differ. Each one is explained
+## below.
 ##   approvals: the exported `waiting_permission` comes when the penguin starts to walk to the sign post. The mockup's notice
 ##              starts when the penguin has arrived (a walk of up to 1.5 s). The client is early, never late.
 ##   helper:    the client counts the start and the end of a helper as activity of its arena. The mockup's camera does not. So
