@@ -1,0 +1,17 @@
+# Keeps the pinned actions and the bridge dependencies (Cargo) up to date. One pull request a week for each group.
+version: 2
+updates:
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    groups:
+      actions:
+        patterns: ['*']
+  - package-ecosystem: cargo
+    directory: /bridge
+    schedule:
+      interval: weekly
+    groups:
+      bridge:
+        patterns: ['*']

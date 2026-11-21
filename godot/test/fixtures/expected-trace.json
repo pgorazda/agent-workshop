@@ -1,0 +1,32 @@
+{
+  "note": "Where each penguin works, in order. One label for each visit: the name of a station, 'flop', 'celebration', 'thinking in place' or 'queue at <station>'. 'agent N' is the penguin with number N, 'helper N' its helper. The events are played in steps of 1/60 s for 'duration' seconds. This file does not depend on a language.",
+  "claude-code-fixture": {
+    "source": "test/fixtures/claude-code.events.jsonl (the real example after the bridge adapter)",
+    "duration": 40,
+    "trace": {
+      "agent 1": ["Thinking chair", "Map table", "Bookshelf", "Workbench", "Forge", "flop", "Helper desk", "Telescope", "celebration"],
+      "helper 1": ["Telescope"]
+    }
+  },
+  "session-scene": {
+    "source": "demo/session.json (made from the session scene of the JavaScript mockup, removed)",
+    "duration": 40,
+    "trace": {
+      "agent 1": ["Map table", "Bookshelf", "Thinking chair", "Workbench", "Helper desk", "Forge", "flop", "Workbench", "Forge", "Sign post", "celebration"],
+      "helper 1": ["Telescope"]
+    }
+  },
+  "multi-scene": {
+    "source": "demo/multi.json (made from the multi scene of the JavaScript mockup, removed)",
+    "duration": 40,
+    "trace": {
+      "agent 1": ["Map table", "Bookshelf", "Workbench", "Forge", "Sign post", "celebration"],
+      "agent 2": ["Workbench", "Helper desk", "thinking in place", "Bookshelf", "Workbench"],
+      "agent 3": ["Map table", "Forge", "flop", "Workbench", "queue at Sign post", "Sign post", "Forge"],
+      "agent 4": ["Thinking chair", "Map table", "Bookshelf"],
+      "agent 5": ["Workbench", "queue at Forge", "Forge", "thinking in place", "Workbench"],
+      "agent 6": ["Thinking chair", "Forge", "Workbench"],
+      "helper 2": ["Telescope"]
+    }
+  }
+}

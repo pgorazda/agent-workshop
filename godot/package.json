@@ -1,0 +1,13 @@
+{
+  "name": "agent-workshop-godot",
+  "private": true,
+  "description": "The Godot client of Agent Workshop: scripts to get the editor, check the code and run the tests",
+  "type": "module",
+  "engines": { "node": ">=20" },
+  "scripts": {
+    "get-godot": "node tools/get-godot.mjs",
+    "check": "node tools/check.mjs",
+    "test:gut": "node tools/run-gut.mjs",
+    "test": "node tools/run-gut.mjs && node --test"
+  }
+}

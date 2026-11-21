@@ -1,0 +1,153 @@
+# Tests for every pull request and every push to main. The release workflow runs the same tests before it builds.
+#
+# Actions are pinned to a commit. The comment gives the version. Dependabot (.github/dependabot.yml) updates both.
+
+name: CI
+
+# A change to documents only (Markdown files and docs/) starts no run: no test reads them. A release (workflow_call)
+# and a run by hand always run everything.
+on:
+  pull_request:
+    paths-ignore: ['**.md', 'docs/**']
+  push:
+    branches: [main]
+    paths-ignore: ['**.md', 'docs/**']
+  workflow_call:
+  workflow_dispatch:
+
+# A new push to a pull request stops the older run. Runs on main and runs for a release always finish.
+concurrency:
+  group: ci-${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+permissions:
+  contents: read
+
+jobs:
+  version:
+    name: Version numbers agree
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - run: node godot/tools/version.mjs check
+
+  bridge:
+    name: Bridge tests (${{ matrix.os }})
+    runs-on: ${{ matrix.os }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-24.04, macos-latest, windows-latest]
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      # The runners have rustup. No third-party action is needed.
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal --component clippy --component rustfmt && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      - run: cargo fmt --check
+        working-directory: bridge
+      - run: cargo clippy --all-targets --locked -- -D warnings
+        working-directory: bridge
+      # Includes the check that godot/test/fixtures are what the adapters make from schema/examples.
+      - run: cargo test --locked
+        working-directory: bridge
+
+  # The dependencies of the bridge: security advisories, licenses and sources (bridge/deny.toml), and the notices that ship
+  # with the binaries (bridge/THIRD-PARTY-NOTICES.txt) must match Cargo.lock.
+  supply-chain:
+    name: Bridge dependencies
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - uses: EmbarkStudios/cargo-deny-action@17aeb3c839e42274e2b8adf721c8c65edfdc74dd # v2.1.3
+        with:
+          manifest-path: bridge/Cargo.toml
+          command: check
+      - run: cargo fetch --locked
+        working-directory: bridge
+      - run: node bridge/tools/notices.mjs --check
+
+  adapters:
+    name: Adapter script tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      # The tests of the OpenCode plugin, the Pi extension and the Hermes hook script run the real bridge. They build it when it is missing.
+      - run: node --test 'adapters/test/*.test.mjs'
+
+  godot:
+    name: Godot client tests
+    runs-on: ubuntu-24.04
+    timeout-minutes: 30
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      # Some client tests start the real bridge, so they need the binary.
+      - name: Install Rust
+        run: rustup toolchain install stable --profile minimal && rustup default stable
+      - name: Cache the Rust build
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: |
+            ~/.cargo/registry
+            ~/.cargo/git
+            bridge/target
+          key: bridge-${{ runner.os }}-${{ hashFiles('bridge/Cargo.lock') }}
+          restore-keys: bridge-${{ runner.os }}-
+      - run: cargo build --locked
+        working-directory: bridge
+      - name: Cache the Godot editor
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/.editor
+          key: godot-editor-${{ runner.os }}-${{ hashFiles('godot/GODOT_VERSION', 'godot/tools/get-godot.mjs') }}
+      # Downloads the pinned editor and checks its SHA-512 hash. Does nothing when the cache has it.
+      - run: node tools/get-godot.mjs
+        working-directory: godot
+      # The GUT tests, then all Node tests. The test that renders the art again needs Chromium and is skipped here (no CHROMIUM_PATH).
+      - run: npm test
+        working-directory: godot

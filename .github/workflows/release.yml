@@ -1,0 +1,273 @@
+# Builds the apps and makes a DRAFT release when a version tag is pushed.
+#
+#   node godot/tools/version.mjs bump 0.2.0      # change the version in all files, commit it, merge it into main
+#   git tag v0.2.0 && git push origin v0.2.0     # or v0.2.0-alpha.1 for a pre-release
+#
+# Then open the draft under Releases, check the files, and publish it. See docs/releasing.md.
+# "Run workflow" (workflow_dispatch) builds everything and keeps the files as a workflow artifact, but makes no release.
+#
+# One Linux job exports all five apps, because Godot exports every target from one host:
+#   Windows x86_64 and arm64, Linux x86_64 and arm64, macOS universal (Intel and Apple silicon in one app).
+# The bridge (Rust) is built for the same five platforms, each on a runner of its own system, and gets archives of its own.
+# The apps and the bridge are NOT signed or notarized.
+
+name: Release
+
+on:
+  push:
+    tags: ['v*']
+  workflow_dispatch:
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+permissions:
+  contents: read
+
+jobs:
+  verify:
+    name: Check the tag and the version
+    runs-on: ubuntu-24.04
+    timeout-minutes: 5
+    outputs:
+      version: ${{ steps.check.outputs.version }}
+      prerelease: ${{ steps.check.outputs.prerelease }}
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 0
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: The tagged commit is on main
+        if: github.ref_type == 'tag'
+        # The checkout above has fetched every branch (fetch-depth: 0), so origin/main is there. A later fetch would need credentials,
+        # which the checkout does not keep.
+        run: |
+          if ! git merge-base --is-ancestor "$GITHUB_SHA" origin/main; then
+            echo "::error::The tag ${GITHUB_REF_NAME} is not on main. Release only commits that were merged into main."
+            exit 1
+          fi
+      - name: The tag matches the version in the files
+        id: check
+        env:
+          REF_TYPE: ${{ github.ref_type }}
+          REF_NAME: ${{ github.ref_name }}
+        run: |
+          if [ "$REF_TYPE" = "tag" ]; then
+            node godot/tools/version.mjs check "$REF_NAME" >> "$GITHUB_OUTPUT"
+          else
+            node godot/tools/version.mjs check >> "$GITHUB_OUTPUT"
+          fi
+
+  test:
+    name: Tests
+    needs: verify
+    uses: ./.github/workflows/ci.yml
+
+  # The bridge is built on a runner of each system and tested there: the binary must start, answer /health and pass an event on.
+  bridge:
+    name: Bridge (${{ matrix.platform }})
+    needs: [verify, test]
+    runs-on: ${{ matrix.runner }}
+    timeout-minutes: 30
+    strategy:
+      fail-fast: false
+      matrix:
+        include:
+          - { platform: linux, runner: ubuntu-24.04, targets: x86_64-unknown-linux-musl }
+          - { platform: linux-arm64, runner: ubuntu-24.04-arm, targets: aarch64-unknown-linux-musl }
+          - { platform: windows, runner: windows-2025, targets: x86_64-pc-windows-msvc }
+          - { platform: windows-arm64, runner: windows-11-arm, targets: aarch64-pc-windows-msvc }
+          - { platform: macos, runner: macos-15, targets: 'aarch64-apple-darwin x86_64-apple-darwin' }
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Install Rust and the targets
+        shell: bash
+        run: |
+          # The runner images have rustup. Windows on ARM is the one that may not: install it then.
+          if ! command -v rustup >/dev/null 2>&1; then
+            curl --proto '=https' --tlsv1.2 -sSfL -o rustup-init.exe "https://win.rustup.rs/aarch64"
+            ./rustup-init.exe -y --default-toolchain none --profile minimal
+            export PATH="$HOME/.cargo/bin:$PATH"
+            echo "$USERPROFILE/.cargo/bin" >> "$GITHUB_PATH"
+          fi
+          rustup toolchain install stable --profile minimal
+          rustup default stable
+          for target in ${{ matrix.targets }}; do rustup target add "$target"; done
+      - name: Build
+        shell: bash
+        working-directory: bridge
+        run: |
+          mkdir -p ../bridge-out
+          exe=""
+          if [ "${{ matrix.platform }}" = "windows" ] || [ "${{ matrix.platform }}" = "windows-arm64" ]; then exe=".exe"; fi
+          for target in ${{ matrix.targets }}; do
+            cargo build --release --locked --target "$target"
+          done
+          if [ "${{ matrix.platform }}" = "macos" ]; then
+            # One file for Intel and Apple silicon. An Apple silicon program must be signed, so it gets a local (ad-hoc) signature.
+            lipo -create -output ../bridge-out/agent-workshop-bridge \
+              target/aarch64-apple-darwin/release/agent-workshop-bridge target/x86_64-apple-darwin/release/agent-workshop-bridge
+            codesign --force --sign - ../bridge-out/agent-workshop-bridge
+            lipo -info ../bridge-out/agent-workshop-bridge
+          else
+            cp "target/${{ matrix.targets }}/release/agent-workshop-bridge${exe}" "../bridge-out/agent-workshop-bridge${exe}"
+          fi
+          ls -l ../bridge-out
+      - name: Start the binary and check it
+        shell: bash
+        run: |
+          exe=""
+          if [ "${{ matrix.platform }}" = "windows" ] || [ "${{ matrix.platform }}" = "windows-arm64" ]; then exe=".exe"; fi
+          node bridge/tools/smoke.mjs "bridge-out/agent-workshop-bridge${exe}"
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: bridge-${{ matrix.platform }}
+          path: bridge-out/*
+          if-no-files-found: error
+          retention-days: 14
+
+  build:
+    name: Build the apps
+    needs: [verify, test, bridge]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 60
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          persist-credentials: false
+      - uses: actions/setup-node@949feb2413d6458794dcd2491c4babbbce0c15c1 # v7.1.0
+        with:
+          node-version: 24
+      - name: Cache the Godot editor
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: godot/.editor
+          key: godot-editor-${{ runner.os }}-${{ hashFiles('godot/GODOT_VERSION', 'godot/tools/get-godot.mjs') }}
+      # The export templates are about 1.3 GB to download. export.mjs installs only the files that the five apps need, and
+      # downloads again by itself if a file is missing. Change the "-v1" if the cached files are wrong.
+      - name: Cache the export templates
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ~/.local/share/godot/export_templates
+          key: godot-templates-${{ runner.os }}-${{ hashFiles('godot/GODOT_VERSION') }}-v1
+      - run: node tools/get-godot.mjs
+        working-directory: godot
+      - name: Export all five apps
+        run: node tools/export.mjs --platform all
+        working-directory: godot
+      # A broken export (a missing file, a script error) would start and fail. Start the Linux x86_64 app with no window for a moment.
+      - name: Start the Linux app with no window
+        working-directory: godot
+        run: |
+          set -o pipefail
+          app=out/export/linux/AgentWorkshop.x86_64
+          chmod +x "$app"
+          timeout 120 "$app" --headless --audio-driver Dummy --quit-after 300 -- --demo=session 2>&1 | tee smoke.log
+          if grep -E '^(SCRIPT ERROR|USER SCRIPT ERROR)' smoke.log; then
+            echo "::error::The exported app printed script errors."
+            exit 1
+          fi
+      # The bridge binaries of the bridge jobs. Each artifact is `bridge-<platform>`. package.mjs wants <folder>/<platform>/<binary>.
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          pattern: bridge-*
+          path: godot/out/bridge-artifacts
+      - name: Make the archives and SHA256SUMS
+        working-directory: godot
+        env:
+          VERSION: ${{ needs.verify.outputs.version }}
+        run: |
+          mkdir -p out/bridge
+          for dir in out/bridge-artifacts/bridge-*; do mv "$dir" "out/bridge/${dir##*/bridge-}"; done
+          ls -R out/bridge
+          node tools/package.mjs --version "$VERSION" --bridge-in out/bridge
+      - uses: actions/upload-artifact@cf430e030ddbb5b0abf93d22962f4752f3646cd9 # v7.0.2
+        with:
+          name: release-files
+          path: godot/out/release/*
+          if-no-files-found: error
+          retention-days: 14
+
+  release:
+    name: Draft release
+    # Only a tag makes a release. A manual run stops after the build.
+    if: github.ref_type == 'tag'
+    needs: [verify, build]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    # Add required reviewers to this environment (Settings > Environments) to approve each release by hand.
+    environment: release
+    permissions:
+      contents: write
+      id-token: write
+      attestations: write
+    steps:
+      - uses: actions/download-artifact@9000827ccba6bdab643e8b6fd33ac0654aef8333 # v8.0.2
+        with:
+          name: release-files
+          path: dist
+      # A signed statement of where the files were built. `gh attestation verify <file> --repo <owner/repo>` checks it.
+      - uses: actions/attest-build-provenance@4d101475d8b20a2381f78447822ac1eab6504dd8 # v4.2.2
+        with:
+          subject-path: |
+            dist/*.zip
+            dist/*.tar.gz
+      - name: Create the draft release
+        env:
+          GH_TOKEN: ${{ github.token }}
+          TAG: ${{ github.ref_name }}
+          VERSION: ${{ needs.verify.outputs.version }}
+          PRERELEASE: ${{ needs.verify.outputs.prerelease }}
+        run: |
+          cat > notes.md <<'EOF'
+          ## Download
+
+          | System | File |
+          |---|---|
+          | Windows, Intel or AMD | `AgentWorkshop-*-windows-x86_64.zip` |
+          | Windows on ARM | `AgentWorkshop-*-windows-arm64.zip` |
+          | Linux, Intel or AMD | `AgentWorkshop-*-linux-x86_64.tar.gz` |
+          | Linux on ARM | `AgentWorkshop-*-linux-arm64.tar.gz` |
+          | macOS, Intel and Apple silicon | `AgentWorkshop-*-macos-universal.zip` |
+
+          The apps are **not signed**. Your system may warn you:
+
+          - **Windows:** SmartScreen says "Windows protected your PC". Choose "More info", then "Run anyway".
+          - **macOS:** Gatekeeper blocks the app. Right-click the app and choose "Open", or run `xattr -dr com.apple.quarantine "Agent Workshop.app"`.
+          - **Linux:** unpack the archive and run the file `AgentWorkshop.x86_64` or `AgentWorkshop.arm64`.
+
+          ## The bridge
+
+          The apps read the event stream of the bridge. The bridge is a separate program that needs no Node or other runtime.
+          Download the file for your system, unpack it and run `agent-workshop-bridge serve`. Then start the app. See the README.
+
+          | System | File |
+          |---|---|
+          | Windows, Intel or AMD | `AgentWorkshopBridge-*-windows-x86_64.zip` |
+          | Windows on ARM | `AgentWorkshopBridge-*-windows-arm64.zip` |
+          | Linux, Intel or AMD | `AgentWorkshopBridge-*-linux-x86_64.tar.gz` |
+          | Linux on ARM | `AgentWorkshopBridge-*-linux-arm64.tar.gz` |
+          | macOS, Intel and Apple silicon | `AgentWorkshopBridge-*-macos-universal.zip` |
+
+          The bridge is **not signed** either. On macOS, run `xattr -d com.apple.quarantine agent-workshop-bridge` once after you unpack it.
+          Windows may show SmartScreen.
+
+          To check a download: `sha256sum -c SHA256SUMS --ignore-missing`, or `gh attestation verify <file> --repo REPO_PLACEHOLDER`.
+
+          The code is MIT. The art is all rights reserved (`LICENSE-ASSETS`).
+
+          ## Changes
+          EOF
+          sed -i "s|REPO_PLACEHOLDER|${GITHUB_REPOSITORY}|" notes.md
+          args=(--repo "$GITHUB_REPOSITORY" --draft --verify-tag --generate-notes --notes-file notes.md --title "Agent Workshop ${VERSION}")
+          if [ "$PRERELEASE" = "true" ]; then args+=(--prerelease); fi
+          gh release create "$TAG" dist/* "${args[@]}"

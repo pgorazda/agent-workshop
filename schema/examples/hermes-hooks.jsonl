@@ -1,0 +1,22 @@
+{"hook_event_name":"on_session_start","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"model":"claude-sonnet-4-6","platform":"cli"}}
+{"hook_event_name":"pre_api_request","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"api_call_count":1,"model":"claude-sonnet-4-6","provider":"anthropic","message_count":2}}
+{"hook_event_name":"pre_tool_call","tool_name":"read_file","tool_input":{"path":"/repo/app.py"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_1","turn_id":"t1"}}
+{"hook_event_name":"post_tool_call","tool_name":"read_file","tool_input":{"path":"/repo/app.py"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_1","status":"ok","result":"{\"content\":\"def add(a, b): return a - b\"}","duration_ms":12}}
+{"hook_event_name":"pre_tool_call","tool_name":"terminal","tool_input":{"command":"rm -rf build"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_2"}}
+{"hook_event_name":"pre_approval_request","tool_name":null,"tool_input":null,"session_id":"","cwd":"/repo","extra":{"command":"rm -rf build","description":"recursive delete","pattern_key":"rm","session_key":"cli:main","surface":"cli"}}
+{"hook_event_name":"post_approval_response","tool_name":null,"tool_input":null,"session_id":"","cwd":"/repo","extra":{"command":"rm -rf build","choice":"once","surface":"cli"}}
+{"hook_event_name":"post_tool_call","tool_name":"terminal","tool_input":{"command":"rm -rf build"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_2","status":"ok","result":"{\"output\":\"\"}","duration_ms":30}}
+{"hook_event_name":"pre_tool_call","tool_name":"terminal","tool_input":{"command":"pytest -q"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_3"}}
+{"hook_event_name":"post_tool_call","tool_name":"terminal","tool_input":{"command":"pytest -q"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_3","status":"error","error_type":"ToolError","error_message":"exit code 1","result":"{\"output\":\"1 failed\"}","duration_ms":4100}}
+{"hook_event_name":"pre_api_request","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"api_call_count":2,"model":"claude-sonnet-4-6"}}
+{"hook_event_name":"pre_tool_call","tool_name":"delegate_task","tool_input":{"goal":"Investigate the failing test"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_4"}}
+{"hook_event_name":"subagent_start","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"parent_turn_id":"t1","child_session_id":"sess_child","child_subagent_id":"sa_1","child_role":"leaf","child_goal":"Investigate the failing test"}}
+{"hook_event_name":"on_session_start","tool_name":null,"tool_input":null,"session_id":"sess_child","cwd":"/repo","extra":{"model":"claude-sonnet-4-6"}}
+{"hook_event_name":"pre_tool_call","tool_name":"search_files","tool_input":{"pattern":"fixture","path":"tests"},"session_id":"sess_child","cwd":"/repo","extra":{"tool_call_id":"call_5"}}
+{"hook_event_name":"post_tool_call","tool_name":"search_files","tool_input":{"pattern":"fixture","path":"tests"},"session_id":"sess_child","cwd":"/repo","extra":{"tool_call_id":"call_5","status":"ok","result":"tests/conftest.py:3"}}
+{"hook_event_name":"on_session_end","tool_name":null,"tool_input":null,"session_id":"sess_child","cwd":"/repo","extra":{"completed":true}}
+{"hook_event_name":"subagent_stop","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"child_session_id":"sess_child","child_status":"completed","child_summary":"fixture ordering","duration_ms":8000}}
+{"hook_event_name":"post_tool_call","tool_name":"delegate_task","tool_input":{"goal":"Investigate the failing test"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_4","status":"ok","result":"{\"summary\":\"fixture ordering\"}"}}
+{"hook_event_name":"pre_tool_call","tool_name":"browser_navigate","tool_input":{"url":"https://example.com/docs"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_6"}}
+{"hook_event_name":"post_tool_call","tool_name":"browser_navigate","tool_input":{"url":"https://example.com/docs"},"session_id":"sess_1","cwd":"/repo","extra":{"tool_call_id":"call_6","status":"ok","result":"{}"}}
+{"hook_event_name":"on_session_end","tool_name":null,"tool_input":null,"session_id":"sess_1","cwd":"/repo","extra":{"completed":true,"model":"claude-sonnet-4-6"}}

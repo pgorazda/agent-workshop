@@ -1,0 +1,39 @@
+name: Bug report
+description: Something does not work as the documents say
+labels: [bug]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Please do not paste real transcripts, commands, file paths or names from your own sessions. A made-up example is enough. For a security problem, use private vulnerability reporting instead (see SECURITY.md).
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: The release of the app and of the bridge (for example 0.2.0-alpha.1)
+    validations:
+      required: true
+  - type: input
+    id: system
+    attributes:
+      label: System
+      description: Operating system and CPU (for example Windows 11 x86_64, macOS 15 Apple silicon, Ubuntu 24.04 arm64)
+    validations:
+      required: true
+  - type: dropdown
+    id: agent
+    attributes:
+      label: Agent
+      options: [Claude Code, OpenCode, Pi, Hermes Agent, None (demo or replay), Other]
+    validations:
+      required: true
+  - type: textarea
+    id: what
+    attributes:
+      label: What happened, and what did you expect?
+    validations:
+      required: true
+  - type: textarea
+    id: steps
+    attributes:
+      label: Steps to reproduce

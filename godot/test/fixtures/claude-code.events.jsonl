@@ -1,0 +1,17 @@
+{"ts":1767261600000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"thinking"}
+{"ts":1767261602000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"thinking"}
+{"ts":1767261602000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_1","tool":"Grep","category":"search","target":"def test_"}
+{"ts":1767261603000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_1","ok":true}
+{"ts":1767261605000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_2","tool":"Read","category":"read","target":"app.py"}
+{"ts":1767261606000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_2","ok":true}
+{"ts":1767261608000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_3","tool":"Edit","category":"write","target":"app.py"}
+{"ts":1767261609000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_3","ok":true}
+{"ts":1767261611000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_4","tool":"Bash","category":"exec","target":"pytest -q"}
+{"ts":1767261616000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_4","ok":false}
+{"ts":1767261618000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_5","tool":"Task","category":"delegate","target":"Investigate remaining failure"}
+{"ts":1767261618000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"subagent_start","id":"toolu_5"}
+{"ts":1767261626000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_5","ok":true}
+{"ts":1767261626000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"subagent_end","id":"toolu_5"}
+{"ts":1767261628000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_start","id":"toolu_6","tool":"WebSearch","category":"web","target":"pytest fixture ordering"}
+{"ts":1767261631000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"tool_end","id":"toolu_6","ok":true}
+{"ts":1767261631000,"v":1,"framework":"claude-code","session":"demo-1","agent":"main","type":"done"}

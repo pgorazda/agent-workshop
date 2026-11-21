@@ -1,0 +1,20 @@
+# Node
+node_modules/
+
+# Rust (the bridge)
+bridge/target/
+
+# Your own mise settings
+mise.local.toml
+
+# OS
+.DS_Store
+Thumbs.db
+
+.claude/
+
+# Godot client
+godot/.godot/
+godot/.editor/
+godot/test-results/
+godot/out/

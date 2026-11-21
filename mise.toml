@@ -1,0 +1,103 @@
+# Local development with mise (https://mise.jdx.dev). One command runs what the CI runs, on your machine, with no push:
+#
+#   mise install          # Node and Rust at the versions below
+#   mise run check        # the CI checks: version, fmt, clippy, bridge tests, adapter tests, Godot tests
+#   mise run check-fast   # the same without the Godot tests (they take a minute or two)
+#   mise run app          # the Godot app, reading a bridge at ws://127.0.0.1:8787/ws (start one with `mise run bridge`)
+#   mise run demo         # the app playing a made-up scene, no bridge (`mise run demo arenas` for another scene)
+#   mise tasks            # all tasks
+#
+# This covers the machine you run it on only. It cannot show a failure that only Windows or Linux has (the CI does that), the
+# release workflow's runners, or macOS Gatekeeper. No version bump is needed for any of these tasks.
+
+[tools]
+node = "24"
+# Pinned, so that a new lint does not appear on your machine without warning. The CI uses `stable`: a new lint shows there first.
+# To follow the CI, set "stable". `rustup` provides the toolchain and the components.
+rust = { version = "1.100", components = "clippy,rustfmt" }
+cargo-deny = "0.22"
+
+[tasks.version]
+description = "The version numbers agree in all files (the CI runs this)"
+run = "node godot/tools/version.mjs check"
+
+[tasks.fmt]
+description = "cargo fmt --check"
+dir = "bridge"
+run = "cargo fmt --check"
+
+[tasks.lint]
+description = "cargo clippy with warnings as errors"
+dir = "bridge"
+run = "cargo clippy --all-targets --locked -- -D warnings"
+
+[tasks.deny]
+description = "cargo deny (advisories, licenses, sources) and the check of the third-party notices of the bridge"
+dir = "bridge"
+run = ["cargo deny check", "cargo fetch --locked", "node tools/notices.mjs --check"]
+
+[tasks.notices]
+description = "Write the third-party notices of the bridge again (run it when Cargo.lock changes)"
+dir = "bridge"
+run = ["cargo fetch --locked", "node tools/notices.mjs"]
+
+[tasks.test-bridge]
+description = "The bridge tests (unit tests, the real binary, the Godot fixtures)"
+dir = "bridge"
+run = "cargo test --locked"
+
+[tasks.test-adapters]
+description = "The OpenCode plugin, the Pi extension and the Hermes hook script against the real bridge"
+run = "node --test 'adapters/test/*.test.mjs'"
+
+[tasks.godot-setup]
+description = "Download the pinned Godot editor into godot/.editor (checks its hash; does nothing when it is there)"
+dir = "godot"
+run = "node tools/get-godot.mjs"
+
+[tasks.test-godot]
+description = "The Godot tests (GUT, then the Node tests). Builds the bridge. Downloads the editor the first time"
+depends = ["godot-setup"]
+dir = "godot"
+run = "npm test"
+
+[tasks.check-fast]
+description = "The CI checks without the Godot tests"
+run = [{ task = "version" }, { task = "fmt" }, { task = "lint" }, { task = "deny" }, { task = "test-bridge" }, { task = "test-adapters" }]
+
+[tasks.check]
+description = "All the CI checks, one after the other"
+run = [{ task = "check-fast" }, { task = "test-godot" }]
+
+[tasks.bridge]
+description = "Run the bridge from the source on 127.0.0.1:8787 (extra arguments after --)"
+dir = "bridge"
+run = "cargo run --release -- serve"
+
+[tasks.replay]
+description = "Replay the example Claude Code session to a running bridge"
+dir = "bridge"
+run = "cargo run --release -- replay ../schema/examples/claude-code-transcript.jsonl --speed 4"
+
+# The Godot editor is found by tools/godot-path.mjs: the environment variable GODOT, or the copy that godot-setup downloaded.
+# Extra arguments after `--` go to the app, for example: mise run app -- --start-bridge=bridge/target/release/agent-workshop-bridge
+[tasks.app]
+description = "Run the Godot app (reads the bridge at ws://127.0.0.1:8787/ws). Extra arguments after -- go to the app"
+depends = ["godot-setup"]
+dir = "godot"
+run = """
+GODOT="$(node -e "import('./tools/godot-path.mjs').then((m) => console.log(m.resolveGodot()))")"
+"$GODOT" --headless --path . --import > /dev/null 2>&1
+exec "$GODOT" --path . -- "$@"
+"""
+
+[tasks.demo]
+description = "Run the app on a made-up scene with no bridge: session, multi, arenas, many, follow, ten or tour (default multi)"
+depends = ["godot-setup"]
+dir = "godot"
+usage = 'arg "[scene]" help="The scene to play" default="multi"'
+run = """
+GODOT="$(node -e "import('./tools/godot-path.mjs').then((m) => console.log(m.resolveGodot()))")"
+"$GODOT" --headless --path . --import > /dev/null 2>&1
+exec "$GODOT" --path . -- --demo="${usage_scene}"
+"""

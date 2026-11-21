@@ -1,0 +1,35 @@
+{
+  "title": "Claude Code fixes a failing test",
+  "duration": 28.474,
+  "options": {"arena_size":0},
+  "events": [
+    {"t":0.6,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"session_start","ts":1767261600600}},
+    {"t":1.4,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261601400,"category":"search","tool":"Glob","target":"bridge/src/**/*.js","id":"call_1"}},
+    {"t":3.527,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261603527,"ok":true,"id":"call_1"}},
+    {"t":3.527,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261603527,"category":"read","tool":"Read","target":"bridge/src/server.js","id":"call_2"}},
+    {"t":5.171,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261605171,"ok":true,"id":"call_2"}},
+    {"t":5.171,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"thinking","ts":1767261605171}},
+    {"t":8.123,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261608123,"category":"write","tool":"Edit","target":"bridge/src/adapters/pi.js","id":"call_3"}},
+    {"t":10.651,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261610651,"ok":true,"id":"call_3"}},
+    {"t":10.651,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261610651,"category":"delegate","tool":"Task","target":"Explore the adapters","id":"call_4"}},
+    {"t":11.966,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"subagent_start","ts":1767261611966,"id":"sub_call_4"}},
+    {"t":12.416,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261612416,"ok":true,"id":"call_4"}},
+    {"t":12.416,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261612416,"category":"exec","tool":"Bash","target":"npm test","id":"call_5"}},
+    {"t":14.899,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261614899,"ok":false,"error":"Error: Exit code 1","id":"call_5"}},
+    {"t":16.699,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261616699,"category":"write","tool":"Edit","target":"bridge/src/adapters/pi.js","id":"call_6"}},
+    {"t":18.641,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261618641,"ok":true,"id":"call_6"}},
+    {"t":18.641,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261618641,"category":"exec","tool":"Bash","target":"npm test","id":"call_7"}},
+    {"t":20.282,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"subagent_end","ts":1767261620282,"id":"sub_call_4"}},
+    {"t":20.882,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261620882,"ok":true,"id":"call_7"}},
+    {"t":20.882,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_start","ts":1767261620882,"category":"exec","tool":"Bash","target":"git push origin HEAD","id":"call_8"}},
+    {"t":20.882,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"waiting_permission","ts":1767261620882,"message":"permission needed"}},
+    {"t":24.035,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"tool_end","ts":1767261624035,"ok":true,"id":"call_8"}},
+    {"t":24.485,"event":{"v":1,"framework":"claude-code","session":"demo-session","agent":"main","type":"done","ts":1767261624485}}
+  ],
+  "inputs": [
+
+  ],
+  "paths": [],
+  "keys": [],
+  "menus": []
+}

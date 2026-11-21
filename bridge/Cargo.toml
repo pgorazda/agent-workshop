@@ -1,0 +1,33 @@
+[package]
+name = "agent-workshop-bridge"
+version = "0.2.0"
+edition = "2024"
+description = "Local bridge that turns agent activity into canonical Agent Workshop events and streams them to the clients"
+license = "MIT"
+publish = false
+
+[lib]
+name = "agent_workshop_bridge"
+path = "src/lib.rs"
+
+[[bin]]
+name = "agent-workshop-bridge"
+path = "src/main.rs"
+
+[dependencies]
+axum = { version = "0.8.9", default-features = false, features = ["http1", "tokio", "ws"] }
+futures-util = { version = "0.3.34", default-features = false, features = ["std", "sink"] }
+serde_json = { version = "1.0.154", features = ["preserve_order"] }
+time = { version = "0.3.55", default-features = false, features = ["parsing", "std"] }
+tokio = { version = "1.54.1", features = ["rt-multi-thread", "macros", "net", "sync", "time", "io-util", "io-std"] }
+ureq = { version = "3.5.2", default-features = false }
+
+[dev-dependencies]
+tokio-tungstenite = "0.30.0"
+
+[profile.release]
+opt-level = "s"
+lto = true
+codegen-units = 1
+panic = "abort"
+strip = true

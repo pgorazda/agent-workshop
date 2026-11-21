@@ -1,0 +1,23 @@
+{"hook_event_name":"SessionStart","session_id":"demo-hooks-1","source":"startup","cwd":"/repo"}
+{"hook_event_name":"UserPromptSubmit","session_id":"demo-hooks-1","prompt":"Fix the failing test","cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Grep","tool_use_id":"toolu_h1","tool_input":{"pattern":"def add","path":"/repo"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"Grep","tool_use_id":"toolu_h1","tool_input":{"pattern":"def add","path":"/repo"},"tool_response":{"matches":["app.py:1"]},"cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Read","tool_use_id":"toolu_h2","tool_input":{"file_path":"/repo/app.py"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"Read","tool_use_id":"toolu_h2","tool_input":{"file_path":"/repo/app.py"},"tool_response":{"type":"text","file":{"filePath":"/repo/app.py","content":"def add(a, b):\n    return a - b\n"}},"cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Edit","tool_use_id":"toolu_h3","tool_input":{"file_path":"/repo/app.py","old_string":"a - b","new_string":"a + b"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"Edit","tool_use_id":"toolu_h3","tool_input":{"file_path":"/repo/app.py"},"tool_response":{"filePath":"/repo/app.py","success":true},"cwd":"/repo"}
+{"hook_event_name":"Notification","session_id":"demo-hooks-1","message":"Claude needs your permission to use Bash","cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Bash","tool_use_id":"toolu_h4","tool_input":{"command":"pytest -q\necho done","description":"Run the tests"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"Bash","tool_use_id":"toolu_h4","tool_input":{"command":"pytest -q"},"tool_response":{"stdout":"","stderr":"1 failed","interrupted":false,"is_error":true},"cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Bash","tool_use_id":"toolu_h5","tool_input":{"command":"pytest -q"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUseFailure","session_id":"demo-hooks-1","tool_name":"Bash","tool_use_id":"toolu_h5","tool_input":{"command":"pytest -q"},"error":"Command exited with non-zero status code 1","cwd":"/repo"}
+{"hook_event_name":"Notification","session_id":"demo-hooks-1","message":"Claude is waiting for your input","cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"Task","tool_use_id":"toolu_h6","tool_input":{"description":"Investigate the failure","prompt":"Look at the test output","subagent_type":"general-purpose"},"cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"WebFetch","tool_use_id":"toolu_h7","tool_input":{"url":"https://example.com/docs","prompt":"summarize"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"WebFetch","tool_use_id":"toolu_h7","tool_input":{"url":"https://example.com/docs"},"tool_response":{"code":200,"result":"ok"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"Task","tool_use_id":"toolu_h6","tool_input":{"description":"Investigate the failure"},"tool_response":{"content":[{"type":"text","text":"The test expects addition."}]},"cwd":"/repo"}
+{"hook_event_name":"SubagentStop","session_id":"demo-hooks-1","stop_hook_active":false,"cwd":"/repo"}
+{"hook_event_name":"PreToolUse","session_id":"demo-hooks-1","tool_name":"mcp__demo__lookup","tool_use_id":"toolu_h8","tool_input":{"query":"add function"},"cwd":"/repo"}
+{"hook_event_name":"PostToolUse","session_id":"demo-hooks-1","tool_name":"mcp__demo__lookup","tool_use_id":"toolu_h8","tool_response":"plain text answer","cwd":"/repo"}
+{"hook_event_name":"PreCompact","session_id":"demo-hooks-1","trigger":"auto","cwd":"/repo"}
+{"hook_event_name":"Stop","session_id":"demo-hooks-1","stop_hook_active":false,"cwd":"/repo"}
