@@ -127,15 +127,15 @@ with an unknown `type` as generic work.
 
 ```bash
 cd godot
-npm test             # the GUT tests, then all Node tests
-node tools/check.mjs # GDScript check: warnings count as errors
+npm test             # the GDScript check, the GUT tests, then all Node tests
+node tools/check.mjs # the GDScript check alone: warnings count as errors
 ```
 
 | Command | What it does |
 |---|---|
 | `node tools/run-gut.mjs` | Imports the project, then runs the GUT tests headless (`test/`). It exits with code 1 when a test fails, when GUT ignores a script (a parse error), and, for a run of all tests, when fewer scripts ran than there are `test_*.gd` files. Extra arguments go to GUT, for example `-gselect=event`. |
 | `node --test` | All Node tests in `tools/`: the bridge link, the license check, the scene files, the download script. They start the real bridge. |
-| `node tools/check.mjs` | Loads every GDScript file in a debug run and fails on any warning or error. |
+| `node tools/check.mjs` | Loads every GDScript file in a debug run and fails on any warning or error. `npm test` and the CI run it first. |
 | `cargo run --example fixtures` (in `bridge/`) | Makes `test/fixtures/*.events.jsonl` again. Run it when `schema/examples/` or the bridge adapters change. `cargo test` in `bridge/` fails when the fixtures are out of date. |
 | `node tools/render-art.mjs` | Renders the pictures with the art code in `art/image_src/` in headless Chromium. Needs Playwright, `CHROMIUM_PATH` and the two fonts (`npm install --no-save @fontsource/tiny5@5.3.0 @fontsource/silkscreen@5.3.0` here). Add `--check` to render twice and compare with the files on disk. |
 | `"$GODOT" --path . -s res://tools/shot.gd -- --scene=res://src/room.tscn --out=room.png` | Saves the 480x270 viewport of a scene as a PNG file after a few frames. It needs a window (not `--headless`). `--count=5 --frames=600` with `%d` in `--out` saves several pictures. |

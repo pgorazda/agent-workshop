@@ -31,10 +31,10 @@ func _init() -> void:
 	for component in Engine.get_copyright_info():
 		lines.append("")
 		lines.append(str(component.get("name", "")))
-		for part in component.get("parts", []):
-			for file in part.get("files", []):
+		for part: Dictionary in component.get("parts", []):
+			for file: String in part.get("files", []):
 				lines.append("  files: %s" % file)
-			for copyright_line in part.get("copyright", []):
+			for copyright_line: String in part.get("copyright", []):
 				lines.append("  copyright: %s" % copyright_line)
 			lines.append("  license: %s" % part.get("license", ""))
 	lines.append("")
@@ -44,7 +44,7 @@ func _init() -> void:
 	var texts: Dictionary = Engine.get_license_info()
 	var names: Array = texts.keys()
 	names.sort()
-	for license_name in names:
+	for license_name: String in names:
 		lines.append("")
 		lines.append("--- %s" % license_name)
 		lines.append(str(texts[license_name]).strip_edges())

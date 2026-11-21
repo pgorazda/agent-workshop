@@ -147,7 +147,7 @@ jobs:
       # Downloads the pinned editor and checks its SHA-512 hash. Does nothing when the cache has it.
       - run: node tools/get-godot.mjs
         working-directory: godot
-      # The GUT tests, then all Node tests. The test that renders the art again needs Chromium and is skipped here (no CHROMIUM_PATH).
+      # The GDScript check (warnings count as errors), the GUT tests, then all Node tests. The test that renders the art again needs Chromium and is skipped here (no CHROMIUM_PATH).
       - run: npm test
         working-directory: godot
 

@@ -11,8 +11,7 @@ Running only `cargo test`, the adapter tests and `npm test` is not enough: the C
 ```bash
 cd bridge && cargo test                # the bridge (Rust)
 node --test 'adapters/test/*.test.mjs'              # the adapter scripts against the real bridge
-cd godot && npm test                   # the Godot tests; needs GODOT and builds the bridge
-cd godot && node tools/check.mjs       # GDScript warnings count as errors; NOT run by mise or the CI, run it by hand after you change GDScript
+cd godot && npm test                   # the GDScript check (warnings are errors), the GUT tests and the Node tests; needs GODOT and builds the bridge
 ```
 
 ## Change the repository
