@@ -15,6 +15,7 @@ node = "24"
 # Pinned, so that a new lint does not appear on your machine without warning. The CI uses `stable`: a new lint shows there first.
 # To follow the CI, set "stable". `rustup` provides the toolchain and the components.
 rust = { version = "1.100", components = "clippy,rustfmt" }
+cargo-deny = "0.22"
 
 [tasks.version]
 description = "The version numbers agree in all files (the CI runs this)"
@@ -29,6 +30,16 @@ run = "cargo fmt --check"
 description = "cargo clippy with warnings as errors"
 dir = "bridge"
 run = "cargo clippy --all-targets --locked -- -D warnings"
+
+[tasks.deny]
+description = "cargo deny (advisories, licenses, sources) and the check of the third-party notices of the bridge"
+dir = "bridge"
+run = ["cargo deny check", "cargo fetch --locked", "node tools/notices.mjs --check"]
+
+[tasks.notices]
+description = "Write the third-party notices of the bridge again (run it when Cargo.lock changes)"
+dir = "bridge"
+run = ["cargo fetch --locked", "node tools/notices.mjs"]
 
 [tasks.test-bridge]
 description = "The bridge tests (unit tests, the real binary, the Godot fixtures)"
@@ -52,7 +63,7 @@ run = "npm test"
 
 [tasks.check-fast]
 description = "The CI checks without the Godot tests"
-run = [{ task = "version" }, { task = "fmt" }, { task = "lint" }, { task = "test-bridge" }, { task = "test-adapters" }]
+run = [{ task = "version" }, { task = "fmt" }, { task = "lint" }, { task = "deny" }, { task = "test-bridge" }, { task = "test-adapters" }]
 
 [tasks.check]
 description = "All the CI checks, one after the other"

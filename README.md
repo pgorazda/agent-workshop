@@ -105,4 +105,4 @@ docs/        user and contributor documents
 - **Code:** MIT. See [LICENSE](LICENSE).
 - **Art:** all rights reserved. This covers the drawing and sound code in `godot/art/`, the images and sounds in it, the images in `docs/images/`, and images, video or sound made with them. See [LICENSE-ASSETS](LICENSE-ASSETS).
 
-The fonts Tiny5 and Silkscreen are under the SIL Open Font License 1.1.
+The fonts Tiny5 and Silkscreen are under the SIL Open Font License 1.1. The releases carry `THIRD-PARTY-NOTICES.txt` with the licenses of the Godot engine and of the Rust crates that the programs contain.

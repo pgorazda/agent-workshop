@@ -8,7 +8,7 @@ import { tmpdir } from 'node:os';
 import { join } from 'node:path';
 import { spawnSync } from 'node:child_process';
 import { PLATFORMS } from './export.mjs';
-import { LICENSE_FILES, REPO_ROOT, archiveName, baseName, bridgeArchiveName, bridgeFileName, haveArchiveTools, packageAll, parseArgs, sha256OfFile } from './package.mjs';
+import { APP_NOTICES_PATH, BRIDGE_NOTICES_PATH, LICENSE_FILES, REPO_ROOT, archiveName, baseName, bridgeArchiveName, bridgeFileName, haveArchiveTools, packageAll, parseArgs, sha256OfFile } from './package.mjs';
 
 const tools = haveArchiveTools();
 
@@ -48,8 +48,15 @@ test('the command line', () => {
   assert.equal(parseArgs(['--version', '1.2.3', '--bridge-in', 'bin']).bridgeDir, 'bin');
 });
 
-test('the license files exist in the repository', () => {
-  for (const file of LICENSE_FILES) assert.ok(existsSync(join(REPO_ROOT, file)), file);
+test('the license files and the notices exist in the repository', () => {
+  for (const file of [...LICENSE_FILES, APP_NOTICES_PATH, BRIDGE_NOTICES_PATH]) assert.ok(existsSync(join(REPO_ROOT, file)), file);
+});
+
+test('the notices of the app are those of the pinned Godot version', () => {
+  const version = readFileSync(join(REPO_ROOT, 'godot', 'GODOT_VERSION'), 'utf8').trim();
+  const notices = readFileSync(join(REPO_ROOT, APP_NOTICES_PATH), 'utf8');
+  assert.ok(notices.includes(`Godot Engine ${version}`), `the notices name Godot ${version}: run the tool tools/licenses.gd`);
+  assert.ok(notices.includes('Permission is hereby granted, free of charge'), 'the engine license text is in it');
 });
 
 /** Fake exports: a file for Windows and Linux, a zip with an .app for macOS. */
@@ -89,7 +96,7 @@ test('all five platforms are packed, with the licenses, the executable flag and 
 
     // a zip: the folder, the app and the licenses
     const listing = spawnSync('unzip', ['-Z1', join(outDir, 'AgentWorkshop-0.2.0-windows-arm64.zip')], { encoding: 'utf8' }).stdout.split('\n');
-    for (const entry of ['AgentWorkshop-0.2.0-windows-arm64/AgentWorkshop.exe', 'AgentWorkshop-0.2.0-windows-arm64/LICENSE', 'AgentWorkshop-0.2.0-windows-arm64/LICENSE-ASSETS']) {
+    for (const entry of ['AgentWorkshop-0.2.0-windows-arm64/AgentWorkshop.exe', 'AgentWorkshop-0.2.0-windows-arm64/LICENSE', 'AgentWorkshop-0.2.0-windows-arm64/LICENSE-ASSETS', 'AgentWorkshop-0.2.0-windows-arm64/THIRD-PARTY-NOTICES.txt']) {
       assert.ok(listing.includes(entry), entry);
     }
     const mac = spawnSync('unzip', ['-Z1', join(outDir, 'AgentWorkshop-0.2.0-macos-universal.zip')], { encoding: 'utf8' }).stdout;
@@ -136,7 +143,7 @@ test('with --bridge-in each platform also gets a bridge archive with the binary 
     // a zip: the folder, the binary and the license, and no license of the art
     const zipName = 'AgentWorkshopBridge-0.2.0-windows-arm64';
     const listing = spawnSync('unzip', ['-Z1', join(outDir, `${zipName}.zip`)], { encoding: 'utf8' }).stdout.split('\n').filter(Boolean);
-    assert.deepEqual(listing.sort(), [`${zipName}/`, `${zipName}/LICENSE`, `${zipName}/agent-workshop-bridge.exe`].sort());
+    assert.deepEqual(listing.sort(), [`${zipName}/`, `${zipName}/LICENSE`, `${zipName}/THIRD-PARTY-NOTICES.txt`, `${zipName}/agent-workshop-bridge.exe`].sort());
 
     // the macOS zip keeps the executable flag
     const macDir = join(root, 'mac');

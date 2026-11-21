@@ -17,6 +17,8 @@ mise tasks            # all tasks
 | `mise run demo` | The app on a made-up scene, no bridge (`mise run demo arenas` for another scene) |
 | `mise run check` | Everything the CI checks: version, fmt, clippy, bridge tests, adapter tests, Godot tests (downloads the Godot editor the first time) |
 | `mise run check-fast` | The same without the Godot tests |
+| `mise run deny` | `cargo deny` (advisories, licenses, sources) and the check of the bridge's third-party notices |
+| `mise run notices` | Write `bridge/THIRD-PARTY-NOTICES.txt` again. Run it when `Cargo.lock` changes (a Dependabot update of the bridge needs it) |
 
 `mise run check` covers the system you run it on. A failure that only Windows or Linux has shows in the CI.
 
@@ -47,6 +49,14 @@ cd godot && node tools/check.mjs               # GDScript check: warnings count 
 The `godot/` commands need `GODOT`. The tests that start the bridge build it with `cargo build` first. Set `ARENA_BRIDGE_BIN` to use a binary you already have.
 
 `bridge/tests/` also checks `godot/test/fixtures/`. When `schema/examples/` or the adapters change, make the fixtures again with `cd bridge && cargo run --example fixtures`.
+
+## Third-party notices
+
+The archives of the bridge and of the app carry `THIRD-PARTY-NOTICES.txt`, as the licenses of the parts they contain ask. `bridge/THIRD-PARTY-NOTICES.txt` is made from `Cargo.lock` by `mise run notices`, and CI fails when it is out of date. `godot/THIRD-PARTY-NOTICES.txt` is made by the Godot engine itself, for the pinned version. Make it again when `GODOT_VERSION` changes:
+
+```bash
+cd godot && "$GODOT" --headless --path . -s res://tools/licenses.gd -- --out=THIRD-PARTY-NOTICES.txt
+```
 
 ## Record a scene
 

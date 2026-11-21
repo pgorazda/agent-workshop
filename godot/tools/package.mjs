@@ -9,7 +9,7 @@
 //            --bridge-in <folder>  the bridge binaries: <folder>/<platform>/agent-workshop-bridge (.exe for Windows)
 //
 // One archive for each platform of export.mjs. The names are `AgentWorkshop-<version>-<os>-<arch>` with `.zip` (Windows and macOS)
-// or `.tar.gz` (Linux). Inside is one folder of the same name with the app, `LICENSE` and `LICENSE-ASSETS`. The macOS app is
+// or `.tar.gz` (Linux). Inside is one folder of the same name with the app, `LICENSE`, `LICENSE-ASSETS` and `THIRD-PARTY-NOTICES.txt`. The macOS app is
 // universal, so its file name says `macos-universal`. The Linux file gets the executable flag. The file SHA256SUMS lists the
 // SHA-256 hash of every archive in the format of `sha256sum -c`.
 //
@@ -32,6 +32,10 @@ export const REPO_ROOT = join(GODOT_DIR, '..');
 export const LICENSE_FILES = ['LICENSE', 'LICENSE-ASSETS'];
 /** The bridge is code only. */
 export const BRIDGE_LICENSE_FILES = ['LICENSE'];
+/** The notices of the parts that each program carries (the Godot engine, the Rust crates). They go next to the licenses. */
+export const NOTICE_FILES = 'THIRD-PARTY-NOTICES.txt';
+export const APP_NOTICES_PATH = 'godot/THIRD-PARTY-NOTICES.txt';
+export const BRIDGE_NOTICES_PATH = 'bridge/THIRD-PARTY-NOTICES.txt';
 
 /** `AgentWorkshop-0.2.0-linux-arm64` */
 export function baseName(version, platform) {
@@ -101,6 +105,7 @@ export function packagePlatform(platform, { version, inDir, outDir, repoRoot = R
     if (spec.os === 'linux') chmodSync(target, 0o755);
   }
   for (const file of LICENSE_FILES) copyFileSync(join(repoRoot, file), join(folder, file));
+  copyFileSync(join(repoRoot, APP_NOTICES_PATH), join(folder, NOTICE_FILES));
 
   const archive = join(outDir, archiveName(version, platform));
   rmSync(archive, { force: true });
@@ -126,6 +131,7 @@ export function packageBridge(platform, { version, bridgeDir, outDir, repoRoot =
   copyFileSync(binary, target);
   if (spec.os !== 'windows') chmodSync(target, 0o755);
   for (const file of BRIDGE_LICENSE_FILES) copyFileSync(join(repoRoot, file), join(folder, file));
+  copyFileSync(join(repoRoot, BRIDGE_NOTICES_PATH), join(folder, NOTICE_FILES));
 
   const archive = join(outDir, bridgeArchiveName(version, platform));
   rmSync(archive, { force: true });

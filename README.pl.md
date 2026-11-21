@@ -105,4 +105,4 @@ docs/        dokumenty dla użytkowników i współtwórców
 - **Kod:** MIT. Zobacz [LICENSE](LICENSE).
 - **Grafika i dźwięk:** wszelkie prawa zastrzeżone. Dotyczy to kodu rysującego i dźwiękowego w `godot/art/`, obrazów i dźwięków w nim, obrazów w `docs/images/` oraz obrazów, wideo i dźwięku z nich zrobionych. Zobacz [LICENSE-ASSETS](LICENSE-ASSETS).
 
-Czcionki Tiny5 i Silkscreen są na licencji SIL Open Font License 1.1.
+Czcionki Tiny5 i Silkscreen są na licencji SIL Open Font License 1.1. Wydania zawierają `THIRD-PARTY-NOTICES.txt` z licencjami silnika Godot i crate'ów Rusta, które zawierają programy.
