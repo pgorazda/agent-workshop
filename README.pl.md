@@ -10,6 +10,8 @@ Aktywność agenta (wywołania narzędzi, subagenci, prośby o zgodę, błędy) 
 
 Ten projekt powstał głównie dla zabawy. To sposób, by oglądać pracę agentów, a nie narzędzie do monitoringu.
 
+Agent Workshop to niezależny projekt. Nie jest tworzony, popierany ani sponsorowany przez twórców Claude Code, OpenCode, Pi ani Hermes Agent. Te nazwy należą do ich właścicieli i służą tylko do wskazania, z którymi agentami projekt współpracuje.
+
 ## Wybierz swoją drogę
 
 | Chcę... | Idź do |
@@ -89,6 +91,10 @@ Znane ograniczenia adapterów są w [docs/adapters.md](docs/adapters.md#known-li
 ## Wygląd i dźwięk
 
 Pokój jest narysowany w stylu własnym, w rozdzielczości 480×270 pikseli, zainspirowanym czapką pingwina (krakowską rogatywką) i polską sztuką ludową: malowanymi kwiatami z Zalipia, malarstwem ludowym z Lipnicy Murowanej, ceramiką bolesławiecką i kilimami. Aplikacja gra cztery oryginalne melodie w manierze polskich tańców ludowych (krakowiak, kujawiak, oberek i góralski) oraz pięć dźwięków zdarzeń. Cały dźwięk startuje wyłączony. Naciśnij **M**, aby go włączyć.
+
+## Współpraca i bezpieczeństwo
+
+[CONTRIBUTING.md](CONTRIBUTING.md) opisuje pracę nad kodem (po angielsku), [SECURITY.md](SECURITY.md) zgłaszanie problemów bezpieczeństwa prywatnie, a [kodeks postępowania](CODE_OF_CONDUCT.md) zasady współpracy.
 
 ## Układ
 
