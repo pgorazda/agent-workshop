@@ -392,6 +392,111 @@ async fn a_client_without_an_origin_header_is_let_in() {
     running.bridge.close().await;
 }
 
+const EVENT: &str = r#"{"v":1,"framework":"pi","session":"s1","type":"thinking"}"#;
+
+#[tokio::test]
+async fn a_web_page_cannot_post_events_or_read_the_stream() {
+    // A page in a browser can reach 127.0.0.1. It always sends an Origin header, and the bridge refuses a foreign one.
+    let running = start().await;
+    for origin in [
+        "https://evil.example",
+        "http://127.0.0.1.evil.example",
+        "http://localhost.evil.example:8787",
+        "null",
+    ] {
+        let (status, text) = request_with_headers(
+            "POST",
+            format!("{}/event", running.http),
+            Some(EVENT.to_string()),
+            vec![("Origin", origin), ("Content-Type", "text/plain")],
+        )
+        .await;
+        assert_eq!(status, 403, "origin {origin}");
+        assert!(text.contains("forbidden origin"), "{text}");
+        let (status, _) = request_with_headers(
+            "GET",
+            format!("{}/health", running.http),
+            None,
+            vec![("Origin", origin)],
+        )
+        .await;
+        assert_eq!(status, 403, "origin {origin} on /health");
+    }
+    assert_eq!(running.bridge.stats().events, 0, "no event got in");
+
+    // The WebSocket handshake of a page is refused too, and no client is counted.
+    let mut request =
+        tokio_tungstenite::tungstenite::client::IntoClientRequest::into_client_request(running.ws.as_str()).unwrap();
+    request
+        .headers_mut()
+        .insert("Origin", "https://evil.example".parse().unwrap());
+    let refused = tokio_tungstenite::connect_async(request).await;
+    assert!(refused.is_err(), "a foreign origin must not get a WebSocket");
+    assert_eq!(running.bridge.stats().clients, 0);
+    running.bridge.close().await;
+}
+
+#[tokio::test]
+async fn a_local_origin_and_a_local_host_are_let_in() {
+    let running = start().await;
+    for origin in [
+        "http://127.0.0.1:8787",
+        "http://localhost:3000",
+        "http://[::1]:8787",
+        "https://LOCALHOST",
+    ] {
+        let (status, _) = request_with_headers(
+            "POST",
+            format!("{}/event", running.http),
+            Some(EVENT.to_string()),
+            vec![("Origin", origin), ("Content-Type", "text/plain")],
+        )
+        .await;
+        assert_eq!(status, 202, "origin {origin}");
+    }
+    let (status, _) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Host", "localhost:8787")],
+    )
+    .await;
+    assert_eq!(status, 200);
+    let (status, _) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Host", "[::1]:8787")],
+    )
+    .await;
+    assert_eq!(status, 200);
+    running.bridge.close().await;
+}
+
+#[tokio::test]
+async fn a_foreign_host_name_is_refused_when_the_bridge_listens_on_loopback() {
+    // DNS rebinding: a page on a name that points to 127.0.0.1 sends that name as the Host.
+    let running = start().await;
+    let (status, text) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Host", "evil.example:8787")],
+    )
+    .await;
+    assert_eq!(status, 403);
+    assert!(text.contains("forbidden host"), "{text}");
+    let (status, _) = request_with_headers(
+        "GET",
+        format!("{}/health", running.http),
+        None,
+        vec![("Host", "127.0.0.1.evil.example")],
+    )
+    .await;
+    assert_eq!(status, 403);
+    running.bridge.close().await;
+}
+
 #[tokio::test]
 async fn known_difference_json_nested_deeper_than_128_levels_gets_400() {
     // The Node bridge parses it. The JSON library of the bridge stops at 128 levels.

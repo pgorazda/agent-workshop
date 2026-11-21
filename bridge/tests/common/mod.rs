@@ -96,6 +96,36 @@ pub async fn request(method: &'static str, url: String, body: Option<String>) ->
     .expect("the request task ends")
 }
 
+/// A blocking request with extra headers (for example `Origin` or `Host`). Returns the status and the body text.
+pub async fn request_with_headers(
+    method: &'static str,
+    url: String,
+    body: Option<String>,
+    headers: Vec<(&'static str, &'static str)>,
+) -> (u16, String) {
+    tokio::task::spawn_blocking(move || {
+        let agent = agent();
+        let mut response = if method == "POST" {
+            let mut req = agent.post(&url);
+            for (name, value) in &headers {
+                req = req.header(*name, *value);
+            }
+            req.send(body.unwrap_or_default())
+        } else {
+            let mut req = agent.get(&url);
+            for (name, value) in &headers {
+                req = req.header(*name, *value);
+            }
+            req.call()
+        }
+        .expect("the request is sent");
+        let status = response.status().as_u16();
+        (status, response.body_mut().read_to_string().unwrap_or_default())
+    })
+    .await
+    .expect("the request task ends")
+}
+
 pub async fn post(url: &str, body: &Value) -> (u16, Value) {
     let (status, text) = request("POST", url.to_string(), Some(body.to_string())).await;
     (status, serde_json::from_str(&text).unwrap_or(Value::Null))

@@ -70,7 +70,7 @@ The first export downloads the export templates (about 1.3 GB). How a release is
 
 1. Write documents and comments in simple technical English.
 2. The event schema (`schema/event.schema.json`) is the contract. Adapters map native events to it. The app reads only the schema and picks stations by `category`, never by tool name. Keep `bridge/src/schema.rs` in step with it (a test checks the enums).
-3. The bridge listens on `127.0.0.1` only, stores nothing and broadcasts only schema fields.
+3. The bridge listens on `127.0.0.1` only, stores nothing, broadcasts only schema fields, and refuses requests that carry a foreign `Origin` (a web page) or, on a loopback address, a foreign `Host`.
 4. The app has a look of its own. Do not use Anthropic or Claude logos, the Claude Code mascot, Anthropic's typefaces, Claude's colours as a colour scheme, the asterisk spinner and its verbs, or layouts copied from Claude Code's terminal.
 5. This repository is public. Do not add personal data, real transcripts, real paths or names, or references to private projects. Example sessions are made up.
 6. "Agent Workshop" is the project. An "arena" is one room of the app. Existing code names (`ARENA_*` variables, `arena.js`) stay as they are.

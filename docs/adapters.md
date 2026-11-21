@@ -55,6 +55,8 @@ The bridge listens on `127.0.0.1` by default, so the agent, the bridge and the a
   The agent's hooks post to `127.0.0.1:8787` on the remote side, and the events reach your local bridge. If you use another port, set `ARENA_BRIDGE_HTTP` in the agent's environment.
 - **The app is on another machine than the bridge.** Forward the bridge's port with `ssh -L 8787:127.0.0.1:8787 user@bridge-host`, then start the app as usual. Or start the app with `--bridge=ws://<host>:8787/ws`. With a non-local address the app never starts a bridge itself.
 
+The bridge refuses any request that has an `Origin` header for a name that is not local, so a web page cannot use it. It checks the `Host` header only while it listens on a loopback address. Both tunnels above keep it that way.
+
 Avoid `--host 0.0.0.0`. The bridge has no authentication: anyone who can reach the port can read the event stream, which can contain commands and file names, and can post fake events. If you must open it, do it on a trusted network only, and use `--redact-targets`.
 
 ## Known limits

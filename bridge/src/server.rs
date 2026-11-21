@@ -72,6 +72,9 @@ struct Shared {
     rejected: AtomicU64,
     clients: AtomicUsize,
     redact_targets: bool,
+    /// True when the bridge listens on a loopback address. Then a `Host` header that names anything else is refused
+    /// (DNS rebinding).
+    check_host: bool,
     log: Log,
     shutdown: watch::Receiver<bool>,
 }
@@ -125,6 +128,7 @@ impl Bridge {
             rejected: AtomicU64::new(0),
             clients: AtomicUsize::new(0),
             redact_targets: options.redact_targets,
+            check_host: is_loopback_host(&options.host),
             log: options.log,
             shutdown: shutdown_rx,
         });
@@ -194,7 +198,50 @@ fn error_response(status: StatusCode, message: &str) -> Response {
     json_response(status, &json!({ "error": message }))
 }
 
+/// The host part of a `Host` value (`name:port`) or an `Origin` value (`scheme://name:port`), with no port and no brackets
+/// around an IPv6 address.
+fn host_of(value: &str) -> &str {
+    let rest = value.split_once("://").map_or(value, |(_, rest)| rest);
+    let authority = rest.split(['/', '?', '#']).next().unwrap_or("");
+    let authority = authority.rsplit_once('@').map_or(authority, |(_, host)| host);
+    if let Some(inner) = authority.strip_prefix('[') {
+        return inner.split(']').next().unwrap_or("");
+    }
+    authority.split(':').next().unwrap_or("")
+}
+
+/// True for `localhost` and for a loopback address (`127.0.0.1`, `::1`).
+fn is_loopback_host(name: &str) -> bool {
+    let name = host_of(name);
+    name.eq_ignore_ascii_case("localhost") || name.parse::<std::net::IpAddr>().is_ok_and(|ip| ip.is_loopback())
+}
+
+/// A web page can reach `127.0.0.1` too. A browser always sends `Origin` on a WebSocket and on a cross-site `POST`, and the
+/// Godot app, `curl` and the hooks send none. So a request with an `Origin` that is not local comes from a page and is
+/// refused: it could read the stream or send fake events. A page on a rebound DNS name sends a foreign `Host`, which is
+/// refused when the bridge listens on a loopback address.
+fn check_origin(shared: &Shared, req: &Request) -> Option<Response> {
+    if let Some(origin) = req.headers().get(header::ORIGIN) {
+        let local = origin
+            .to_str()
+            .is_ok_and(|value| is_loopback_host(value) && value != "null");
+        if !local {
+            return Some(error_response(StatusCode::FORBIDDEN, "forbidden origin"));
+        }
+    }
+    if shared.check_host
+        && let Some(host) = req.headers().get(header::HOST)
+        && !host.to_str().is_ok_and(is_loopback_host)
+    {
+        return Some(error_response(StatusCode::FORBIDDEN, "forbidden host"));
+    }
+    None
+}
+
 async fn handle(shared: Arc<Shared>, req: Request) -> Response {
+    if let Some(refusal) = check_origin(&shared, &req) {
+        return refusal;
+    }
     let path = req.uri().path().to_string();
     let method = req.method().clone();
 

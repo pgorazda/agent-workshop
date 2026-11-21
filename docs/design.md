@@ -8,7 +8,9 @@ Every agent reports activity in its own way. An adapter turns each one into the 
 
 ## A local bridge between the adapters and the app
 
-A small program, the bridge, receives events over HTTP and sends them to the app over a WebSocket. It listens on `127.0.0.1` only, keeps no history, stores nothing and broadcasts only the fields of the schema. Agents' hooks can carry commands, file names and tool output, so the bridge keeps the guarantees simple: it never binds to the network, and `--redact-targets` can drop targets and error text too. Because the bridge keeps no history, start the app first and then the session.
+A small program, the bridge, receives events over HTTP and sends them to the app over a WebSocket. It listens on `127.0.0.1` only, keeps no history, stores nothing and broadcasts only the fields of the schema. Agents' hooks can carry commands, file names and tool output, so the bridge keeps the guarantees simple: it never binds to the network, and `--redact-targets` can drop targets and error text too.
+
+A web page in your browser can also reach `127.0.0.1`, so the bridge refuses requests from pages. A browser always sends an `Origin` header on a WebSocket and on a cross-site `POST`, while the app, `curl` and the hooks send none. A request with an `Origin` that is not `localhost`, `127.0.0.1` or `[::1]` gets `403`. When the bridge listens on a loopback address it also refuses a foreign `Host` header, which stops DNS rebinding. Without this check any page you visit could read your event stream or send fake events. Because the bridge keeps no history, start the app first and then the session.
 
 ## A Godot app, not a browser page
 
