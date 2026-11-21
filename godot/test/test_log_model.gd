@@ -1,5 +1,5 @@
 extends GutTest
-## The activity log and the cards (phase G-6): the lines and their states, long targets, the numbers, the cards (full up to five
+## The activity log and the cards: the lines and their states, long targets, the numbers, the cards (full up to five
 ## agents, compact from six), the counts and the labels. The model is built from the events of the director.
 
 const LogModel := preload("res://src/core/log_model.gd")

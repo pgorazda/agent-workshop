@@ -1,4 +1,4 @@
-// Tests of the level tool (phase G-7), without a browser and without Godot:  node --test
+// Tests of the level tool, without a browser and without Godot:  node --test
 //
 // They check the search for the worst start time on small made-up signals, that the numbers of the tool are the numbers of the player,
 // and the levels of the real files in art/sound/.

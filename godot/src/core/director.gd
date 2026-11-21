@@ -10,15 +10,15 @@ extends RefCounted
 ##   * the cap cord comes from the framework (`cord_of`);
 ##   * a queue that is too long is cut by the backlog rule (`backlog.gd`).
 ##
-## Arenas (phase G-5, docs/2d-arenas-plan.md). The director places each new penguin in an arena with the rules of
+## Arenas. The director places each new penguin in an arena with the rules of
 ## `ArenaRules.create_arenas`: an arena holds `arena_size` agents, helpers stay with their parent, a new agent goes to the
 ## first arena with room, and an agent never changes arena while it is present. Each arena is a room with its own world
 ## (spots, queues, effect cues and actors). Two penguins in different arenas can stand on the same floor position.
 ## The settings are off by default, so the director on its own behaves as before (one room, no limit on the arena):
-##   * `arena_size`    0 is one room for everyone. A number above 0 is the size of an arena (4 in the plan);
-##   * `leave_after`   0 is off. A number is the seconds after which an agent with no event leaves (600 in the plan), unless one
+##   * `arena_size`    0 is one room for everyone. A number above 0 is the size of an arena (4 by default);
+##   * `leave_after`   0 is off. A number is the seconds after which an agent with no event leaves (600 by default), unless one
 ##                     of its calls or an approval is open. It walks out through the door, and its place is freed at once;
-##   * `limit`         the most penguins (the `maxPenguins` of the plan), 12 by default. A view with arenas raises it.
+##   * `limit`         the most penguins, 12 by default. A view with arenas raises it.
 ## An arena closes `close_after` seconds after its last agent left, unless it is the only one.
 ##
 ## A camera (`camera.gd`) may be attached with `attach_camera`. The director then feeds it with what happens: the arenas that
@@ -79,7 +79,7 @@ var reduced_motion: bool = false:
 		for room: RefCounted in rooms.values():
 			room.effects.reduced_motion = value
 
-## Collect the sound cues of the actors (`take_sound_cues`). The view turns it on only while event sounds sound (phase G-7), so a run
+## Collect the sound cues of the actors (`take_sound_cues`). The view turns it on only while event sounds sound, so a run
 ## with no sound collects nothing.
 var record_sounds: bool = false:
 	set(value):
@@ -443,7 +443,7 @@ func _feed_camera(actor: RefCounted, event: RefCounted) -> void:
 		"waiting_permission":
 			kind = "approval"
 		"done":
-			# a helper that finishes its work never pulls the camera (docs/2d-arenas-plan.md, "Follow AUTO")
+			# a helper that finishes its work never pulls the camera
 			kind = "activity" if actor.is_helper else "done"
 		"error":
 			kind = "fail"

@@ -84,7 +84,7 @@ func test_box_parts_equal_box() -> void:
 	assert_eq(_rects(DrawKit.box_rects(10, 10, 11, 11)), [[11, 10, 9, 1], [11, 20, 9, 1], [10, 11, 1, 9], [20, 11, 1, 9], [11, 11, 9, 9]])
 
 
-# ---------------------------------------------------------------- the fast ellipse (phase G-6)
+# ---------------------------------------------------------------- the fast ellipse
 
 func test_the_fast_ellipse_gives_the_rectangles_of_a_test_of_every_pixel() -> void:
 	# the ellipses of the room (glow, shadows), the ring of the focus, and random ones with fractions

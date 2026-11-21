@@ -94,7 +94,7 @@ test('the text report lists each window and the scene', () => {
   assert.match(text, /#3 scroll to page 2 at 5\.0 s/);
   assert.match(text, /all 2 long moves/);
   assert.match(text, /the whole scene/);
-  assert.match(text, /pass rule of the plan: NOT met/);
+  assert.match(text, /pass rule: NOT met/);
 });
 
 test('the moves file of a CSV', () => {

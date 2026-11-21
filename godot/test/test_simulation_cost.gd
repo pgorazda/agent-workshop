@@ -1,5 +1,5 @@
 extends GutTest
-## The cost of the simulation alone, with no screen (plan, "Performance", item 5): 157 agents, each with a call at a station.
+## The cost of the simulation alone, with no screen: 157 agents, each with a call at a station.
 ## It prints the time of a step and fails above a generous limit, so that a slow simulation shows on any machine.
 
 const Director := preload("res://src/core/director.gd")
@@ -8,7 +8,7 @@ const Trace := preload("res://test/support/trace.gd")
 const Camera := preload("res://src/core/camera.gd")
 const TimelinePlayer := preload("res://src/net/timeline_player.gd")
 
-## The limit of the plan: 10 ms for one step of 1/60 s.
+## The limit: 10 ms for one step of 1/60 s.
 const LIMIT_MS := 10.0
 
 
@@ -31,7 +31,7 @@ func test_a_step_of_157_agents_stays_under_the_limit() -> void:
 	assert_lt(per_step_ms, LIMIT_MS)
 
 
-## The same agents in 40 arenas, with the camera attached and the rules of the arenas running (phase G-5).
+## The same agents in 40 arenas, with the camera attached and the rules of the arenas running.
 func test_a_step_of_157_agents_in_40_arenas_with_the_camera_stays_under_the_limit() -> void:
 	var director: RefCounted = Director.new()
 	director.limit = 200

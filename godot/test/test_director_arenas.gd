@@ -1,6 +1,6 @@
 extends GutTest
-## The director with arenas (phase G-5): who goes to which arena, helpers, leaving, closing, the penguin limit, and what the
-## camera is told. The rules are in docs/2d-arenas-plan.md ("What an arena is").
+## The director with arenas: who goes to which arena, helpers, leaving, closing, the penguin limit, and what the
+## camera is told. The rules are in docs/arenas.md ("What an arena is").
 
 const Director := preload("res://src/core/director.gd")
 const Camera := preload("res://src/core/camera.gd")

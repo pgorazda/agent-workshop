@@ -1,5 +1,5 @@
 extends RefCounted
-## The log of a benchmark run (`--benchmark=<scene>`, phase G-5): one line for each frame, as CSV, and the camera's moves as JSON.
+## The log of a benchmark run (`--benchmark=<scene>`): one line for each frame, as CSV, and the camera's moves as JSON.
 ## `tools/benchmark-report.mjs` reads both. This class builds the text. The view writes the files.
 ##
 ## The columns of a frame line: `t` (the simulation time of the frame, seconds), `frame_ms` (the time between this frame and the

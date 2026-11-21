@@ -1,6 +1,6 @@
 # CLAUDE.md
 
-Agent Workshop shows AI coding agents at work as penguins in a pixel-art workshop. The layout is in `README.md`.
+Agent Workshop shows AI coding agents at work as penguins in a pixel-art workshop. The layout is in `README.md`, and the contributor guide is `CONTRIBUTING.md`.
 
 ## Tests
 

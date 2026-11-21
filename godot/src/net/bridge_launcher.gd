@@ -1,5 +1,5 @@
 extends Node
-## Starts the bridge program when the person asked for it (ADR 0014). The rules:
+## Starts the bridge program when the person asked for it. The rules:
 ##
 ## * Only for a local address (127.0.0.1, localhost or ::1 with ws://). The program gets the loopback host of the address (`::1` for `::1`,
 ##   else `127.0.0.1`) and the port of the address.

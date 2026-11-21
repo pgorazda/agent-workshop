@@ -1,6 +1,5 @@
 extends RefCounted
-## Where the parts of the bar and of the overview lie, in the pixels of the 480x270 viewport (docs/2d-arenas-plan.md, "The
-## screen"; phase G-6). The numbers are those of the mockup's `arenas.js`. This file has no drawing: the art draws at these
+## Where the parts of the bar and of the overview lie, in the pixels of the 480x270 viewport. The numbers are those of the mockup's `arenas.js`. This file has no drawing: the art draws at these
 ## places, and the hit tests of the input read them.
 ##
 ## The room is 480x232 and the bar is the 38 rows under it. The top line of the bar is the row at y 233 (9 pixels high). The

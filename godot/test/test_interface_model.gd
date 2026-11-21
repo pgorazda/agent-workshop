@@ -1,5 +1,5 @@
 extends GutTest
-## What the interface shows and where (phase G-6): the three kinds of bar, the tabs and their states, the list of pages, the cards
+## What the interface shows and where: the three kinds of bar, the tabs and their states, the list of pages, the cards
 ## of the arena on screen or under the mouse, the overview, the follow menu, the state of the link, and the hit tests.
 ## The scenes of `demo/` give the situations: `arenas` (three arenas, approvals, failures) and `many` (three pages).
 

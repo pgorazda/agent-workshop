@@ -1,5 +1,5 @@
 extends SceneTree
-## A headless program for tools/launcher.test.mjs. It runs the real bridge launcher (ADR 0014) and prints one line for each thing that
+## A headless program for tools/launcher.test.mjs. It runs the real bridge launcher  and prints one line for each thing that
 ## happens, so that the Node test can read the lines:
 ##
 ##   STATE <idle|checking|starting|running|using_existing|failed>

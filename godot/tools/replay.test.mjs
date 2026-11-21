@@ -1,4 +1,4 @@
-// A replayed session through the real bridge into the real client (phase G-8).
+// A replayed session through the real bridge into the real client.
 //
 //   node --test        (from godot/; set GODOT, see README.md)
 //

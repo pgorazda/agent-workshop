@@ -1,12 +1,12 @@
 extends RefCounted
 ## One penguin, or one helper: the event queue and the behaviour.
 ##
-## The actor is an explicit state machine (choice 5 of the plan). It has a queue of events and a list of motion
+## The actor is an explicit state machine. It has a queue of events and a list of motion
 ## segments, and a step of the simulation clock moves them on. It uses no `await` and no generator, so a test can
 ## step it frame by frame. It does not draw: it exposes `position`, `facing` and `pose`, with the small values that
 ## the picture needs (see the variables below). Numbers of time and speed come from the JavaScript mockup.
 ##
-## The story, event by event (docs/2d-view-plan.md, choice 4, and the README "Event schema" table):
+## The story, event by event (see docs/event-schema.md for the categories):
 ##   tool_start         walks to the station of its `category` and takes the pose there, until `tool_end`
 ##   tool_end ok:false  the penguin flops (1.8 s)
 ##   waiting_permission goes to the sign post and waits there. The next event ends the wait
@@ -39,7 +39,7 @@ const VANISH_TIME := 0.35
 const VANISH_HIDDEN := 0.1
 const BLINK_PERIOD := 2.9
 const BLINK_TIME := 0.12
-# ---- choices of phase G-4 (the mockup scripts the lengths, a live actor needs rules)
+# ---- choices (the mockup scripts the lengths, a live actor needs rules)
 ## A penguin that has no event waits this long where it stands, and then walks to its rest point.
 const LINGER_TIME := 2.0
 ## A call works at least this long after it has reached its station, even when its end is already in the queue.
@@ -409,7 +409,7 @@ func _free_stage_slot(world: RefCounted) -> int:
 
 
 ## The penguin falls down where it stands. `smoke` adds smoke at the chimney of the forge. With `hold_spot` the penguin keeps its spot
-## until the flop is over: the next penguin of the line must not stand on the one that lies there (phase G-8: the recorder checks it).
+## until the flop is over: the next penguin of the line must not stand on the one that lies there (the recorder checks it).
 func _flop_here(world: RefCounted, smoke: bool, hold_spot: bool = false) -> void:
 	_drop_call(world, "")
 	status = "FAIL"

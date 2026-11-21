@@ -1,5 +1,5 @@
 extends GutTest
-## The station table (phase G-3): nine stations, one for each category, with the stand points of the mockup (frozen below).
+## The station table: nine stations, one for each category, with the stand points of the mockup (frozen below).
 
 const Stations := preload("res://src/core/stations.gd")
 const Event := preload("res://src/core/event.gd")
@@ -7,7 +7,7 @@ const Atlas := preload("res://art/atlas.gd")
 const Data := preload("res://art/atlas_data.gd")
 const RoomStageArt := preload("res://art/room_stage_art.gd")
 
-## The metre table and the pixel points agree to this many pixels (see the README, "Phase G-3").
+## The metre table and the pixel points agree to this many pixels.
 const PROJECTION_TOLERANCE := 45.0
 ## Two stand points of different places are at least this far apart, so that penguins do not overlap.
 const MIN_DISTANCE := 16.0
@@ -127,7 +127,7 @@ func test_the_line_runs_one_step_at_a_time() -> void:
 
 # ---------------------------------------------------------------- the metre table
 
-func test_the_projection_has_the_numbers_of_the_2d_view_plan() -> void:
+func test_the_projection_has_the_numbers_of_the_projection() -> void:
 	assert_eq(Stations.project(Vector2.ZERO), Vector2(240, 138))
 	assert_eq(Stations.project(Vector2(1, 0)), Vector2(268, 138))
 	assert_eq(Stations.project(Vector2(0, 1)), Vector2(240, 127))

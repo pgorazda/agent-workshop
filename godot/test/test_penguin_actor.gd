@@ -95,7 +95,7 @@ func test_a_failed_call_flops_for_one_point_eight_seconds() -> void:
 
 
 func test_a_penguin_that_lies_after_a_failure_keeps_its_spot_until_it_gets_up() -> void:
-	# phase G-8: the next penguin of the line must not stand on the one that lies there
+	# the next penguin of the line must not stand on the one that lies there
 	var first: RefCounted = _penguin("a")
 	var second: RefCounted = _penguin("b")
 	director.handle_event(Trace.tool_start("exec", "make test", "c1", "a"))

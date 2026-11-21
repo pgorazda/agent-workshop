@@ -1,5 +1,5 @@
 extends GutTest
-## The room view (phase G-3): one penguin at each station, props and penguins in the order of their depth.
+## The room view: one penguin at each station, props and penguins in the order of their depth.
 
 const RoomView := preload("res://src/view/room_view.gd")
 const RoomStageArt := preload("res://art/room_stage_art.gd")

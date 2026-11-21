@@ -1,5 +1,5 @@
 extends GutTest
-## The sound model (phase G-7): the state, the keys and clicks of the switch and its menu, and the rules for which event cue sounds. The
+## The sound model: the state, the keys and clicks of the switch and its menu, and the rules for which event cue sounds. The
 ## model has no audio call, so these tests run with no sound device.
 
 const SoundModel := preload("res://src/core/sound_model.gd")

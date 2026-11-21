@@ -1,4 +1,4 @@
-// The link between the bridge and the Godot client (phase G-0, spikes S-1).
+// The link between the bridge and the Godot client (spikes S-1).
 //
 //   node --test        (from godot/; set GODOT, see README.md)
 //

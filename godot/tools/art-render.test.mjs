@@ -1,4 +1,4 @@
-// Checks the image side of phase G-2:  node --test
+// Checks the image side:  node --test
 //
 // Without a browser it checks that the variant table, the art sources and the committed files agree:
 //   * test/fixtures/art_variants.json has the table that variants.js gives now, and the hash of every source file;
@@ -56,7 +56,7 @@ test('every frame of every animation is a picture in the table', () => {
   }
 });
 
-test('the table has the glyph set, the rugs and the props that the plan names', () => {
+test('the table has the glyph set, the rugs and the props that the art needs', () => {
   assert.equal(CHARS.length, 95 + 18 + 3);
   assert.equal(RUGS.length, 5);
   assert.equal(PROP_PLACES.length, 12);

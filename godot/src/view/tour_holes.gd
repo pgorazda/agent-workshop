@@ -1,5 +1,5 @@
 extends RefCounted
-## Works out what stays lit in a stop of the tour (phase G-8). The scene file says what to light (`core/tour.gd` lists the kinds of hole).
+## Works out what stays lit in a stop of the tour. The scene file says what to light (`core/tour.gd` lists the kinds of hole).
 ## The mockup knew the places because it scripted its penguins. The client has live penguins, so this reads their places from the director
 ## and the places of the cards from the interface, at the moment that the stop begins. The scene stands still during a stop, so the places
 ## do not change until it ends.

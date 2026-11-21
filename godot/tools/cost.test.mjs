@@ -1,4 +1,4 @@
-// The numbers of the tools that measure the start-up and the cost of the client (phase G-6). The tests use made-up readings: they start
+// The numbers of the tools that measure the start-up and the cost of the client. The tests use made-up readings: they start
 // no client and need no window.
 
 import { test } from 'node:test';
@@ -35,7 +35,7 @@ test('the memory is the mean and the peak in megabytes', () => {
   assert.equal(memory.peak, 200);
 });
 
-test('the scenarios and the states are the ones that the plan names', () => {
+test('the scenarios and the states are the ones that the cost tool knows', () => {
   assert.deepEqual(STATES, ['focus', 'unfocused', 'minimized']);
   assert.ok(SCENARIOS.includes('idle') && SCENARIOS.includes('replay') && SCENARIOS.includes('ten'));
 });

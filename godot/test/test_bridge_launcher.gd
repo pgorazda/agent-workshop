@@ -1,5 +1,5 @@
 extends GutTest
-## The helpers of the bridge launcher and the saved setting (ADR 0014). The process itself is checked by tools/launcher.test.mjs.
+## The helpers of the bridge launcher and the saved setting. The process itself is checked by tools/launcher.test.mjs.
 
 const BridgeLauncher := preload("res://src/net/bridge_launcher.gd")
 const BridgeSettings := preload("res://src/net/bridge_settings.gd")

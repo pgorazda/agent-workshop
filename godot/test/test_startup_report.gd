@@ -1,5 +1,5 @@
 extends GutTest
-## The report of the start-up times (`--startup-report=<file>`, phase G-6) and the options that go with the cost measurements.
+## The report of the start-up times (`--startup-report=<file>`) and the options that go with the cost measurements.
 
 const StartupReport := preload("res://src/core/startup_report.gd")
 const Options := preload("res://src/core/options.gd")

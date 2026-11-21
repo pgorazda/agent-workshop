@@ -9,14 +9,14 @@
 // for vsync), process_ms (the time of the client's own frame code) and move (the id of the camera move that is under way, 0 when
 // the camera rests). The moves file has one entry for each move of the camera: { id, t, to, why, kind, apart, dur, peak, wide }.
 // A long move is a fly or a scroll that widens the view to 4 rooms across or more (`wide`). A window is the run of frames with the
-// id of one long move. docs/godot-client-plan.md ("Performance") says what is measured and what the pass rule is.
+// id of one long move. The pass rule is below.
 
 import { readFileSync } from 'node:fs';
 import { fileURLToPath } from 'node:url';
 
 /** A frame longer than this misses a frame of a 60 Hz screen. */
 export const FRAME_LIMIT_MS = 16.7;
-/** The pass rule of the plan (a proposal): in a long move at most 1% of the frames over 20 ms, none over 33 ms, and the 99th percentile of the process time at most 8 ms. */
+/** The pass rule (a proposal): in a long move at most 1% of the frames over 20 ms, none over 33 ms, and the 99th percentile of the process time at most 8 ms. */
 export const RULE = { slow_ms: 20, share: 0.01, worst_ms: 33, process_p99_ms: 8 };
 
 /** The CSV text of a run as a list of frames: [{ t, frame_ms, process_ms, move }]. */
@@ -84,7 +84,7 @@ export function report(frames, moves, limit = FRAME_LIMIT_MS) {
   };
 }
 
-/** Checks the pass rule of the plan on each window. A window with no frame fails. */
+/** Checks the pass rule on each window. A window with no frame fails. */
 export function passRule(windows) {
   const failures = [];
   for (const window of windows) {
@@ -116,7 +116,7 @@ export function format(result) {
   lines.push(row(`all ${result.long_moves} long moves`, result.all_windows.process_ms));
   lines.push(row('the whole scene', result.scene.process_ms));
   lines.push('');
-  lines.push(result.rule.pass ? 'pass rule of the plan: met on this machine' : `pass rule of the plan: NOT met${result.long_moves === 0 ? ' (no long move in the log)' : ''}`);
+  lines.push(result.rule.pass ? 'pass rule: met on this machine' : `pass rule: NOT met${result.long_moves === 0 ? ' (no long move in the log)' : ''}`);
   for (const failure of result.rule.failures) lines.push(`  ${failure}`);
   return lines.join('\n') + '\n';
 }

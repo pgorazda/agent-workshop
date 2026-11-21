@@ -1,5 +1,5 @@
 extends GutTest
-## Spots and the queue (phase G-3), the three rules of docs/2d-view-plan.md ("Several agents", item 3):
+## Spots and the queue, the three rules:
 ## a penguin takes the first free spot, a full station gives a queue, and a spot is freed when its penguin leaves.
 
 const Spots := preload("res://src/core/spots.gd")

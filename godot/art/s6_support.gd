@@ -5,7 +5,7 @@
 # the two things that the spike needs live here:
 #   1. a copy of an atlas sheet with mipmaps (the imported sheets have none), made at run time;
 #   2. a node that draws a room and its sign (RoomArt draws on a CanvasItem), with a choice of the room texture.
-# Delete this file with the spike if phase G-5 does not use it.
+# Delete this file with the spike if nothing uses it.
 extends Node2D
 
 const Atlas := preload("res://art/atlas.gd")

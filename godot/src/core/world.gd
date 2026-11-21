@@ -13,7 +13,7 @@ var spots: RefCounted = Spots.new()
 var effects: RefCounted = Effects.new()
 ## key (String) -> actor. Penguins and helpers.
 var actors: Dictionary = { }
-## The sound cues that the actors made since the director took them last: [{ name, t }] (phase G-7). Nothing is kept unless
+## The sound cues that the actors made since the director took them last: [{ name, t }]. Nothing is kept unless
 ## `record_sounds` is true, so a run with no sound collects nothing.
 var sounds: Array[Dictionary] = []
 var record_sounds: bool = false

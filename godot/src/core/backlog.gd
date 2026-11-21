@@ -1,5 +1,5 @@
 extends RefCounted
-## The backlog rule (choice 10 of the plan, choice 7 of the browser client plan).
+## The backlog rule (documented in docs/arenas.md).
 ##
 ## A window can be hidden, or the app can be busy, while events keep coming in. A penguin may then come back to a long
 ## queue. When a queue is longer than LIMIT events, this rule drops the oldest events that no longer matter and keeps:

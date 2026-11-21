@@ -1,5 +1,5 @@
 extends RefCounted
-## The trace of what the penguins do: for each actor the labels of the stations that it visits, in order (phase G-8). The labels are the
+## The trace of what the penguins do: for each actor the labels of the stations that it visits, in order. The labels are the
 ## ones of `test/fixtures/expected-trace.json`, so that a run of the real client (`--trace`, see `src/view/live_view.gd`) and a unit test
 ## can be compared with the same file. The labels: the name of a station (`stations.gd`), "flop", "celebration", "thinking in place", and
 ## "queue at <station>". It reads actors and writes lines; it has no clock and no node.

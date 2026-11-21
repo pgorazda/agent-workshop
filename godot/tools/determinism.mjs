@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Checks that a scene gives the same frames and the same sound on every run (phase G-8, spike S-5). It records the scene two times (or
+// Checks that a scene gives the same frames and the same sound on every run (spike S-5). It records the scene two times (or
 // more) with tools/record.mjs's engine arguments, hashes every PNG frame and the WAV file with SHA-256, and compares the runs. It needs
 // a real window and the Godot editor, not ffmpeg.
 //
@@ -8,7 +8,7 @@
 //   node tools/determinism.mjs --scene multi --music off --keep out/determinism
 //
 // What it covers: one machine, one Godot build, one GPU and driver, runs one after the other. What it does not cover: another machine,
-// another driver, another operating system, or the Linux container (see godot/README.md, "Phase G-8").
+// another driver, another operating system, or the Linux container (see godot/README.md).
 
 import { createHash } from 'node:crypto';
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync } from 'node:fs';

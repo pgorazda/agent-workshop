@@ -1,9 +1,9 @@
 extends RefCounted
-## What the keys and the clicks of the person do (phase G-6). The hit tests are in `interface_model.gd`; this file turns a hit into a
+## What the keys and the clicks of the person do. The hit tests are in `interface_model.gd`; this file turns a hit into a
 ## call of the camera, and a key of the open follow menu into a change of what pulls the camera. It holds no state. The camera
 ## queues each call with the time and applies it at its next step, as it applies the inputs of a timeline.
 ##
-## The follow menu (docs/2d-arenas-plan.md, "The follow switch"): 1 to 6 tick or untick a kind of pull, `[` and `]` lower and raise the
+## The follow menu: 1 to 6 tick or untick a kind of pull, `[` and `]` lower and raise the
 ## pace, 0 is "manual only", and Esc or a click elsewhere closes it.
 
 const ArenaRules := preload("res://src/core/arena_rules.gd")

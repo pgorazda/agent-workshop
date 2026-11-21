@@ -1,5 +1,5 @@
 extends RefCounted
-## The activity log and the cards (docs/2d-view-plan.md, choice 6 and "Several agents"; phase G-6).
+## The activity log and the cards.
 ##
 ## The model is built from the events that the director also gets: `tool_start`, `tool_end`, `waiting_permission`, `thinking`,
 ## `done`, `error` and `subagent_*`. For each agent it keeps the last lines with their state, and the one card that the bar
@@ -11,7 +11,7 @@ extends RefCounted
 ## Numbers. The director gives each agent a number when it first appears. The number stays until the agent leaves. A helper
 ## wears the number of its parent, and it adds to the "+N" on the parent's card. The events of a helper do not make lines.
 ##
-## The rules for the cards are in the plan: full cards up to five agents (number, framework, session, icon, target, status) and
+## The rules for the cards are these: full cards up to five agents (number, framework, session, icon, target, status) and
 ## compact cards from six (number, short name, icon, status). Long targets are cleaned here (one line, at most `MAX_TEXT`
 ## characters) and cut to a width by `TextArt.fit`, because only the art knows the width of a letter.
 

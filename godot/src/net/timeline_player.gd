@@ -1,5 +1,5 @@
 extends RefCounted
-## Demo mode: plays a timeline file instead of reading the bridge (docs/demo-mode-plan.md).
+## Demo mode: plays a timeline file instead of reading the bridge.
 ##
 ## A timeline holds a list of `{t, event}` and the inputs of a person (`{t, key}` or `{t, click}`). The player hands each
 ## item on once the simulation clock has reached its time. It has no clock of its own: pause and speed belong to
@@ -17,7 +17,7 @@ extends RefCounted
 ## An input is `{t, key}` (F, Tab, Esc, Left, Right, N), `{t, click: {number}}` (a penguin), `{t, click: "tab"|"cell", arena}`,
 ## `{t, click: "page", page}`, `{t, toggle: kind}`, `{t, manual: true}` or `{t, pace: n}` (the follow menu).
 ## `events` must be in time order. An item that is not a valid event is skipped and counted in `rejected`.
-## Phase G-8 adds what the mockup draws for the scripted demonstrations of a person. They carry no events and are drawn only in recording
+## A scene may also hold what the mockup draws for the scripted demonstrations of a person. They carry no events and are drawn only in recording
 ## mode and in demo mode: `paths` (`[{ path: [[t, x, y], ...], clicks: [t, ...] }]`, the mouse pointer), `keys` (`[{ t, label }]`, the
 ## key caps) and `menus` (`[{ open, close }]`, the windows of time in which the follow menu is open). The scene `tour` also has `tour`
 ## (`{ scene_end, stops: [...] }`, see `core/tour.gd`).

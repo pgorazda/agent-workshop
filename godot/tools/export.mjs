@@ -1,5 +1,5 @@
 #!/usr/bin/env node
-// Exports the Godot client as an app for Windows, Linux or macOS (phase G-9). The apps are NOT signed or notarized.
+// Exports the Godot client as an app for Windows, Linux or macOS. The apps are NOT signed or notarized.
 //
 //   cd godot
 //   node tools/export.mjs --templates-only            # only get the export templates (about 1.3 GB download)
@@ -18,7 +18,7 @@
 // If the templates are installed already, the tool downloads nothing.
 //
 // What is NOT done here: signing, notarization and any identity. The presets (export_presets.cfg) hold no secrets. The apps are
-// unsigned. See "Phase G-9" in godot/README.md for what a user sees (Windows SmartScreen, macOS Gatekeeper).
+// unsigned. See godot/README.md for what a user sees (Windows SmartScreen, macOS Gatekeeper).
 //
 // The editor is found as in the other tools (GODOT, or the copy of get-godot.mjs).
 

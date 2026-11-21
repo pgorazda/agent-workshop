@@ -1,5 +1,5 @@
 extends GutTest
-## The places of the bar and of the overview (phase G-6): the tabs, the page boxes with their window and arrows, the follow switch,
+## The places of the bar and of the overview: the tabs, the page boxes with their window and arrows, the follow switch,
 ## the menu, the pace levels and the cards. The numbers are those of the mockup's `arenas.js`.
 
 const BarLayout := preload("res://src/core/bar_layout.gd")

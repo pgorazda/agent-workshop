@@ -1,4 +1,4 @@
-// The bridge launcher of the Godot app (ADR 0014, phase R-8 of docs/rust-bridge-plan.md).
+// The bridge launcher of the Godot app.
 //
 //   node --test        (from godot/; set GODOT, see README.md)
 //

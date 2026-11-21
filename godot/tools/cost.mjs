@@ -1,10 +1,10 @@
 // Measures what the Godot client costs beside a coding agent: the CPU and the memory of its process, in each state of its window
-// (phase G-6; docs/godot-client-plan.md, "Cost beside a coding agent").
+//.
 //
 //   node tools/cost.mjs --scenario multi --state focus                # one measurement
 //   node tools/cost.mjs --matrix                                      # every scenario in every state (about 7 minutes)
 //   node tools/cost.mjs --scenario replay --state unfocused --seconds 40 --json
-//   node tools/cost.mjs --matrix --app <path to an exported app>     # measure a release export (phase G-9)
+//   node tools/cost.mjs --matrix --app <path to an exported app>     # measure a release export
 //
 // Scenarios:  idle    the bridge is up, the client is connected, no events (an agent that waits for its user)
 //             replay  the bridge replays the Claude Code example session again and again (one agent that works)
@@ -133,7 +133,7 @@ function setWindowState(pid, state) {
  * wrote about its window), foreground_ok }.
  */
 export async function measure({ scenario, state, seconds = 30, warmup = 8, clientArgs = [], engineArgs = [], project = GODOT_DIR, app = '' }) {
-  // app: an exported app (tools/export.mjs) in place of the editor that runs the project (phase G-9)
+  // app: an exported app (tools/export.mjs) in place of the editor that runs the project
   const godot = app || windowBuild(resolveGodot());
   const work = mkdtempSync(join(tmpdir(), 'agent-workshop-cost-'));
   const logFile = join(work, 'client.log');
@@ -214,7 +214,7 @@ async function main() {
   const seconds = Number(option('--seconds', 30));
   // --client-arg=--unfocused-fps=15 passes an option on to the client (repeat it for more)
   const clientArgs = args.filter((a) => a.startsWith('--client-arg=')).map((a) => a.slice('--client-arg='.length));
-  // --engine-arg=--audio-driver --engine-arg=Dummy passes an argument to the engine itself, before the client's own (phase G-7: a run with a tune
+  // --engine-arg=--audio-driver --engine-arg=Dummy passes an argument to the engine itself, before the client's own (a run with a tune
   // that must not play through the speakers uses the dummy audio driver: the engine decodes and mixes, and sends nothing to a device)
   const engineArgs = args.filter((a) => a.startsWith('--engine-arg=')).map((a) => a.slice('--engine-arg='.length));
   const jobs = args.includes('--matrix')
