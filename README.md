@@ -94,7 +94,7 @@ Known limits of the adapters are in [docs/adapters.md](docs/adapters.md#known-li
 
 ## The look and the sound
 
-The room is drawn in a look of its own, at 480×270 pixels, inspired by the penguin's cap (the rogatywka from Kraków) and by Polish folk art: the painted flowers of Zalipie, folk painting from Lipnica Murowana, Bolesławiec pottery and kilim rugs. The app plays four original tunes in the manner of Polish folk dances (krakowiak, kujawiak, oberek and góralski) and five event sounds. All sound starts off. Press **M** to turn it on.
+The room is drawn in a look of folk, at 480×270 pixels, inspired by the Kraków cap (the Kraków rogatywka) and by Polish folk art: the painted flowers of Zalipie, folk painting from Lipnica Murowana, Bolesławiec pottery and kilim rugs. The app plays four original tunes in the manner of Polish folk dances (krakowiak, kujawiak, oberek and góralski) and five event sounds. All sound starts off. Press **M** to turn it on.
 
 ## Contributing and security
 
