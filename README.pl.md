@@ -6,11 +6,11 @@ Obserwuj, jak agenci programistyczni AI pracują jako pingwiny w pikselartowym w
 
 ![Aplikacja Godot: agent myśli, używa kuźni z pomocnikiem, czeka na zgodę i kończy turę](docs/images/agent-workshop.gif)
 
-Aktywność agenta (wywołania narzędzi, subagenci, prośby o zgodę, błędy) zamienia się w mały strumień zdarzeń. Lokalny program, **most** (bridge), przekazuje go do **aplikacji**. Tam pingwin chodzi między stanowiskami warsztatu i przy każdym rodzaju pracy używa innego narzędzia. Obsługiwani są Claude Code, OpenCode, Pi i Hermes Agent.
+Aktywność agenta (wywołania narzędzi, subagenci, prośby o zgodę, błędy) zamienia się w mały strumień zdarzeń. Lokalny program, **pośrednik** (bridge), przekazuje go do **aplikacji**. Tam pingwin chodzi między stanowiskami warsztatu i przy każdym używa innego narzędzia. Obsługiwani są Claude Code, OpenCode, Pi i Hermes Agent.
 
 Ten projekt powstał głównie dla zabawy. To sposób, by oglądać pracę agentów, a nie narzędzie do monitoringu.
 
-Agent Workshop to niezależny projekt. Nie jest tworzony, popierany ani sponsorowany przez twórców Claude Code, OpenCode, Pi ani Hermes Agent. Te nazwy należą do ich właścicieli i służą tylko do wskazania, z którymi agentami projekt współpracuje.
+**Agent Workshop** to niezależny projekt. Nie jest tworzony, popierany ani sponsorowany przez twórców Claude Code, OpenCode, Pi ani Hermes Agent. Te nazwy należą do ich właścicieli i służą tylko do wskazania, z którymi agentami projekt współpracuje.
 
 ## Wybierz swoją drogę
 
@@ -24,25 +24,25 @@ Agent Workshop to niezależny projekt. Nie jest tworzony, popierany ani sponsoro
 
 1. Pobierz aplikację dla swojego systemu z [najnowszego wydania](https://github.com/pgorazda/agent-workshop/releases/latest) (`AgentWorkshop-<wersja>-<system>`) i rozpakuj ją.
 2. Uruchom ją. Aplikacje nie są podpisane: na macOS kliknij ją prawym przyciskiem i wybierz Otwórz, w Windows w SmartScreen wybierz "Więcej informacji", a potem "Uruchom mimo to".
-3. Naciśnij **D** i wybierz scenę. Każda scena to zmyślona sesja, która gra bez mostu i bez agenta.
+3. Naciśnij **D** i wybierz scenę. Każda scena to zmyślona sesja, która gra bez pośrednika i bez agenta.
 
 ## Obserwuj prawdziwego agenta
 
-Potrzebujesz aplikacji (patrz wyżej), mostu i małego forwardera dla swojego agenta.
+Potrzebujesz aplikacji (patrz wyżej), pośrednika i małego forwardera dla swojego agenta.
 
-**1. Uruchom most.** Pobierz `AgentWorkshopBridge-<wersja>-<system>` z tego samego wydania, rozpakuj i uruchom:
+**1. Uruchom pośrednika.** Pobierz `AgentWorkshopBridge-<wersja>-<system>` z tego samego wydania, rozpakuj i uruchom:
 
 ```bash
 ./agent-workshop-bridge serve        # nasłuchuje na http://127.0.0.1:8787
 ```
 
-Na macOS po rozpakowaniu uruchom raz `xattr -d com.apple.quarantine agent-workshop-bridge`. Most nie wymaga Node ani innego środowiska uruchomieniowego. Nasłuchuje tylko na `127.0.0.1` i niczego nie zapisuje.
+Na macOS po rozpakowaniu uruchom raz `xattr -d com.apple.quarantine agent-workshop-bridge`. Pośrednik nie wymaga Node ani innego środowiska uruchomieniowego. Nasłuchuje tylko na `127.0.0.1` i niczego nie zapisuje.
 
-**2. Uruchom aplikację.** Połączy się z mostem sama. Aby aplikacja uruchamiała most za Ciebie, wystartuj ją z `--start-bridge` (program mostu musi leżeć obok aplikacji albo być w `PATH`).
+**2. Uruchom aplikację.** Połączy się z pośrednikiem sama. Aby aplikacja uruchamiała pośrednika za Ciebie, wystartuj ją z `--start-bridge` (program pośrednika musi leżeć obok aplikacji albo być w `PATH`).
 
 **3. Podłącz agenta.** Wybierz go w [docs/adapters.md](docs/adapters.md): Claude Code (hooki), OpenCode (wtyczka), Pi (rozszerzenie albo potok JSON) lub Hermes Agent (skrypt hooka). Każdy wymaga skopiowania jednego pliku albo scalenia jednej konfiguracji.
 
-Agent może działać na innym komputerze, na przykład przez SSH: zobacz [docs/deployments.md](docs/deployments.md) (po angielsku): jeden komputer, wspólny most, agent zdalny, ekran zespołu i kontener.
+Agent może działać na innym komputerze, na przykład przez SSH: zobacz [docs/deployments.md](docs/deployments.md) (po angielsku): jeden komputer, wspólny pośrednik, agent zdalny, ekran zespołu i kontener.
 
 Nie masz agenta pod ręką? Odtwórz nagraną sesję, przy działającej aplikacji:
 
@@ -50,7 +50,7 @@ Nie masz agenta pod ręką? Odtwórz nagraną sesję, przy działającej aplikac
 ./agent-workshop-bridge replay schema/examples/claude-code-transcript.jsonl --speed 4
 ```
 
-**Co opuszcza Twój komputer?** Nic. Most nasłuchuje tylko na `127.0.0.1`. Klienci nie dostają tekstu wiadomości, wyników narzędzi ani zawartości plików. Cele (polecenie lub nazwa pliku) mogą jednak trafić do strumienia: uruchom most z `--redact-targets`, aby je usunąć. Szczegóły są w [docs/adapters.md](docs/adapters.md).
+**Co opuszcza Twój komputer?** Nic. Pośrednik nasłuchuje tylko na `127.0.0.1`. Klienci nie dostają tekstu wiadomości, wyników narzędzi ani zawartości plików. Cele (polecenie lub nazwa pliku) mogą jednak trafić do strumienia: uruchom pośrednika z `--redact-targets`, aby je usunąć. Szczegóły są w [docs/adapters.md](docs/adapters.md).
 
 ## Budowanie i rozwój
 
@@ -58,10 +58,10 @@ Zainstaluj [mise](https://mise.jdx.dev), potem:
 
 ```bash
 mise install          # Node i Rust w przypiętych wersjach
-mise run bridge       # uruchom most ze źródeł
+mise run bridge       # uruchom pośrednika ze źródeł
 mise run replay       # wyślij do niego przykładową sesję
 mise run app          # uruchom aplikację (za pierwszym razem pobiera przypiętą wersję edytora Godot)
-mise run demo         # aplikacja na zmyślonej scenie, bez mostu
+mise run demo         # aplikacja na zmyślonej scenie, bez pośrednika
 mise run check        # wszystkie sprawdzenia CI na Twoim komputerze
 ```
 
@@ -70,15 +70,15 @@ mise run check        # wszystkie sprawdzenia CI na Twoim komputerze
 ## Jak to działa
 
 ```
-agent (hooki, wtyczka, rozszerzenie)  -->  most  -->  aplikacja
+agent (hooki, wtyczka, rozszerzenie)  -->  pośrednik  -->  aplikacja
                   HTTP na wejściu: POST /event, POST /hook/<framework>      WebSocket na wyjściu: /ws
 ```
 
 Adapter zamienia natywne zdarzenia każdego agenta na jeden, niezależny od frameworka format zdarzeń ([docs/event-schema.md](docs/event-schema.md)). Aplikacja wybiera stanowisko warsztatu z kategorii zdarzenia, nigdy z nazwy narzędzia. Gdy jeden pokój się zapełni, otwierają się kolejne pokoje (areny), a kamera przesuwa się między nimi ([docs/arenas.md](docs/arenas.md)). Dlaczego jest to zbudowane w ten sposób, opisuje [docs/design.md](docs/design.md).
 
-Jeden most może obsługiwać wielu agentów i wiele aplikacji naraz: każda aplikacja dostaje wszystkie zdarzenia. Most nie ma logowania, więc udostępniaj go tylko w zaufanej sieci. Inne układy opisuje [docs/deployments.md](docs/deployments.md) (po angielsku).
+Jeden pośrednik może obsługiwać wielu agentów i wiele aplikacji naraz: każda aplikacja dostaje wszystkie zdarzenia. Pośrednik nie ma logowania, więc udostępniaj go tylko w zaufanej sieci. Inne układy opisuje [docs/deployments.md](docs/deployments.md) (po angielsku).
 
-![Jeden wspólny most: agenci z kilku komputerów wysyłają do niego zdarzenia, a każda aplikacja Workshop dostaje wszystkie](docs/diagrams/shared-bridge.svg)
+![Jeden wspólny pośrednik: agenci z kilku komputerów wysyłają do niego zdarzenia, a każda aplikacja Workshop dostaje wszystkie](docs/diagrams/shared-bridge.svg)
 
 ![Kilka aren w aplikacji Godot: kamera przesuwa się do nowej areny, zgoda ją przywraca, a przegląd jest pod klawiszem Tab](docs/images/arena-2d-arenas.png)
 
@@ -86,7 +86,7 @@ Jeden most może obsługiwać wielu agentów i wiele aplikacji naraz: każda apl
 
 | Część | Stan |
 |---|---|
-| Schemat zdarzeń v1, most (Rust, jeden plik wykonywalny na system) i adaptery dla Claude Code, OpenCode, Pi i Hermes | Gotowe i przetestowane |
+| Schemat zdarzeń v1, pośrednik (Rust, jeden plik wykonywalny na system) i adaptery dla Claude Code, OpenCode, Pi i Hermes | Gotowe i przetestowane |
 | Wtyczka OpenCode, rozszerzenie Pi, skrypt hooka Hermes | Napisane na podstawie opublikowanych dokumentów i typów, przetestowane na fixture'ach. **Jeszcze nie uruchomione w prawdziwym OpenCode, Pi ani Hermes** |
 | Aplikacja (Godot): sesje na żywo, areny, dźwięk, siedem scen demo | Gotowa na komputery. Na prawdziwym sprzęcie uruchomiono tylko aplikację na Windows x86_64. Niezrobione: podpisywanie, tablety i telefony |
 
@@ -94,7 +94,7 @@ Znane ograniczenia adapterów są w [docs/adapters.md](docs/adapters.md#known-li
 
 ## Wygląd i dźwięk
 
-Pokój jest narysowany w stylu własnym, w rozdzielczości 480×270 pikseli, zainspirowanym czapką pingwina (krakowską rogatywką) i polską sztuką ludową: malowanymi kwiatami z Zalipia, malarstwem ludowym z Lipnicy Murowanej, ceramiką bolesławiecką i kilimami. Aplikacja gra cztery oryginalne melodie w manierze polskich tańców ludowych (krakowiak, kujawiak, oberek i góralski) oraz pięć dźwięków zdarzeń. Cały dźwięk startuje wyłączony. Naciśnij **M**, aby go włączyć.
+Pokój jest narysowany w stylu ludowym, w rozdzielczości 480×270 pikseli, zainspirowanym czapką krakowską (krakowską rogatywką) i polską sztuką ludową: malowanymi kwiatami z Zalipia, malarstwem ludowym z Lipnicy Murowanej, ceramiką bolesławiecką i kilimami. Aplikacja gra cztery oryginalne melodie w stylu polskich tańców ludowych (krakowiak, kujawiak, oberek i góralski) oraz pięć dźwięków zdarzeń. Cały dźwięk startuje wyłączony. Naciśnij **M**, aby go włączyć.
 
 ## Współpraca i bezpieczeństwo
 
@@ -104,7 +104,7 @@ Pokój jest narysowany w stylu własnym, w rozdzielczości 480×270 pikseli, zai
 
 ```
 schema/      schemat zdarzeń i przykładowe sesje (zmyślone)
-bridge/      most w Rust: sprawdzanie schematu, adaptery, serwer, CLI, testy
+bridge/      pośrednik w Rust: sprawdzanie schematu, adaptery, serwer, CLI, testy
 adapters/    forwardery działające w agencie lub obok niego, i ich testy
 godot/       aplikacja: projekt, sceny, narzędzia i testy (godot/art/ zawiera grafikę i dźwięk)
 docs/        dokumenty dla użytkowników i współtwórców
